@@ -1,13 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export const Navbar = () => {
+export function Navbar() {
   return (
     <nav class="row p-0 m-0 bg-primary">
-      <div
-        id="nav"
-        class="col-6 col-lg-8 navbar navbar-expand-lg navbar-light"
-      >
+      <div id="nav" class="col-6 col-lg-8 navbar navbar-expand-lg navbar-light">
         <div class="container-fluid justify-content-start">
           <button
             class="navbar-toggler my-2 my-lg-0 bg-transparent"
@@ -36,10 +33,15 @@ export const Navbar = () => {
                   Contato
                 </Link>
               </li>
+              <li class="nav-item">
+                <Link to={"/Destinos"} className="nav-link py-3 bg-transparent">
+                  Destinos
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </nav>
   );
-};
+}

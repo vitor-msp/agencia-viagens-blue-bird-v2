@@ -10,18 +10,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-/********************* Rodapé *********************/
-html {
-  min-height: 100vh;
-}
-
-body {
-  min-height: 100vh;
-  /* position: relative; */
-}
-
-/* body::after {
-  content: "";
-  display: block;
-  height: 100px;
-} */
