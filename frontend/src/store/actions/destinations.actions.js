@@ -1,6 +1,6 @@
 export const updateAllDestinations = (destinations) => {
   return {
     type: "updateAllDestinations",
-    payload: destinations,
+    payload: destinations, //get destinos api
   };
 };

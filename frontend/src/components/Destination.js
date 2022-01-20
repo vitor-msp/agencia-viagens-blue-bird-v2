@@ -1,7 +1,11 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { updateCurrentDestination } from "../store/actions/currentReq.actions";
 
 export function Destination({ destination }) {
-  const { city, uf, landingPlace } = destination;
+  const { id, city, uf, landingPlace } = destination;
+  const dispatch = useDispatch();
+
   return (
     <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
       <div className="card-header bg-primary text-light">
@@ -15,7 +19,13 @@ export function Destination({ destination }) {
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </p>
-        <Link to={"/Viagens"} className="btn btn-outline-primary">
+        <Link
+          to={"/Viagens"}
+          onClick={() => {
+            dispatch(updateCurrentDestination(id));
+          }}
+          className="btn btn-outline-primary"
+        >
           Selecionar
         </Link>
       </div>

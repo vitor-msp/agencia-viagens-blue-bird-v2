@@ -1,4 +1,6 @@
-export const myTripsReducer = (store = [], action) => {
+import { myTrips } from "../tests";
+
+export const myTripsReducer = (state = myTrips, action) => {
   const sortTrips = (trips) => {
     return trips.sort((a, b) => a.departure - b.departure);
   };
@@ -8,12 +10,13 @@ export const myTripsReducer = (store = [], action) => {
       return action.payload;
 
     case "deleteTrip":
-      return store.filter(({ id }) => id !== action.payload);
+      return state.filter(({ id }) => id !== action.payload);
 
-    case "createTrip":
-      return sortTrips(store.push(action.payload));
+    case "getTrip":
+      state.push(action.payload);
+      return state;
 
     default:
-      return store;
+      return state;
   }
 };

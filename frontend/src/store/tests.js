@@ -87,16 +87,16 @@ export const trips = [
 ];
 
 export const myTrips = [
-  {
-    id: 1,
-    client: 1,
-    trip: 1,
-    sale: null,
-  },
-  {
-    id: 2,
-    client: 1,
-    trip: 2,
-    sale: 1,
-  },
+  // {
+  //   id: 1,
+  //   client: 1,
+  //   trip: 1,
+  //   sale: null,
+  // },
+  // {
+  //   id: 2,
+  //   client: 1,
+  //   trip: 2,
+  //   sale: 1,
+  // },
 ];
