@@ -1,12 +1,12 @@
 import { combineReducers, createStore } from "redux";
-import { minhasViagensReducer } from "./reducers/minhasViagens.reducer";
-import { destinosReducer } from "./reducers/destinos.reducer";
-import { viagensReducer } from "./reducers/viagens.reducer";
+import { myTripsReducer } from "./reducers/myTrips.reducer";
+import { destinationsReducer } from "./reducers/destinations.reducer";
+import { tripsReducer } from "./reducers/trips.reducer";
 
 const reducers = combineReducers({
-  minhasViagens: minhasViagensReducer,
-  destinos: destinosReducer,
-  viagens: viagensReducer,
+  myTrips: myTripsReducer,
+  destinations: destinationsReducer,
+  trips: tripsReducer,
 });
 
 export const store = createStore(reducers);

@@ -1,6 +1,6 @@
-export const minhasViagensReducer = (store = [], action) => {
+export const myTripsReducer = (store = [], action) => {
   const sortTrips = (trips) => {
-    return trips.sort((a, b) => a.partida - b.partida);
+    return trips.sort((a, b) => a.departure - b.departure);
   };
 
   switch (action.type) {

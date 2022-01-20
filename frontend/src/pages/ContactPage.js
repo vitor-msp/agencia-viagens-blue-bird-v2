@@ -1,6 +1,6 @@
 import React from "react";
 
-export function ContatoPage() {
+export function ContactPage() {
   return (
     <div className={"row p-0 m-0"}>
       <h1>Contato</h1>

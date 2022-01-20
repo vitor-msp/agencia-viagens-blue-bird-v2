@@ -1,102 +1,102 @@
-export const destinos = [
+export const destinations = [
   {
     id: 1,
-    cidade: "São Paulo",
+    city: "São Paulo",
     uf: "SP",
-    locDesemb: "Aeroporto de Guarulhos",
+    landingPlace: "Aeroporto de Guarulhos",
   },
   {
     id: 2,
-    cidade: "Rio de Janeiro",
+    city: "Rio de Janeiro",
     uf: "RJ",
-    locDesemb: "Aeroporto do Galeão",
+    landingPlace: "Aeroporto do Galeão",
   },
   {
     id: 3,
-    cidade: "Belo Horizonte",
+    city: "Belo Horizonte",
     uf: "MG",
-    locDesemb: "Aeroporto de Confins",
+    landingPlace: "Aeroporto de Confins",
   },
   {
     id: 4,
-    cidade: "Brasília",
+    city: "Brasília",
     uf: "DF",
-    locDesemb: "Aeroporto de Brasília",
+    landingPlace: "Aeroporto de Brasília",
   },
   {
     id: 5,
-    cidade: "Salvador",
+    city: "Salvador",
     uf: "BA",
-    locDesemb: "Aeroporto de Salvador",
+    landingPlace: "Aeroporto de Salvador",
   },
   {
     id: 6,
-    cidade: "Recife",
+    city: "Recife",
     uf: "PE",
-    locDesemb: "Aeroporto de Recife",
+    landingPlace: "Aeroporto de Recife",
   },
   {
     id: 7,
-    cidade: "Fortaleza",
+    city: "Fortaleza",
     uf: "CE",
-    locDesemb: "Aeroporto de Fortaleza",
+    landingPlace: "Aeroporto de Fortaleza",
   },
 ];
 
-const geraData = () => {
+const generateDate = () => {
   const date = new Date();
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
 };
 
-export const promocoes = [
+export const sales = [
   {
     id: 1,
-    destino: 1,
-    desconto: 0.5,
-    vencimento: geraData(),
+    destination: 1,
+    discount: 0.5,
+    expiration: generateDate(),
   },
   {
     id: 2,
-    destino: null,
-    desconto: 0.25,
-    vencimento: geraData(),
+    destination: null,
+    discount: 0.25,
+    expiration: generateDate(),
   },
   {
     id: 3,
-    destino: 6,
-    desconto: 0.15,
-    vencimento: geraData(),
+    destination: 6,
+    discount: 0.15,
+    expiration: generateDate(),
   },
 ];
 
-export const viagens = [
+export const trips = [
   {
     id: 1,
-    destino: 3,
-    partida: geraData(),
-    chegada: geraData(),
-    vlr_padrao: 210.0,
+    destination: 3,
+    departure: generateDate(),
+    arrival: generateDate(),
+    defaultValue: 210.0,
   },
   {
     id: 2,
-    destino: 2,
-    partida: geraData(),
-    chegada: geraData(),
-    vlr_padrao: 290.0,
+    destination: 2,
+    departure: generateDate(),
+    arrival: generateDate(),
+    defaultValue: 290.0,
   },
 ];
 
-export const myDefaultTrips = [
+export const myTrips = [
   {
     id: 1,
-    cliente: 1,
-    viagem: 1,
-    promocao: null,
+    client: 1,
+    trip: 1,
+    sale: null,
   },
   {
     id: 2,
-    cliente: 1,
-    viagem: 2,
-    promocao: 1,
+    client: 1,
+    trip: 2,
+    sale: 1,
   },
 ];
