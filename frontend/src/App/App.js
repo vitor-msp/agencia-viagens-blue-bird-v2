@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ModalTrip } from "../components/ModalTrip";
 import "./App.css";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
@@ -8,8 +9,10 @@ import { DestinationsPage } from "../pages/DestinationsPage";
 import { OffersPage } from "../pages/OffersPage";
 import { TripsPage } from "../pages/TripsPage";
 import { MyTripsPage } from "../pages/MyTripsPage";
+import { useSelector } from "react-redux";
 
 function App() {
+  const modalTripContent = useSelector(state => state.modalTripContent);
   return (
     <BrowserRouter>
       <div className="row p-0 m-0" style={{ minHeight: "100vh" }}>
@@ -24,6 +27,8 @@ function App() {
             <Route path="/Viagens" element={<TripsPage />}></Route>
             <Route path="/Minhas_Viagens" element={<MyTripsPage />}></Route>
           </Routes>
+          {modalTripContent !== null && <ModalTrip content={modalTripContent}/>}
+          {/* {<ModalTrip content={modalTripContent}/>} */}
           <Footer />
         </div>
       </div>

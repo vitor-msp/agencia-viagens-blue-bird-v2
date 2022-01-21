@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getPurchase } from "../store/actions/myPurchases.actions";
-import { getMyTrip } from "../store/actions/myTrips.actions";
+import { updateModalTripContent } from "../store/actions/modalTripContent.actions";
 
 export function Trip({ trip }) {
-  const { id, destination, departure, arrival, defaultValue } = trip;
-  const { city, uf, landingPlace } = useSelector((state) => {
-    return state.destinations.find(({ id }) => id === destination);
+  const { departure, arrival, defaultValue } = trip;
+  const destination = useSelector((state) => {
+    return state.destinations.find(({ id }) => id === trip.destination);
   });
+  const { city, uf, landingPlace } = destination;
   const offer = useSelector((state) => {
     return state.offers.find(({ id }) => {
       return id === state.currentReq.offer;
@@ -37,16 +36,16 @@ export function Trip({ trip }) {
         <hr />
         <p className="card-text">{discount}</p>
         <p className="card-text">{expiration}</p>
-        <Link
-          to={"/Minhas_Viagens"}
+
+        <button
+          type="button"
+          className="btn btn-primary"
           onClick={() => {
-            dispatch(getMyTrip(Object.assign({}, trip)));
-            dispatch(getPurchase(id, offer === undefined ? null : offer.id));
+            dispatch(updateModalTripContent(trip, destination, offer));
           }}
-          className="btn btn-outline-primary"
         >
           Selecionar
-        </Link>
+        </button>
       </div>
 
       <div className="card-footer bg-primary text-light d-flex">
