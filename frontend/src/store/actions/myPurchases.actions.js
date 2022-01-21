@@ -1,20 +1,20 @@
 import uuid from "react-uuid";
 
-export const updateAllMyTrips = (trips) => {
+export const updateAllMyPurchases = (trips) => {
   return {
-    type: "updateAllMyTrips",
+    type: "updateAllMyPurchases",
     payload: trips,
   };
 };
-export const deleteTrip = (id) => {
+export const deletePurchase = (id) => {
   return {
-    type: "deleteTrip",
+    type: "deletePurchase",
     payload: id,
   };
 };
-export const getTrip = (tripId) => {
+export const getPurchase = (tripId) => {
   return {
-    type: "getTrip",
+    type: "getPurchase",
     payload: {
       id: uuid(),
       client: 1,

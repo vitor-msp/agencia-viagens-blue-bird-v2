@@ -86,7 +86,7 @@ export const trips = [
   },
 ];
 
-export const myTrips = [
+export const myPurchases = [
   // {
   //   id: 1,
   //   client: 1,

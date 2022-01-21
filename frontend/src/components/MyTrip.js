@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 
-export function MyTrip({ myTrip }) {
-  const { id, client, trip, sale } = myTrip;
+export function MyTrip({ myPurchase }) {
+  const { id, client, trip, sale } = myPurchase;
   const { destination, defaultValue, departure, arrival } = useSelector(
     (state) => {
-      return state.trips.find(({ id }) => id === myTrip.trip);
+      return state.trips.find(({ id }) => id === myPurchase.trip);
     }
   );
   const { city, uf, landingPlace } = useSelector((state) => {

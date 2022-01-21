@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getTrip } from "../store/actions/myTrips.actions";
+import { getPurchase } from "../store/actions/myPurchases.actions";
 
 export function Trip({ trip }) {
   const { id, destination, departure, arrival, defaultValue } = trip;
@@ -24,7 +24,7 @@ export function Trip({ trip }) {
         <Link
           to={"/Minhas_Viagens"}
           onClick={() => {
-            dispatch(getTrip(id));
+            dispatch(getPurchase(id));
           }}
           className="btn btn-outline-primary"
         >
