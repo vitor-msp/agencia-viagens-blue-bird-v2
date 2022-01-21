@@ -39,7 +39,7 @@ export function Offer({ offer }) {
           to={offer.destination === null ? "/Destinos" : "/Viagens"}
           onClick={() => {
             offer.destination === null
-              ? alert("selecionar destino")
+              ? dispatch(updateCurrentOffer(id))
               : handleSelect();
           }}
           className="btn btn-outline-primary"

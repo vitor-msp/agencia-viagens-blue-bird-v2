@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getTrips } from "../store/actions/trips.actions";
 
 export function Destination({ destination }) {
   const { id, city, uf, landingPlace } = destination;
+  const currentOffer = useSelector((state) => state.currentReq.offer);
   const dispatch = useDispatch();
 
   return (
@@ -22,7 +23,7 @@ export function Destination({ destination }) {
         <Link
           to={"/Viagens"}
           onClick={() => {
-            dispatch(getTrips(id));
+            dispatch(getTrips(id, currentOffer));
           }}
           className="btn btn-outline-primary"
         >
