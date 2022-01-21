@@ -86,6 +86,23 @@ export const trips = [
   },
 ];
 
+export const myTrips = [
+  // {
+  //   id: 1,
+  //   destination: 3,
+  //   departure: generateDate(),
+  //   arrival: generateDate(),
+  //   defaultValue: 210.0,
+  // },
+  // {
+  //   id: 2,
+  //   destination: 2,
+  //   departure: generateDate(),
+  //   arrival: generateDate(),
+  //   defaultValue: 290.0,
+  // },
+];
+
 export const myPurchases = [
   // {
   //   id: 1,
