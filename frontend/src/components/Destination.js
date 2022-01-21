@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { updateCurrentDestination } from "../store/actions/currentReq.actions";
+import { getTrips } from "../store/actions/trips.actions";
 
 export function Destination({ destination }) {
   const { id, city, uf, landingPlace } = destination;
@@ -22,7 +22,7 @@ export function Destination({ destination }) {
         <Link
           to={"/Viagens"}
           onClick={() => {
-            dispatch(updateCurrentDestination(id));
+            dispatch(getTrips(id));
           }}
           className="btn btn-outline-primary"
         >

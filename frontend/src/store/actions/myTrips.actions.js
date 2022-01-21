@@ -10,6 +10,9 @@ export const deleteTrip = (id) => {
     payload: id,
   };
 };
-export const getTrip = (trip) => {
-  return trip;
+export const getMyTrip = (trip) => {
+  return {
+    type: "getMyTrip",
+    payload: trip,
+  };
 };

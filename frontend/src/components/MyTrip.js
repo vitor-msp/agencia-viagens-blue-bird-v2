@@ -4,7 +4,7 @@ export function MyTrip({ myPurchase }) {
   const { id, client, trip, sale } = myPurchase;
   const { destination, defaultValue, departure, arrival } = useSelector(
     (state) => {
-      return state.trips.find(({ id }) => id === myPurchase.trip);
+      return state.myTrips.find(({ id }) => id === trip);
     }
   );
   const { city, uf, landingPlace } = useSelector((state) => {
