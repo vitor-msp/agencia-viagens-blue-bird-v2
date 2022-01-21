@@ -4,12 +4,12 @@ export const updateAllMyTrips = (trips) => {
     payload: trips,
   };
 };
-export const deleteTrip = (id) => {
-  return {
-    type: "deleteTrip",
-    payload: id,
-  };
-};
+// export const deleteMyTrip = (id) => {
+//   return {
+//     type: "deleteMyTrip",
+//     payload: id,
+//   };
+// };
 export const getMyTrip = (trip) => {
   return {
     type: "getMyTrip",

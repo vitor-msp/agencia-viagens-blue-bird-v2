@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deletePurchase } from "../store/actions/myPurchases.actions";
 
 export function MyTrip({ myPurchase }) {
   const { id, client, trip } = myPurchase;
@@ -16,10 +17,11 @@ export function MyTrip({ myPurchase }) {
   const { discount, expiration } =
     offer === undefined
       ? {
-        discount: "-",
-        expiration: "-",
-      }
+          discount: "-",
+          expiration: "-",
+        }
       : offer;
+  const dispatch = useDispatch();
 
   return (
     <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
@@ -40,6 +42,15 @@ export function MyTrip({ myPurchase }) {
 
       <div className="card-footer bg-primary text-light d-flex">
         <span className="w-100 text-end">{}</span>
+        <button
+          type="button"
+          className="btn btn-outline-light"
+          onClick={() => {
+            dispatch(deletePurchase(id));
+          }}
+        >
+          Deletar
+        </button>
       </div>
     </div>
   );

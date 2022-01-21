@@ -9,7 +9,7 @@ export const myTripsReducer = (state = myTrips, action) => {
     case "updateAllMyTrips":
       return action.payload;
 
-    case "deleteTrip":
+    case "deleteMyTrip":
       return state.filter(({ id }) => id !== action.payload);
 
     case "getMyTrip":
