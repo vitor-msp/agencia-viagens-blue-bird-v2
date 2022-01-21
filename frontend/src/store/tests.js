@@ -48,7 +48,7 @@ const generateDate = () => {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
 };
 
-export const sales = [
+export const offers = [
   {
     id: 1,
     destination: 1,
@@ -65,6 +65,12 @@ export const sales = [
     id: 3,
     destination: 6,
     discount: 0.15,
+    expiration: generateDate(),
+  },
+  {
+    id: 4,
+    destination: 2,
+    discount: 0.90,
     expiration: generateDate(),
   },
 ];
@@ -108,12 +114,12 @@ export const myPurchases = [
   //   id: 1,
   //   client: 1,
   //   trip: 1,
-  //   sale: null,
+  //   offer: null,
   // },
   // {
   //   id: 2,
   //   client: 1,
   //   trip: 2,
-  //   sale: 1,
+  //   offer: 1,
   // },
 ];

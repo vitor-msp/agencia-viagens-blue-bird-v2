@@ -8,6 +8,18 @@ export function Trip({ trip }) {
   const { city, uf, landingPlace } = useSelector((state) => {
     return state.destinations.find(({ id }) => id === destination);
   });
+  const offer = useSelector((state) => {
+    return state.offers.find(({ id }) => {
+      return id === state.currentReq.offer;
+    });
+  });
+  const { discount, expiration } =
+    offer === undefined
+      ? {
+          discount: "-",
+          expiration: "-",
+        }
+      : offer;
   const dispatch = useDispatch();
 
   return (
@@ -22,11 +34,14 @@ export function Trip({ trip }) {
         <h5 className="card-title">{defaultValue}</h5>
         <p className="card-text">{departure}</p>
         <p className="card-text">{arrival}</p>
+        <hr />
+        <p className="card-text">{discount}</p>
+        <p className="card-text">{expiration}</p>
         <Link
           to={"/Minhas_Viagens"}
           onClick={() => {
-            dispatch(getPurchase(id));
-            dispatch(getMyTrip(trip));
+            dispatch(getMyTrip(Object.assign({}, trip)));
+            dispatch(getPurchase(id, offer === undefined ? null : offer.id));
           }}
           className="btn btn-outline-primary"
         >

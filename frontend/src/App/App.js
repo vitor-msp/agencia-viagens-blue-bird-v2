@@ -5,6 +5,7 @@ import { Footer } from "../components/layout/Footer";
 import { HomePage } from "../pages/HomePage";
 import { ContactPage } from "../pages/ContactPage";
 import { DestinationsPage } from "../pages/DestinationsPage";
+import { OffersPage } from "../pages/OffersPage";
 import { TripsPage } from "../pages/TripsPage";
 import { MyTripsPage } from "../pages/MyTripsPage";
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/Home" element={<HomePage />}></Route>
             <Route path="/Contato" element={<ContactPage />}></Route>
             <Route path="/Destinos" element={<DestinationsPage />}></Route>
+            <Route path="/Promocoes" element={<OffersPage />}></Route>
             <Route path="/Viagens" element={<TripsPage />}></Route>
             <Route path="/Minhas_Viagens" element={<MyTripsPage />}></Route>
           </Routes>

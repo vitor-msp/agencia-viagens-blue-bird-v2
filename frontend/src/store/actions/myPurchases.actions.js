@@ -12,14 +12,14 @@ export const deletePurchase = (id) => {
     payload: id,
   };
 };
-export const getPurchase = (tripId) => {
+export const getPurchase = (tripId, offerId = null) => {
   return {
     type: "getPurchase",
     payload: {
       id: uuid(),
       client: 1,
       trip: tripId,
-      sale: null,
+      offer: offerId,
     }, //get adquire(id_viagem) api
   };
 };

@@ -6,9 +6,12 @@ import { trips } from "../tests";
 //     payload: trips,
 //   };
 // };
-export const getTrips = (destination) => {
+export const getTrips = (destinationId, offer = null, tripsTemp = trips) => {
+  //tripsTemp é apenas p executar logica no front, será removido qnd implementar api
   return {
     type: "getTrips",
-    payload: trips.filter((trip) => trip.destination === destination), //get viagens(id_destino) api
+    payload: tripsTemp.filter(({destination}) => destination === destinationId),
+    //comparação de datas p filtrar viagens tbm por promoção 
+    //get viagens(id_destino, id_promo?) api
   };
 };

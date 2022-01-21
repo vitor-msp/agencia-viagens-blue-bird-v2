@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 export function MyTrip({ myPurchase }) {
-  const { id, client, trip, sale } = myPurchase;
+  const { id, client, trip } = myPurchase;
   const { destination, defaultValue, departure, arrival } = useSelector(
     (state) => {
       return state.myTrips.find(({ id }) => id === trip);
@@ -10,6 +10,16 @@ export function MyTrip({ myPurchase }) {
   const { city, uf, landingPlace } = useSelector((state) => {
     return state.destinations.find(({ id }) => id === destination);
   });
+  const offer = useSelector((state) => {
+    return state.offers.find(({ id }) => id === myPurchase.offer);
+  });
+  const { discount, expiration } =
+    offer === undefined
+      ? {
+        discount: "-",
+        expiration: "-",
+      }
+      : offer;
 
   return (
     <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
@@ -23,6 +33,9 @@ export function MyTrip({ myPurchase }) {
         <p className="card-title">defaultValue: {defaultValue}</p>
         <p className="card-text">departure: {departure}</p>
         <p className="card-text">arrival: {arrival}</p>
+        <hr />
+        <p className="card-title">discount: {discount}</p>
+        <p className="card-text">expiration: {expiration}</p>
       </div>
 
       <div className="card-footer bg-primary text-light d-flex">

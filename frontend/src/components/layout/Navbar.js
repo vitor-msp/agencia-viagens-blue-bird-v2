@@ -1,7 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { clearCurrentOffer } from "../../store/actions/currentReq.actions";
 
 export function Navbar() {
+  const dispatch = useDispatch();
+
   return (
     <nav class="row p-0 m-0 bg-primary">
       <div id="nav" class="col-6 col-lg-8 navbar navbar-expand-lg navbar-light">
@@ -34,8 +38,24 @@ export function Navbar() {
                 </Link>
               </li>
               <li class="nav-item">
-                <Link to={"/Destinos"} className="nav-link py-3 bg-transparent">
+                <Link to={"/Destinos"} onClick={()=>{dispatch(clearCurrentOffer())}} className="nav-link py-3 bg-transparent">
                   Destinos
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  to={"/Promocoes"}
+                  className="nav-link py-3 bg-transparent"
+                >
+                  Promoções
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link
+                  to={"/Minhas_Viagens"}
+                  className="nav-link py-3 bg-transparent"
+                >
+                  Minhas Viagens
                 </Link>
               </li>
             </ul>
