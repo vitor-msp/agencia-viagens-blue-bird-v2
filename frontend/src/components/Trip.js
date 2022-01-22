@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { formatCurrency } from "../helpers/formatCurrency";
 import { updateModalTripContent } from "../store/actions/modalTripContent.actions";
 
 export function Trip({ trip }) {
@@ -15,7 +16,7 @@ export function Trip({ trip }) {
   const { discount, expiration } =
     offer === undefined
       ? {
-          discount: 1,
+          discount: 0,
           expiration: "-",
         }
       : offer;
@@ -48,9 +49,10 @@ export function Trip({ trip }) {
 
         <hr />
 
-        {discount !== 1 && (
+        {discount !== 0 && (
           <h5 className="card-title text-end">
-            <span style={{ fontSize: "0.9em" }}>de</span> R$ {defaultValue},00{" "}
+            <span style={{ fontSize: "0.9em" }}>de</span>{" "}
+            {formatCurrency(defaultValue)}
             <br />
           </h5>
         )}
@@ -58,7 +60,7 @@ export function Trip({ trip }) {
           por apenas
           <span style={{ fontSize: "1.5em" }}>
             {" "}
-            R$ {defaultValue * discount},00{" "}
+            {formatCurrency(defaultValue * (1 - discount))}
           </span>
         </h5>
 

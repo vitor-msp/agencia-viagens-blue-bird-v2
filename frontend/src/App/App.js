@@ -32,7 +32,7 @@ function App() {
           {modalTripContent !== null && (
             <ModalTrip content={modalTripContent} />
           )}
-          {modalInfo !== null && <ModalInfo info={modalInfo} />}
+          {modalInfo !== null && <ModalInfo content={modalInfo} />}
           <Footer />
         </div>
       </div>

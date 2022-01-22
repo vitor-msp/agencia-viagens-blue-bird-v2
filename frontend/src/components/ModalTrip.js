@@ -1,4 +1,4 @@
-import Modal from "react-modal";
+import { Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -9,9 +9,7 @@ import {
 import { getMyTrip } from "../store/actions/myTrips.actions";
 import { clearModalTripContent } from "../store/actions/modalTripContent.actions";
 import { updateModalInfo } from "../store/actions/modalInfo.actions";
-import css from "./modalTrip.module.css";
-
-Modal.setAppElement("#root");
+import { formatCurrency } from "../helpers/formatCurrency";
 
 export function ModalTrip({ content }) {
   const [modalOpen, setModalOpen] = useState(true);
@@ -21,7 +19,7 @@ export function ModalTrip({ content }) {
   const { discount, expiration } =
     offer === undefined
       ? {
-          discount: "-",
+          discount: 0,
           expiration: "-",
         }
       : offer;
@@ -30,64 +28,111 @@ export function ModalTrip({ content }) {
   const handleGetPurchase = () => {
     dispatch(getMyTrip(Object.assign({}, trip)));
     dispatch(getPurchase(trip.id, offer === undefined ? null : offer.id));
-    setModalOpen(false);
-    dispatch(clearModalTripContent());
-    dispatch(updateModalInfo("Viagem adquirida com sucesso!!"));
+    handleClose();
+    dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
   };
 
   const handleDeletePurchase = () => {
     dispatch(deletePurchase(purchase));
+    handleClose();
+    dispatch(updateModalInfo("Viagem cancelada com sucesso!!", false));
+  };
+
+  const handleClose = () => {
     setModalOpen(false);
     dispatch(clearModalTripContent());
-    dispatch(updateModalInfo("Viagem cancelada com sucesso!!"));
   };
 
   return (
-    <Modal isOpen={modalOpen} className={css.modal}>
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => {
-          setModalOpen(false);
-          dispatch(clearModalTripContent());
-        }}
-      >
-        Fechar
-      </button>
+    <Modal show={modalOpen} onHide={handleClose} animation={false}>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          <span className="text-primary">
+            {isGetPurchase ? "Adquirir Viagem" : "Detalhes da Viagem"}
+          </span>
+        </Modal.Title>
+      </Modal.Header>
 
-      <strong>Trip</strong>
-      <p className="card-title">defaultValue: {defaultValue}</p>
-      <p className="card-text">departure: {departure}</p>
-      <p className="card-text">arrival: {arrival}</p>
-      <hr />
+      <Modal.Body>
+        <div>
+          <p>
+            <span style={{ fontWeight: "600" }}>Destino: </span>
+            {city} - {uf}
+          </p>
+          <p>
+            <span style={{ fontWeight: "600" }}>Desembarque: </span>
+            {landingPlace}
+          </p>
+          <p>
+            <span style={{ fontWeight: "600" }}>Partida: </span>
+            {departure}
+          </p>
+          <p>
+            <span style={{ fontWeight: "600" }}>Chegada: </span>
+            {arrival}
+          </p>
+        </div>
 
-      <strong>Destination</strong>
-      <p>city: {city} - </p>
-      <p>uf: {uf} - </p>
-      <p>landingPlace: {landingPlace}</p>
-      <hr />
+        <hr />
 
-      <strong>Offer</strong>
-      <p className="card-title">discount: {discount}</p>
-      <p className="card-text">expiration: {expiration}</p>
+        <div className="text-end">
+          {discount !== 0 && (
+            <>
+              <p>
+                <span style={{ fontWeight: "600" }}>Valor padrão: </span>
+                {formatCurrency(defaultValue)}
+              </p>
+              <p>
+                <span style={{ fontWeight: "600" }}>Desconto: </span>
+                {discount * 100}%
+              </p>
+            </>
+          )}
+          <p style={{ fontWeight: "600" }}>
+            Valor final: {""}
+            <span style={{ fontSize: "1.5em" }}>
+              {formatCurrency(defaultValue * (1 - discount))}
+            </span>
+          </p>
+          {discount !== 0 && (
+            <p>
+              <span style={{ fontWeight: "600" }}>Promoção expira em: </span>
+              {expiration}
+            </p>
+          )}
+        </div>
+      </Modal.Body>
 
-      {isGetPurchase ? (
-        <Link
-          to={"/Minhas_Viagens"}
-          onClick={handleGetPurchase}
-          className="btn btn-outline-primary"
-        >
-          Selecionar
-        </Link>
-      ) : (
-        <button
-          type="button"
-          onClick={handleDeletePurchase}
-          className="btn btn-danger"
-        >
-          Deletar
-        </button>
-      )}
+      <Modal.Footer>
+        {isGetPurchase ? (
+          <Link
+            to={"/Minhas_Viagens"}
+            onClick={handleGetPurchase}
+            className="btn btn-primary"
+          >
+            Adquirir
+          </Link>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={handleDeletePurchase}
+              className="btn btn-danger"
+              style={{ marginRight: "auto" }}
+            >
+              Cancelar Viagem
+            </button>
+
+            <button
+              type="button"
+              onClick={handleClose}
+              className="btn btn-primary"
+            >
+              Fechar
+            </button>
+          </>
+        )}
+      </Modal.Footer>
     </Modal>
   );
 }

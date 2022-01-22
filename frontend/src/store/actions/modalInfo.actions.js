@@ -1,7 +1,10 @@
-export const updateModalInfo = (info) => {
+export const updateModalInfo = (info, isGetPurchase = false) => {
   return {
     type: "updateModalInfo",
-    payload: info,
+    payload: {
+      info,
+      isGetPurchase,
+    },
   };
 };
 export const clearModalInfo = () => {
