@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearCurrentOffer } from "../../store/actions/currentReq.actions";
+import { showModalLogin } from "../../store/actions/modalLogin.actions";
 
 export function Navbar() {
   const dispatch = useDispatch();
@@ -63,6 +64,16 @@ export function Navbar() {
                 >
                   Minhas Viagens
                 </Link>
+              </li>
+              <li class="nav-item">
+                <a
+                  onClick={() => {
+                    dispatch(showModalLogin(true));
+                  }}
+                  className="nav-link py-3 bg-transparent btn"
+                >
+                  Entrar
+                </a>
               </li>
             </ul>
           </div>
