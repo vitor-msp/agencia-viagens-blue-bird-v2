@@ -27,7 +27,7 @@ export function Navbar() {
           </Link>
           <div class="collapse navbar-collapse" id="navToggler">
             <ul class="navbar-nav me-auto mb-lg-0">
-              <li class="nav-item active">
+              <li class="nav-item">
                 <Link to={"/Home"} className="nav-link py-3 bg-transparent">
                   Home
                 </Link>
@@ -38,7 +38,13 @@ export function Navbar() {
                 </Link>
               </li>
               <li class="nav-item">
-                <Link to={"/Destinos"} onClick={()=>{dispatch(clearCurrentOffer())}} className="nav-link py-3 bg-transparent">
+                <Link
+                  to={"/Destinos"}
+                  onClick={() => {
+                    dispatch(clearCurrentOffer());
+                  }}
+                  className="nav-link py-3 bg-transparent"
+                >
                   Destinos
                 </Link>
               </li>

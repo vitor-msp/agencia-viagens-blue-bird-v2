@@ -2,9 +2,7 @@ import React from "react";
 
 export function Footer() {
   return (
-    <footer
-      class="row bg-primary text-center text-light d-flex flex-column w-100 p-0 m-0"
-    >
+    <footer class="row m-0 bg-primary text-light d-flex flex-column text-center pt-3">
       <span>&copy; {new Date().getFullYear()} - BlueBird Viagens</span>
       <span>Recode Pro - 2021</span>
       <span>Projeto Agência de Viagens - Módulo 4</span>

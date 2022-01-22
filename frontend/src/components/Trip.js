@@ -34,7 +34,7 @@ export function Trip({ trip }) {
       </div>
 
       <div className="card-body text-primary">
-        <p className="card-text text-nowrap">
+        <p className="card-text">
           <span style={{ fontWeight: "600" }}>Desembarque: </span>
           {landingPlace}
         </p>
