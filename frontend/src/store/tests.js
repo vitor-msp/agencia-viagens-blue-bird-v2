@@ -45,7 +45,13 @@ export const destinations = [
 
 const generateDate = () => {
   const date = new Date();
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+  return `${addZero(date.getDay())}/${addZero(
+    date.getMonth() + 1
+  )}/${date.getFullYear()}`;
+};
+
+const addZero = (text) => {
+  return text.toString().length === 1 ? `0${text}` : text;
 };
 
 export const offers = [
@@ -70,7 +76,7 @@ export const offers = [
   {
     id: 4,
     destination: 2,
-    discount: 0.90,
+    discount: 0.9,
     expiration: generateDate(),
   },
 ];

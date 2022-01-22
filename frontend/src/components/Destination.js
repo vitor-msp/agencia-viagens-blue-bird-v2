@@ -7,24 +7,27 @@ export function Destination({ destination }) {
   const currentOffer = useSelector((state) => state.currentReq.offer);
   const dispatch = useDispatch();
 
+  const handleSelect = () => {
+    dispatch(getTrips(id, currentOffer));
+  };
+
   return (
     <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
       <div className="card-header bg-primary text-light">
-        <strong>{city.toUpperCase()} - </strong>
-        <strong>{uf.toUpperCase()}</strong>
+        <span>Destino</span>
       </div>
 
       <div className="card-body text-primary">
-        <h5 className="card-title">{landingPlace}</h5>
+        <h5 className="card-title">
+          {city} - {uf}
+        </h5>
         <p className="card-text">
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </p>
         <Link
           to={"/Viagens"}
-          onClick={() => {
-            dispatch(getTrips(id, currentOffer));
-          }}
+          onClick={handleSelect}
           className="btn btn-outline-primary"
         >
           Selecionar

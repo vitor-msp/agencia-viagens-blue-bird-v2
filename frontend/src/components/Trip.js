@@ -15,41 +15,64 @@ export function Trip({ trip }) {
   const { discount, expiration } =
     offer === undefined
       ? {
-          discount: "-",
+          discount: 1,
           expiration: "-",
         }
       : offer;
   const dispatch = useDispatch();
+  const handleSelect = () => {
+    dispatch(updateModalTripContent(trip, destination, offer, true));
+  };
 
   return (
     <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
-      <div className="card-header bg-primary text-light">
-        <strong>{city} - </strong>
-        <strong>{uf} - </strong>
-        <strong>{landingPlace}</strong>
+      <div className="card-header bg-primary text-light text-end">
+        <span style={{ fontWeight: "600", fontSize: "1.2em" }}>
+          {city} - {uf}
+        </span>
       </div>
 
       <div className="card-body text-primary">
-        <h5 className="card-title">{defaultValue}</h5>
-        <p className="card-text">{departure}</p>
-        <p className="card-text">{arrival}</p>
+        <p className="card-text text-nowrap">
+          <span style={{ fontWeight: "600" }}>Desembarque: </span>
+          {landingPlace}
+        </p>
+        <p className="card-text">
+          <span style={{ fontWeight: "600" }}>Partida: </span>
+          {departure}
+        </p>
+        <p className="card-text">
+          <span style={{ fontWeight: "600" }}>Chegada: </span>
+          {arrival}
+        </p>
+
         <hr />
-        <p className="card-text">{discount}</p>
-        <p className="card-text">{expiration}</p>
+
+        {discount !== 1 && (
+          <h5 className="card-title text-end">
+            <span style={{ fontSize: "0.9em" }}>de</span> R$ {defaultValue},00{" "}
+            <br />
+          </h5>
+        )}
+        <h5 className="card-title text-end mb-4">
+          por apenas
+          <span style={{ fontSize: "1.5em" }}>
+            {" "}
+            R$ {defaultValue * discount},00{" "}
+          </span>
+        </h5>
 
         <button
           type="button"
-          className="btn btn-primary"
-          onClick={() => {
-            dispatch(updateModalTripContent(trip, destination, offer, true));
-          }}
+          className="btn btn-outline-primary"
+          onClick={handleSelect}
         >
           Selecionar
         </button>
       </div>
 
       <div className="card-footer bg-primary text-light d-flex">
-        <span className="w-100 text-end">{}teste</span>
+        <span>Viagem</span>
       </div>
     </div>
   );
