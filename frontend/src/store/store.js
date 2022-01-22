@@ -6,6 +6,7 @@ import { offersReducer } from "./reducers/offers.reducer";
 import { tripsReducer } from "./reducers/trips.reducer";
 import { currentReqReducer } from "./reducers/currentReq.reducer";
 import { modalTripContentReducer } from "./reducers/modalTripContent.reducer";
+import { modalInfoReducer } from "./reducers/modalInfo.reducer";
 
 const reducers = combineReducers({
   myPurchases: myPurchasesReducer,
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   trips: tripsReducer,
   currentReq: currentReqReducer,
   modalTripContent: modalTripContentReducer,
+  modalInfo: modalInfoReducer,
 });
 
 export const store = createStore(reducers);

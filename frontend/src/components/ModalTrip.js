@@ -8,6 +8,7 @@ import {
 } from "../store/actions/myPurchases.actions";
 import { getMyTrip } from "../store/actions/myTrips.actions";
 import { clearModalTripContent } from "../store/actions/modalTripContent.actions";
+import { updateModalInfo } from "../store/actions/modalInfo.actions";
 import css from "./modalTrip.module.css";
 
 Modal.setAppElement("#root");
@@ -31,12 +32,14 @@ export function ModalTrip({ content }) {
     dispatch(getPurchase(trip.id, offer === undefined ? null : offer.id));
     setModalOpen(false);
     dispatch(clearModalTripContent());
+    dispatch(updateModalInfo("Viagem adquirida com sucesso!!"));
   };
 
   const handleDeletePurchase = () => {
     dispatch(deletePurchase(purchase));
     setModalOpen(false);
     dispatch(clearModalTripContent());
+    dispatch(updateModalInfo("Viagem cancelada com sucesso!!"));
   };
 
   return (

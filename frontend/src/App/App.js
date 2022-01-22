@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ModalTrip } from "../components/ModalTrip";
-import "./App.css";
+import { ModalInfo } from "../components/ModalInfo";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { HomePage } from "../pages/HomePage";
@@ -9,10 +10,11 @@ import { DestinationsPage } from "../pages/DestinationsPage";
 import { OffersPage } from "../pages/OffersPage";
 import { TripsPage } from "../pages/TripsPage";
 import { MyTripsPage } from "../pages/MyTripsPage";
-import { useSelector } from "react-redux";
+import "./App.css";
 
 function App() {
-  const modalTripContent = useSelector(state => state.modalTripContent);
+  const modalTripContent = useSelector((state) => state.modalTripContent);
+  const modalInfo = useSelector((state) => state.modalInfo);
   return (
     <BrowserRouter>
       <div className="row p-0 m-0" style={{ minHeight: "100vh" }}>
@@ -27,8 +29,10 @@ function App() {
             <Route path="/Viagens" element={<TripsPage />}></Route>
             <Route path="/Minhas_Viagens" element={<MyTripsPage />}></Route>
           </Routes>
-          {modalTripContent !== null && <ModalTrip content={modalTripContent}/>}
-          {/* {<ModalTrip content={modalTripContent}/>} */}
+          {modalTripContent !== null && (
+            <ModalTrip content={modalTripContent} />
+          )}
+          {modalInfo !== null && <ModalInfo info={modalInfo} />}
           <Footer />
         </div>
       </div>
