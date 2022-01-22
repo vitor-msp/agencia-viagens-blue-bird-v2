@@ -1,8 +1,11 @@
 import Modal from "react-modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getPurchase } from "../store/actions/myPurchases.actions";
+import {
+  deletePurchase,
+  getPurchase,
+} from "../store/actions/myPurchases.actions";
 import { getMyTrip } from "../store/actions/myTrips.actions";
 import { clearModalTripContent } from "../store/actions/modalTripContent.actions";
 import css from "./modalTrip.module.css";
@@ -11,7 +14,7 @@ Modal.setAppElement("#root");
 
 export function ModalTrip({ content }) {
   const [modalOpen, setModalOpen] = useState(true);
-  const { trip, destination, offer } = content;
+  const { trip, destination, offer, isGetPurchase, purchase } = content;
   const { defaultValue, departure, arrival } = trip;
   const { city, uf, landingPlace } = destination;
   const { discount, expiration } =
@@ -23,9 +26,15 @@ export function ModalTrip({ content }) {
       : offer;
   const dispatch = useDispatch();
 
-  const handleClick = () => {
+  const handleGetPurchase = () => {
     dispatch(getMyTrip(Object.assign({}, trip)));
     dispatch(getPurchase(trip.id, offer === undefined ? null : offer.id));
+    setModalOpen(false);
+    dispatch(clearModalTripContent());
+  };
+
+  const handleDeletePurchase = () => {
+    dispatch(deletePurchase(purchase));
     setModalOpen(false);
     dispatch(clearModalTripContent());
   };
@@ -59,13 +68,23 @@ export function ModalTrip({ content }) {
       <p className="card-title">discount: {discount}</p>
       <p className="card-text">expiration: {expiration}</p>
 
-      <Link
-        to={"/Minhas_Viagens"}
-        onClick={handleClick}
-        className="btn btn-outline-primary"
-      >
-        Selecionar
-      </Link>
+      {isGetPurchase ? (
+        <Link
+          to={"/Minhas_Viagens"}
+          onClick={handleGetPurchase}
+          className="btn btn-outline-primary"
+        >
+          Selecionar
+        </Link>
+      ) : (
+        <button
+          type="button"
+          onClick={handleDeletePurchase}
+          className="btn btn-danger"
+        >
+          Deletar
+        </button>
+      )}
     </Modal>
   );
 }

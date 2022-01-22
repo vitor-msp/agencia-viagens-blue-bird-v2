@@ -41,7 +41,7 @@ export function Trip({ trip }) {
           type="button"
           className="btn btn-primary"
           onClick={() => {
-            dispatch(updateModalTripContent(trip, destination, offer));
+            dispatch(updateModalTripContent(trip, destination, offer, true));
           }}
         >
           Selecionar

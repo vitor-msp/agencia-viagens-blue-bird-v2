@@ -1,10 +1,18 @@
-export const updateModalTripContent = (trip, destination, offer) => {
+export const updateModalTripContent = (
+  trip,
+  destination,
+  offer,
+  isGetPurchase,
+  purchase = null
+) => {
   return {
     type: "updateModalTripContent",
     payload: {
       trip,
       destination,
       offer,
+      isGetPurchase,
+      purchase,
     },
   };
 };

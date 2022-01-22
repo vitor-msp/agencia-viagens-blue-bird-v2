@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deletePurchase } from "../store/actions/myPurchases.actions";
+import { updateModalTripContent } from "../store/actions/modalTripContent.actions";
 
 export function MyTrip({ myPurchase }) {
   const { id, client, trip } = myPurchase;
-  const { destination, defaultValue, departure, arrival } = useSelector(
-    (state) => {
-      return state.myTrips.find(({ id }) => id === trip);
-    }
-  );
-  const { city, uf, landingPlace } = useSelector((state) => {
-    return state.destinations.find(({ id }) => id === destination);
+  const myTrip = useSelector((state) => {
+    return state.myTrips.find(({ id }) => id === trip);
   });
+  const { defaultValue, departure, arrival } = myTrip;
+  const destination = useSelector((state) => {
+    return state.destinations.find(({ id }) => id === myTrip.destination);
+  });
+  const { city, uf, landingPlace } = destination;
   const offer = useSelector((state) => {
     return state.offers.find(({ id }) => id === myPurchase.offer);
   });
@@ -46,7 +46,7 @@ export function MyTrip({ myPurchase }) {
           type="button"
           className="btn btn-outline-light"
           onClick={() => {
-            dispatch(deletePurchase(id));
+            dispatch(updateModalTripContent(myTrip, destination, offer, false, id));
           }}
         >
           Deletar
