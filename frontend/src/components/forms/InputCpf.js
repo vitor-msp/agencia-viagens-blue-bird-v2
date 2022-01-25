@@ -55,7 +55,7 @@ export function InputCpf({ defaultValue, showValidations, handleFieldChange }) {
       />
       <Form.Control.Feedback type="valid">CPF ok!</Form.Control.Feedback>
       <Form.Control.Feedback type="invalid">
-        Seu CPF é necessário!
+        Um CPF válido é necessário!
       </Form.Control.Feedback>
     </Form.Group>
   );

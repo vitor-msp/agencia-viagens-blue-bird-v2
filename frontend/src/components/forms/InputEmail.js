@@ -52,7 +52,7 @@ export function InputEmail({
       <Form.Control
         required
         type="email"
-        placeholder={`Digite seu E-mail...`}
+        placeholder={`Digite seu e-mail...`}
         maxLength={30}
         value={currentValue}
         onChange={(event) => {
@@ -63,7 +63,7 @@ export function InputEmail({
       />
       <Form.Control.Feedback type="valid">E-mail ok!</Form.Control.Feedback>
       <Form.Control.Feedback type="invalid">
-        Seu E-mail é necessário!
+        Um e-mail válido é necessário!
       </Form.Control.Feedback>
     </Form.Group>
   );

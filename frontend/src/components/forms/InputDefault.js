@@ -52,7 +52,7 @@ export function InputDefault({
       <Form.Control
         required
         type={type}
-        placeholder={`Digite seu ${name}...`}
+        placeholder={`Digite o(a) ${name.toLowerCase()}...`}
         maxLength={maxLength}
         value={currentValue}
         onChange={(event) => {
@@ -63,7 +63,7 @@ export function InputDefault({
       />
       <Form.Control.Feedback type="valid">{name} ok!</Form.Control.Feedback>
       <Form.Control.Feedback type="invalid">
-        Seu {name} é necessário!
+        O(A) {name.toLowerCase()} é necessário!
       </Form.Control.Feedback>
     </Form.Group>
   );

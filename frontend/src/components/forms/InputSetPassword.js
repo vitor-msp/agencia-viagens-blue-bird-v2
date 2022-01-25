@@ -6,16 +6,14 @@ export function InputSetPassword({
   showValidations,
   handleFieldChange,
 }) {
-  const [currentPass, setCurrentPass] = useState(
-    !defaultValue ? "" : defaultValue
-  );
+  const [currentPass, setCurrentPass] = useState("");
   const [currentConfPass, setCurrentConfPass] = useState("");
   const [showValidation, setShowValidation] = useState(showValidations);
   const [isValidPass, setIsValidPass] = useState(false);
   const [isValidConfPass, setIsValidConfPass] = useState(false);
 
   useEffect(() => {
-    setCurrentPass(!defaultValue ? "" : defaultValue);
+    setCurrentPass("");
     setCurrentConfPass("");
   }, [defaultValue]);
 
@@ -24,27 +22,34 @@ export function InputSetPassword({
   }, [showValidations]);
 
   useEffect(() => {
-    if (validateField(currentPass)) {
+    if (validatePass(currentPass)) {
       setIsValidPass(true);
-      //handleFieldChange(currentPass);
     } else {
       setIsValidPass(false);
-      handleFieldChange(null);
     }
-  }, [currentPass]);
 
-  useEffect(() => {
-    if (validateField(currentConfPass)) {
+    if (validateConfPass(currentConfPass)) {
       setIsValidConfPass(true);
-      //handleFieldChange(currentConfPass);
     } else {
       setIsValidConfPass(false);
+    }
+
+    if (currentPass === currentConfPass) {
+      handleFieldChange(currentPass);
+    } else {
       handleFieldChange(null);
     }
-  }, [currentConfPass]);
+  }, [currentPass, currentConfPass]);
 
-  const validateField = (value) => {
+  const validatePass = (value) => {
     if (value.trim().length === 0) {
+      return false;
+    }
+    return true;
+  };
+
+  const validateConfPass = (value) => {
+    if (value.trim().length === 0 || currentPass !== value) {
       return false;
     }
     return true;
@@ -52,6 +57,11 @@ export function InputSetPassword({
 
   const onPassChange = (value) => {
     setCurrentPass(value);
+    setShowValidation(true);
+  };
+
+  const onConfPassChange = (value) => {
+    setCurrentConfPass(value);
     setShowValidation(true);
   };
 
@@ -78,6 +88,32 @@ export function InputSetPassword({
         <Form.Control.Feedback type="valid">Senha ok!</Form.Control.Feedback>
         <Form.Control.Feedback type="invalid">
           Uma senha é necessária!
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-2 col-md-12">
+        <Form.Label>Confirmação da senha:</Form.Label>
+        <Form.Control
+          required
+          type="password"
+          placeholder={`Confirme sua senha...`}
+          maxLength={30}
+          value={currentConfPass}
+          onChange={(event) => {
+            onConfPassChange(event.target.value);
+          }}
+          isValid={
+            showValidation === true && isValidConfPass === true ? true : false
+          }
+          isInvalid={
+            showValidation === true && isValidConfPass === false ? true : false
+          }
+        />
+        <Form.Control.Feedback type="valid">
+          Confirmação da senha ok!
+        </Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">
+          Confirmar a senha é necessário!
         </Form.Control.Feedback>
       </Form.Group>
     </>
