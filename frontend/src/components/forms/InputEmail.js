@@ -1,31 +1,34 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
-export function InputEmail({ defaultValue, showErrors, onChange }) {
-  const [currentValue, setCurrentValue] = useState(defaultValue);
-  const [showError, setShowError] = useState(showErrors);
-  const [error, setError] = useState(true);
+export function InputEmail({
+  defaultValue,
+  showValidations,
+  handleFieldChange,
+}) {
+  const [currentValue, setCurrentValue] = useState(
+    defaultValue === null ? "" : defaultValue
+  );
+  const [showValidation, setShowValidation] = useState(showValidations);
+  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
-    setCurrentValue(defaultValue);
+    setCurrentValue(defaultValue === null ? "" : defaultValue);
   }, [defaultValue]);
 
   useEffect(() => {
-    setShowError(showErrors);
-    setError(true);
-  }, [showErrors]);
+    setShowValidation(showValidations);
+  }, [showValidations]);
 
-  const onInputChange = (value) => {
-    setCurrentValue(value);
-    setShowError(true);
-    if (validateField(value)) {
-      setError(false);
-      onChange(value);
+  useEffect(() => {
+    if (validateField(currentValue)) {
+      setIsValid(true);
+      handleFieldChange(currentValue);
     } else {
-      setError(true);
-      onChange(null);
+      setIsValid(false);
+      handleFieldChange(null);
     }
-  };
+  }, [currentValue]);
 
   const validateField = (value) => {
     if (
@@ -36,6 +39,11 @@ export function InputEmail({ defaultValue, showErrors, onChange }) {
       return false;
     }
     return true;
+  };
+
+  const onInputChange = (value) => {
+    setCurrentValue(value);
+    setShowValidation(true);
   };
 
   return (
@@ -50,8 +58,8 @@ export function InputEmail({ defaultValue, showErrors, onChange }) {
         onChange={(event) => {
           onInputChange(event.target.value);
         }}
-        isValid={!error}
-        isInvalid={showError && error}
+        isValid={showValidation === true && isValid === true ? true : false}
+        isInvalid={showValidation === true && isValid === false ? true : false}
       />
       <Form.Control.Feedback type="valid">E-mail ok!</Form.Control.Feedback>
       <Form.Control.Feedback type="invalid">

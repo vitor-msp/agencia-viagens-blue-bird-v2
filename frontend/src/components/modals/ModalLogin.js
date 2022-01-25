@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Modal, Nav } from "react-bootstrap";
-import { showModalLogin } from "../store/actions/modalLogin.actions";
-import { FormLogin } from "./FormLogin";
-import { FormRegister } from "./FormRegister";
+import { showModalLogin } from "../../store/actions/modalLogin.actions";
+import { FormLogin } from "../forms/FormLogin";
+import { FormRegister } from "../forms/FormRegister";
 
 export function ModalLogin() {
   const [modalOpen, setModalOpen] = useState(true);

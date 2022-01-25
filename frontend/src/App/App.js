@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ModalTrip } from "../components/ModalTrip";
-import { ModalInfo } from "../components/ModalInfo";
-import { ModalLogin } from "../components/ModalLogin";
+import { ModalTrip } from "../components/modals/ModalTrip";
+import { ModalInfo } from "../components/modals/ModalInfo";
+import { ModalLogin } from "../components/modals/ModalLogin";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { HomePage } from "../pages/HomePage";

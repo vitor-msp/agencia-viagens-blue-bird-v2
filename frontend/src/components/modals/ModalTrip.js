@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import {
   deletePurchase,
   getPurchase,
-} from "../store/actions/myPurchases.actions";
-import { getMyTrip } from "../store/actions/myTrips.actions";
-import { clearModalTripContent } from "../store/actions/modalTripContent.actions";
-import { updateModalInfo } from "../store/actions/modalInfo.actions";
-import { formatCurrency } from "../helpers/formatCurrency";
+} from "../../store/actions/myPurchases.actions";
+import { getMyTrip } from "../../store/actions/myTrips.actions";
+import { clearModalTripContent } from "../../store/actions/modalTripContent.actions";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { formatCurrency } from "../../helpers/formatCurrency";
 
 export function ModalTrip({ content }) {
   const [modalOpen, setModalOpen] = useState(true);

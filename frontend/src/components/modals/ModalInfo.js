@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Modal } from "react-bootstrap";
-import { clearModalInfo } from "../store/actions/modalInfo.actions";
+import { clearModalInfo } from "../../store/actions/modalInfo.actions";
 
 export function ModalInfo({ content }) {
   const [modalOpen, setModalOpen] = useState(true);

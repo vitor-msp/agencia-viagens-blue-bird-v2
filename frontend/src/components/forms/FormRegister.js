@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
-import { InputDefault } from "./inputs/InputDefault";
-import { InputCPF } from "./inputs/InputCPF";
-import { InputEmail } from "./inputs/InputEmail";
-// import { InputSetPassword } from "./inputs/InputSetPassword";
+import { InputDefault } from "./InputDefault";
+import { InputCpf } from "./InputCpf";
+import { InputEmail } from "./InputEmail";
+// import { InputSetPassword } from "./InputSetPassword";
 
 const defaultFields = {
   name: null,
@@ -15,30 +15,29 @@ const defaultFields = {
 };
 
 export function FormRegister() {
-  const [showErrors, setShowErrors] = useState(false);
+  const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(defaultFields);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    setShowErrors(true);
+    setShowValidations(true);
     if (validateForm()) {
       alert("sucesso");
+      //chamar action/api
     }
   };
 
   const validateForm = () => {
-    console.log(Object.values(fields));
-    const someError = Object.values(fields).some((field) => field === null);
-    if (someError) {
+    if (Object.values(fields).some((field) => field === null)) {
       return false;
     }
     return true;
   };
 
   const handleReset = () => {
+    setShowValidations((prev) => prev + 1); //altera state para false
     setFields(defaultFields);
-    setShowErrors(false);
   };
 
   return (
@@ -49,9 +48,9 @@ export function FormRegister() {
           type={"text"}
           maxLength={50}
           defaultClass={"col-md-12"}
-          showErrors={showErrors}
+          showValidations={showValidations}
           defaultValue={fields.name}
-          onChange={(value) => {
+          handleFieldChange={(value) => {
             setFields({
               ...fields,
               ["name"]: value,
@@ -63,19 +62,19 @@ export function FormRegister() {
           type={"text"}
           maxLength={10}
           defaultClass={"col-md-6"}
-          showErrors={showErrors}
+          showValidations={showValidations}
           defaultValue={fields.rg}
-          onChange={(value) => {
+          handleFieldChange={(value) => {
             setFields({
               ...fields,
               ["rg"]: value,
             });
           }}
         />
-        <InputCPF
-          showErrors={showErrors}
+        <InputCpf
+          showValidations={showValidations}
           defaultValue={fields.cpf}
-          onChange={(value) => {
+          handleFieldChange={(value) => {
             setFields({
               ...fields,
               ["cpf"]: value,
@@ -87,9 +86,9 @@ export function FormRegister() {
           type={"date"}
           maxLength={null}
           defaultClass={"col-md-6"}
-          showErrors={showErrors}
+          showValidations={showValidations}
           defaultValue={fields.birthDate}
-          onChange={(value) => {
+          handleFieldChange={(value) => {
             setFields({
               ...fields,
               ["birthDate"]: value,
@@ -97,9 +96,9 @@ export function FormRegister() {
           }}
         />
         <InputEmail
-          showErrors={showErrors}
+          showValidations={showValidations}
           defaultValue={fields.email}
-          onChange={(value) => {
+          handleFieldChange={(value) => {
             setFields({
               ...fields,
               ["email"]: value,
@@ -118,14 +117,14 @@ export function FormRegister() {
           }
           feedbackType={errors.terms === true ? "invalid" : "valid"}
           checked={fields.terms}
-          onChange={(event) => {
+          handleFieldChange={(event) => {
             setFields({
               ...fields,
               ["terms"]: event.target.checked,
             });
           }}
           isValid={errors.terms === false ? true : false}
-          isInvalid={showErrors && errors.terms === true ? true : false}
+          isInvalid={showValidations && errors.terms === true ? true : false}
         />
       </Form.Group> */}
       <Form.Group className="mb-3">
