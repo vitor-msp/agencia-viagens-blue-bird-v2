@@ -11,6 +11,7 @@ import { DestinationsPage } from "../pages/DestinationsPage";
 import { OffersPage } from "../pages/OffersPage";
 import { TripsPage } from "../pages/TripsPage";
 import { MyTripsPage } from "../pages/MyTripsPage";
+import { MyAccountPage } from "../pages/MyAccountPage";
 import "./App.css";
 
 function App() {
@@ -30,12 +31,13 @@ function App() {
             <Route path="/Promocoes" element={<OffersPage />}></Route>
             <Route path="/Viagens" element={<TripsPage />}></Route>
             <Route path="/Minhas_Viagens" element={<MyTripsPage />}></Route>
+            <Route path="/Minha_Conta" element={<MyAccountPage />}></Route>
           </Routes>
           {modalTripContent !== null && (
             <ModalTrip content={modalTripContent} />
           )}
           {modalInfo !== null && <ModalInfo content={modalInfo} />}
-          {modalLogin && <ModalLogin/>}
+          {modalLogin && <ModalLogin />}
           <Footer />
         </div>
       </div>

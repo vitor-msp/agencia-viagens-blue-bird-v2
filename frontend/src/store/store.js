@@ -8,6 +8,7 @@ import { currentReqReducer } from "./reducers/currentReq.reducer";
 import { modalTripContentReducer } from "./reducers/modalTripContent.reducer";
 import { modalInfoReducer } from "./reducers/modalInfo.reducer";
 import { modalLoginReducer } from "./reducers/modalLogin.reducer";
+import { clientDataReducer } from "./reducers/clientDataReducer.reducer";
 
 const reducers = combineReducers({
   myPurchases: myPurchasesReducer,
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   modalTripContent: modalTripContentReducer,
   modalInfo: modalInfoReducer,
   modalLogin: modalLoginReducer,
+  clientData: clientDataReducer,
 });
 
 export const store = createStore(reducers);

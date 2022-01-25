@@ -66,13 +66,21 @@ export function Navbar() {
                 </Link>
               </li>
               <li class="nav-item">
+                <Link
+                  to={"/Minha_Conta"}
+                  className="nav-link py-3 bg-transparent"
+                >
+                  Minha Conta
+                </Link>
+              </li>
+              <li class="nav-item">
                 <a
                   onClick={() => {
                     dispatch(showModalLogin(true));
                   }}
                   className="nav-link py-3 bg-transparent btn"
                 >
-                  Entrar
+                  Acessar
                 </a>
               </li>
             </ul>
