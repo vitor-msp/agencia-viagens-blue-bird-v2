@@ -7,13 +7,13 @@ export function InputEmail({
   handleFieldChange,
 }) {
   const [currentValue, setCurrentValue] = useState(
-    defaultValue === null ? "" : defaultValue
+    !defaultValue ? "" : defaultValue
   );
   const [showValidation, setShowValidation] = useState(showValidations);
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
-    setCurrentValue(defaultValue === null ? "" : defaultValue);
+    setCurrentValue(!defaultValue ? "" : defaultValue);
   }, [defaultValue]);
 
   useEffect(() => {

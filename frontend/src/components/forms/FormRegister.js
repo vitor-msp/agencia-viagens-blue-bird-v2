@@ -3,20 +3,29 @@ import { Form, Row } from "react-bootstrap";
 import { InputDefault } from "./InputDefault";
 import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
-// import { InputSetPassword } from "./InputSetPassword";
+import { InputSetPassword } from "./InputSetPassword";
 
-const defaultFields = {
+const objDefaultFieldsFalse = {
+  name: false,
+  rg: false,
+  cpf: false,
+  birthDate: false,
+  email: false,
+  password: false,
+};
+const objDefaultFieldsNull = {
   name: null,
   rg: null,
   cpf: null,
   birthDate: null,
   email: null,
-  // terms: null,
+  password: null,
 };
 
 export function FormRegister() {
   const [showValidations, setShowValidations] = useState(false);
-  const [fields, setFields] = useState(defaultFields);
+  const [defaultFields, setDefaultFields] = useState(objDefaultFieldsNull);
+  const [fields, setFields] = useState(objDefaultFieldsNull);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +46,12 @@ export function FormRegister() {
 
   const handleReset = () => {
     setShowValidations((prev) => prev + 1); //altera state para false
-    setFields(defaultFields);
+    setFields(objDefaultFieldsNull);
+    setDefaultFields((prev) => {
+      return prev === objDefaultFieldsNull
+        ? objDefaultFieldsFalse
+        : objDefaultFieldsNull;
+    });
   };
 
   return (
@@ -49,7 +63,7 @@ export function FormRegister() {
           maxLength={50}
           defaultClass={"col-md-12"}
           showValidations={showValidations}
-          defaultValue={fields.name}
+          defaultValue={defaultFields.name}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -63,7 +77,7 @@ export function FormRegister() {
           maxLength={10}
           defaultClass={"col-md-6"}
           showValidations={showValidations}
-          defaultValue={fields.rg}
+          defaultValue={defaultFields.rg}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -73,7 +87,7 @@ export function FormRegister() {
         />
         <InputCpf
           showValidations={showValidations}
-          defaultValue={fields.cpf}
+          defaultValue={defaultFields.cpf}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -87,7 +101,7 @@ export function FormRegister() {
           maxLength={null}
           defaultClass={"col-md-6"}
           showValidations={showValidations}
-          defaultValue={fields.birthDate}
+          defaultValue={defaultFields.birthDate}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -97,7 +111,7 @@ export function FormRegister() {
         />
         <InputEmail
           showValidations={showValidations}
-          defaultValue={fields.email}
+          defaultValue={defaultFields.email}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -105,28 +119,17 @@ export function FormRegister() {
             });
           }}
         />
-      </Row>
-      {/* <Form.Group className="mb-3">
-        <Form.Check
-          required
-          label="Aceitar os termos e condições"
-          feedback={
-            errors.terms === true
-              ? "Você precisa aceitar para criar sua conta."
-              : "Termos ok!"
-          }
-          feedbackType={errors.terms === true ? "invalid" : "valid"}
-          checked={fields.terms}
-          handleFieldChange={(event) => {
+        <InputSetPassword
+          showValidations={showValidations}
+          defaultValue={defaultFields.password}
+          handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["terms"]: event.target.checked,
+              ["password"]: value,
             });
           }}
-          isValid={errors.terms === false ? true : false}
-          isInvalid={showValidations && errors.terms === true ? true : false}
         />
-      </Form.Group> */}
+      </Row>
       <Form.Group className="mb-3">
         <input
           type="submit"

@@ -8,11 +8,11 @@ export function Navbar() {
   const dispatch = useDispatch();
 
   return (
-    <nav class="row p-0 m-0 bg-primary">
-      <div id="nav" class="col-6 col-lg-8 navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid justify-content-start">
+    <nav className="row p-0 m-0 bg-primary">
+      <div id="nav" className="col-6 col-lg-8 navbar navbar-expand-lg navbar-light">
+        <div className="container-fluid justify-content-start">
           <button
-            class="navbar-toggler my-2 my-lg-0 bg-transparent"
+            className="navbar-toggler my-2 my-lg-0 bg-transparent"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navToggler"
@@ -20,25 +20,25 @@ export function Navbar() {
             aria-expanded="false"
             aria-label="Menu de navegação"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
           <Link to={"/"} className="navbar-brand">
             Home
           </Link>
-          <div class="collapse navbar-collapse" id="navToggler">
-            <ul class="navbar-nav me-auto mb-lg-0">
-              <li class="nav-item">
+          <div className="collapse navbar-collapse" id="navToggler">
+            <ul className="navbar-nav me-auto mb-lg-0">
+              <li className="nav-item">
                 <Link to={"/Home"} className="nav-link py-3 bg-transparent">
                   Home
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link to={"/Contato"} className="nav-link py-3 bg-transparent">
                   Contato
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link
                   to={"/Destinos"}
                   onClick={() => {
@@ -49,7 +49,7 @@ export function Navbar() {
                   Destinos
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link
                   to={"/Promocoes"}
                   className="nav-link py-3 bg-transparent"
@@ -57,7 +57,7 @@ export function Navbar() {
                   Promoções
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link
                   to={"/Minhas_Viagens"}
                   className="nav-link py-3 bg-transparent"
@@ -65,7 +65,7 @@ export function Navbar() {
                   Minhas Viagens
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <Link
                   to={"/Minha_Conta"}
                   className="nav-link py-3 bg-transparent"
@@ -73,7 +73,7 @@ export function Navbar() {
                   Minha Conta
                 </Link>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
                   onClick={() => {
                     dispatch(showModalLogin(true));
