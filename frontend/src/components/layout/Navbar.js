@@ -1,15 +1,17 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { clearCurrentOffer } from "../../store/actions/currentReq.actions";
 import { showModalLogin } from "../../store/actions/modalLogin.actions";
+import { logout } from "../../store/actions/clientData.actions";
 
 export function Navbar() {
+  const clientData = useSelector((state) => state.clientData);
   const dispatch = useDispatch();
 
   return (
     <nav className="row p-0 m-0 bg-primary">
-      <div id="nav" className="col-6 col-lg-8 navbar navbar-expand-lg navbar-light">
+      <div id="nav" className="col-12 navbar navbar-expand-lg navbar-light">
         <div className="container-fluid justify-content-start">
           <button
             className="navbar-toggler my-2 my-lg-0 bg-transparent"
@@ -65,24 +67,42 @@ export function Navbar() {
                   Minhas Viagens
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  to={"/Minha_Conta"}
-                  className="nav-link py-3 bg-transparent"
-                >
-                  Minha Conta
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a
-                  onClick={() => {
-                    dispatch(showModalLogin(true));
-                  }}
-                  className="nav-link py-3 bg-transparent btn"
-                >
-                  Acessar
-                </a>
-              </li>
+            </ul>
+
+            <ul className="navbar-nav mb-lg-0">
+              {clientData.name === null ? (
+                <li className="nav-item">
+                  <a
+                    onClick={() => {
+                      dispatch(showModalLogin(true));
+                    }}
+                    className="nav-link py-3 bg-transparent btn"
+                  >
+                    Acessar
+                  </a>
+                </li>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      to={"/Minha_Conta"}
+                      className="nav-link py-3 bg-transparent"
+                    >
+                      Minha Conta
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      onClick={() => {
+                        dispatch(logout());
+                      }}
+                      className="nav-link py-3 bg-transparent btn"
+                    >
+                      Sair
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

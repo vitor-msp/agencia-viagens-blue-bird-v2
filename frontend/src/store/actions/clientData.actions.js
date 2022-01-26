@@ -27,3 +27,10 @@ export const login = () => {
     }, //get dados usuario api
   };
 };
+
+export const logout = () => {
+  return {
+    type: "logout",
+    payload: null, //logout
+  };
+};
