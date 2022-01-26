@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
 import { InputBody } from "./InputBody";
@@ -19,6 +20,8 @@ export function FormContact() {
   const [showValidations, setShowValidations] = useState(false);
   const [defaultFields, setDefaultFields] = useState(objDefaultFieldsNull);
   const [fields, setFields] = useState(objDefaultFieldsNull);
+  objDefaultFieldsNull.email = useSelector((state) => state.clientData.email);
+  objDefaultFieldsFalse.email = useSelector((state) => state.clientData.email);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,6 +66,7 @@ export function FormContact() {
               ["email"]: value,
             });
           }}
+          disabled={defaultFields.email !== null ? true : false}
         />
         <InputDefault
           name={"Assunto"}

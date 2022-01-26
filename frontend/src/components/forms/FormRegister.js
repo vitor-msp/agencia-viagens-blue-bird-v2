@@ -132,15 +132,15 @@ export function FormRegister() {
       </Row>
       <Form.Group className="mb-3">
         <input
-          type="submit"
-          value={"Criar conta"}
-          className="btn btn-primary"
-        />
-        <input
           type="reset"
           value={"Limpar"}
-          className="btn btn-secondary mx-3"
+          className="btn btn-secondary"
           onClick={handleReset}
+        />
+        <input
+          type="submit"
+          value={"Criar conta"}
+          className="btn btn-primary mx-3"
         />
       </Form.Group>
     </Form>

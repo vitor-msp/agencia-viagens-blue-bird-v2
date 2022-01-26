@@ -1,4 +1,4 @@
-export const tripsReducer = (store = [], action) => {
+export const tripsReducer = (state = [], action) => {
   switch (action.type) {
     case "updateAllTrips":
       return action.payload;
@@ -7,6 +7,6 @@ export const tripsReducer = (store = [], action) => {
       return action.payload;
 
     default:
-      return store;
+      return state;
   }
 };

@@ -1,4 +1,4 @@
-export const modalTripContentReducer = (store = null, action) => {
+export const modalTripContentReducer = (state = null, action) => {
   switch (action.type) {
     case "updateModalTripContent":
       return action.payload;
@@ -7,6 +7,6 @@ export const modalTripContentReducer = (store = null, action) => {
       return action.payload;
 
     default:
-      return store;
+      return state;
   }
 };

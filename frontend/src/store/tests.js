@@ -43,7 +43,7 @@ export const destinations = [
   },
 ];
 
-const generateDate = () => {
+export const generateDate = () => {
   const date = new Date();
   return `${addZero(date.getDay())}/${addZero(
     date.getMonth() + 1

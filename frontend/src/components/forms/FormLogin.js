@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
+import { login } from "../../store/actions/clientData.actions";
 
 const objDefaultFieldsNull = {
   email: null,
@@ -11,6 +13,7 @@ const objDefaultFieldsNull = {
 export function FormLogin() {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFieldsNull);
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,6 +21,7 @@ export function FormLogin() {
     setShowValidations(true);
     if (validateForm()) {
       alert("sucesso");
+      dispatch(login());
       //chamar action/api
     }
   };

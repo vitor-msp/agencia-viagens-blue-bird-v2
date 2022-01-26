@@ -1,11 +1,11 @@
 import { destinations } from "../tests";
 
-export const destinationsReducer = (store = destinations, action) => {
+export const destinationsReducer = (state = destinations, action) => {
   switch (action.type) {
     case "updateAllDestinations":
       return action.payload;
 
     default:
-      return store;
+      return state;
   }
 };

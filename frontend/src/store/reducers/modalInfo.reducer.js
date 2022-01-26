@@ -1,4 +1,4 @@
-export const modalInfoReducer = (store = null, action) => {
+export const modalInfoReducer = (state = null, action) => {
   switch (action.type) {
     case "updateModalInfo":
       return action.payload;
@@ -7,6 +7,6 @@ export const modalInfoReducer = (store = null, action) => {
       return action.payload;
 
     default:
-      return store;
+      return state;
   }
 };
