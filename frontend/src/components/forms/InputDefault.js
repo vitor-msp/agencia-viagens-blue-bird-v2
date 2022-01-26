@@ -63,7 +63,7 @@ export function InputDefault({
       />
       <Form.Control.Feedback type="valid">{name} ok!</Form.Control.Feedback>
       <Form.Control.Feedback type="invalid">
-        O(A) {name.toLowerCase()} é necessário!
+        O(A) {name.toLowerCase()} é necessário(a)!
       </Form.Control.Feedback>
     </Form.Group>
   );
