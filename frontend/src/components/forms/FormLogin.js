@@ -37,6 +37,14 @@ export function FormLogin({ closeModal }) {
 
   return (
     <Form noValidate onSubmit={handleSubmit}>
+      <Row>
+        <img
+          src="./avatar.png"
+          alt="Avatar"
+          title="Avatar"
+          className="w-50 mx-auto mt-4 bg-primary rounded-circle"
+        />
+      </Row>
       <Row className="my-3">
         <InputEmail
           showValidations={showValidations}
