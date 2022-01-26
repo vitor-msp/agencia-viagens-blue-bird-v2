@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
 import { InputBody } from "./InputBody";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
 const objDefaultFieldsFalse = {
   email: false,
@@ -22,14 +23,21 @@ export function FormContact() {
   const [fields, setFields] = useState(objDefaultFieldsNull);
   objDefaultFieldsNull.email = useSelector((state) => state.clientData.email);
   objDefaultFieldsFalse.email = useSelector((state) => state.clientData.email);
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm()) {
-      alert("sucesso");
       //chamar action/api
+      dispatch(
+        updateModalInfo(
+          "Agradecemos o seu contato!! Em breve retornaremos.",
+          true
+        )
+      );
+      handleReset();
     }
   };
 

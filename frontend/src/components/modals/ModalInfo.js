@@ -6,7 +6,7 @@ import { clearModalInfo } from "../../store/actions/modalInfo.actions";
 export function ModalInfo({ content }) {
   const [modalOpen, setModalOpen] = useState(true);
   const dispatch = useDispatch();
-  const { info, isGetPurchase } = content;
+  const { info, primary } = content;
 
   const handleClose = () => {
     setModalOpen(false);
@@ -17,7 +17,7 @@ export function ModalInfo({ content }) {
     <Modal show={modalOpen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          <span className={isGetPurchase ? "text-primary" : "text-warning"}>
+          <span className={primary ? "text-primary" : "text-warning"}>
             Sucesso
           </span>
         </Modal.Title>
@@ -31,7 +31,7 @@ export function ModalInfo({ content }) {
         <button
           type="button"
           onClick={handleClose}
-          className={`btn ${isGetPurchase ? "btn-primary" : "btn-warning"}`}
+          className={`btn ${primary ? "btn-primary" : "btn-warning"}`}
         >
           Entendi
         </button>

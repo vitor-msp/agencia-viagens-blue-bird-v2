@@ -7,6 +7,7 @@ import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
 import { ModalSetPassword } from "../modals/ModalSetPassword";
 import { updateClientData } from "../../store/actions/clientData.actions";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
 let objDefaultFieldsNull = {
   name: null,
@@ -36,7 +37,7 @@ export function FormMyAccount() {
   // useEffect(() => {
   //   setDefaultFields(teste);
   // }, [teste]);
-  
+
   // objDefaultFieldsFalse = useSelector((state) => state.clientData);
   const dispatch = useDispatch();
 
@@ -61,9 +62,10 @@ export function FormMyAccount() {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm()) {
-      alert("sucesso");
-      dispatch(updateClientData(fields));
       //chamar action/api
+      dispatch(updateClientData(fields));
+      dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
+      handleCancelEdit();
     }
   };
 

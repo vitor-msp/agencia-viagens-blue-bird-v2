@@ -19,7 +19,7 @@ export function ModalSetPassword({showModal}) {
       </Modal.Header>
 
       <Modal.Body>
-        <FormSetPassword/>
+        <FormSetPassword modalClose={handleClose}/>
       </Modal.Body>
 
       <Modal.Footer>

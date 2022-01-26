@@ -4,13 +4,14 @@ import { useDispatch } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
 import { login } from "../../store/actions/clientData.actions";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
 const objDefaultFieldsNull = {
   email: null,
   password: null,
 };
 
-export function FormLogin() {
+export function FormLogin({ closeModal }) {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFieldsNull);
   const dispatch = useDispatch();
@@ -20,8 +21,9 @@ export function FormLogin() {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm()) {
-      alert("sucesso");
       dispatch(login());
+      closeModal();
+      dispatch(updateModalInfo("Login efetuado com sucesso!!", true));
       //chamar action/api
     }
   };

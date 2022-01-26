@@ -31,6 +31,7 @@ export function ModalLogin() {
               onClick={() => {
                 setNav("login");
               }}
+              id="navLoginModal"
             >
               Tenho uma conta
             </Nav.Link>
@@ -46,7 +47,11 @@ export function ModalLogin() {
             </Nav.Link>
           </Nav.Item>
         </Nav>
-        {nav === "login" ? <FormLogin/> : <FormRegister/>}
+        {nav === "login" ? (
+          <FormLogin closeModal={handleClose} />
+        ) : (
+          <FormRegister />
+        )}
       </Modal.Body>
 
       <Modal.Footer>

@@ -1,24 +1,28 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputSetPassword } from "./InputSetPassword";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
 const objDefaultFieldsNull = {
   password: null,
   newPassword: null,
 };
 
-export function FormSetPassword() {
+export function FormSetPassword({modalClose}) {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFieldsNull);
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm()) {
-      alert("sucesso");
       //chamar action/api
+      modalClose();
+      dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
     }
   };
 

@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
 import { InputSetPassword } from "./InputSetPassword";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
 const objDefaultFieldsFalse = {
   name: false,
@@ -26,14 +28,16 @@ export function FormRegister() {
   const [showValidations, setShowValidations] = useState(false);
   const [defaultFields, setDefaultFields] = useState(objDefaultFieldsNull);
   const [fields, setFields] = useState(objDefaultFieldsNull);
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm()) {
-      alert("sucesso");
       //chamar action/api
+      dispatch(updateModalInfo("Sua conta foi criada com sucesso!!", true));
+      document.getElementById("navLoginModal").click();
     }
   };
 

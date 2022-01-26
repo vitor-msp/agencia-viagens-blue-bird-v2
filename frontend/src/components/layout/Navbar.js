@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { clearCurrentOffer } from "../../store/actions/currentReq.actions";
 import { showModalLogin } from "../../store/actions/modalLogin.actions";
 import { logout } from "../../store/actions/clientData.actions";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
 export function Navbar() {
   const clientData = useSelector((state) => state.clientData);
@@ -92,14 +93,18 @@ export function Navbar() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <a
+                    <Link
+                      to={"/"}
                       onClick={() => {
                         dispatch(logout());
+                        dispatch(
+                          updateModalInfo("Você saiu da sua conta!!", false)
+                        );
                       }}
                       className="nav-link py-3 bg-transparent btn"
                     >
                       Sair
-                    </a>
+                    </Link>
                   </li>
                 </>
               )}

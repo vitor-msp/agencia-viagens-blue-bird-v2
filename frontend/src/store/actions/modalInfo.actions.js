@@ -1,9 +1,9 @@
-export const updateModalInfo = (info, isGetPurchase = false) => {
+export const updateModalInfo = (info, primary = false) => {
   return {
     type: "updateModalInfo",
     payload: {
       info,
-      isGetPurchase,
+      primary,
     },
   };
 };
