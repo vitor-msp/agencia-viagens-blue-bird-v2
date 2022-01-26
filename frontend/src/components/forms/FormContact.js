@@ -101,12 +101,13 @@ export function FormContact() {
           }}
         />
       </Row>
-      <Form.Group className="mb-3">
-        <input type="submit" value={"Enviar"} className="btn btn-primary" />
+      <Form.Group className="mb-3  d-flex justify-content-center">
+        <input type="submit" value={"Enviar"} className="btn btn-primary" style={{ marginRight: "5px" }} />
         <input
           type="reset"
           value={"Limpar"}
           className="btn btn-secondary mx-3"
+          style={{ marginLeft: "5px" }}
           onClick={handleReset}
         />
       </Form.Group>

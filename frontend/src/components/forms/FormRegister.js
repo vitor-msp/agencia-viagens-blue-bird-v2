@@ -134,17 +134,19 @@ export function FormRegister() {
           }}
         />
       </Row>
-      <Form.Group className="mb-3">
+      <Form.Group className="mb-3 d-flex flex-nowrap">
         <input
           type="reset"
           value={"Limpar"}
-          className="btn btn-secondary"
+          className="btn btn-secondary w-100"
+          style={{marginRight: "5px"}}
           onClick={handleReset}
-        />
+          />
         <input
           type="submit"
           value={"Criar conta"}
-          className="btn btn-primary mx-3"
+          className="btn btn-primary w-100"
+          style={{marginLeft: "5px"}}
         />
       </Form.Group>
     </Form>

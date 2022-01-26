@@ -42,7 +42,10 @@ export function FormLogin({ closeModal }) {
           src="./avatar.png"
           alt="Avatar"
           title="Avatar"
-          className="w-50 mx-auto mt-4 bg-primary rounded-circle"
+          width={512}
+          height="auto"
+          style={{width:"40%"}}
+          className="mx-auto mt-4"
         />
       </Row>
       <Row className="my-3">

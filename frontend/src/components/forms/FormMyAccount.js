@@ -151,21 +151,24 @@ export function FormMyAccount() {
             }}
             disabled={!isEdit}
           />
-          <button
-            type="button"
-            className="btn btn-primary mx-3 w-auto"
-            onClick={() => {
-              setShowModalSetPassword(true);
-            }}
-          >
-            Alterar Senha
-          </button>
+          <Form.Group className="my-2 col-md-12">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                setShowModalSetPassword(true);
+              }}
+            >
+              Alterar Senha
+            </button>
+          </Form.Group>
         </Row>
         {isEdit ? (
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3 d-flex justify-content-center">
             <button
               type="button"
               className="btn btn-secondary"
+              style={{ marginRight: "5px" }}
               onClick={handleCancelEdit}
             >
               Cancelar
@@ -173,17 +176,23 @@ export function FormMyAccount() {
             <input
               type="submit"
               value={"Salvar"}
-              className="btn btn-primary mx-3"
+              className="btn btn-primary"
+              style={{ marginLeft: "5px" }}
             />
           </Form.Group>
         ) : (
-          <Form.Group className="mb-3">
-            <Link to={"/"} className="btn btn-secondary">
+          <Form.Group className="mb-3 d-flex justify-content-center">
+            <Link
+              to={"/"}
+              className="btn btn-secondary"
+              style={{ marginRight: "5px" }}
+            >
               Voltar
             </Link>
             <button
               type="button"
-              className="btn btn-primary mx-3"
+              className="btn btn-primary"
+              style={{ marginLeft: "5px" }}
               onClick={handleEdit}
             >
               Editar

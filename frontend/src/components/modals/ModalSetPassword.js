@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FormSetPassword } from "../forms/FormSetPassword";
 
-export function ModalSetPassword({showModal}) {
+export function ModalSetPassword({ showModal }) {
   const [modalOpen, setModalOpen] = useState(true);
 
   const handleClose = () => {
@@ -19,14 +19,8 @@ export function ModalSetPassword({showModal}) {
       </Modal.Header>
 
       <Modal.Body>
-        <FormSetPassword modalClose={handleClose}/>
+        <FormSetPassword modalClose={handleClose} />
       </Modal.Body>
-
-      <Modal.Footer>
-        <button type="button" onClick={handleClose} className="btn btn-primary">
-          Fechar
-        </button>
-      </Modal.Footer>
     </Modal>
   );
 }

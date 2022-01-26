@@ -53,12 +53,6 @@ export function ModalLogin() {
           <FormRegister />
         )}
       </Modal.Body>
-
-      <Modal.Footer>
-        <button type="button" onClick={handleClose} className="btn btn-primary">
-          Fechar
-        </button>
-      </Modal.Footer>
     </Modal>
   );
 }
