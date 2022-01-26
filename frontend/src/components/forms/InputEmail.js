@@ -5,6 +5,7 @@ export function InputEmail({
   defaultValue,
   showValidations,
   handleFieldChange,
+  disabled = false,
 }) {
   const [currentValue, setCurrentValue] = useState(
     !defaultValue ? "" : defaultValue
@@ -51,6 +52,7 @@ export function InputEmail({
       <Form.Label>E-mail:</Form.Label>
       <Form.Control
         required
+        disabled={disabled}
         type="email"
         placeholder={`Digite seu e-mail...`}
         maxLength={30}

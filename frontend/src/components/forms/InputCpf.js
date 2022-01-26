@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
-export function InputCpf({ defaultValue, showValidations, handleFieldChange }) {
+export function InputCpf({ defaultValue, showValidations, handleFieldChange,disabled = false }) {
   const [currentValue, setCurrentValue] = useState(
     !defaultValue ? "" : defaultValue
   );
@@ -43,6 +43,7 @@ export function InputCpf({ defaultValue, showValidations, handleFieldChange }) {
       <Form.Label>CPF:</Form.Label>
       <Form.Control
         required
+        disabled={disabled}
         type="text"
         placeholder={`Digite seu CPF...`}
         maxLength={11}

@@ -1,4 +1,4 @@
-import { FormMyAccount } from "../components/FormMyAccount";
+import { FormMyAccount } from "../components/forms/FormMyAccount";
 
 export function MyAccountPage() {
   return (

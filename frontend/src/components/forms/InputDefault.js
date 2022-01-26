@@ -9,6 +9,7 @@ export function InputDefault({
   defaultValue,
   showValidations,
   handleFieldChange,
+  disabled = false,
 }) {
   const [currentValue, setCurrentValue] = useState(
     !defaultValue ? "" : defaultValue
@@ -51,6 +52,7 @@ export function InputDefault({
       <Form.Label>{name}:</Form.Label>
       <Form.Control
         required
+        disabled={disabled}
         type={type}
         placeholder={`Digite o(a) ${name.toLowerCase()}...`}
         maxLength={maxLength}

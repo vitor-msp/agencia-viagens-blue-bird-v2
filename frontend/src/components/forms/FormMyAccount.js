@@ -1,18 +1,10 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { InputDefault } from "./InputDefault";
 import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
-import { InputSetPassword } from "./InputSetPassword";
 
-const objDefaultFieldsFalse = {
-  name: false,
-  rg: false,
-  cpf: false,
-  birthDate: false,
-  email: false,
-  password: false,
-};
 const objDefaultFieldsNull = {
   name: null,
   rg: null,
@@ -22,10 +14,16 @@ const objDefaultFieldsNull = {
   password: null,
 };
 
-export function FormRegister() {
+export function FormMyAccount() {
   const [showValidations, setShowValidations] = useState(false);
   const [defaultFields, setDefaultFields] = useState(objDefaultFieldsNull);
   const [fields, setFields] = useState(objDefaultFieldsNull);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleCancelEdit = () => {
+    setIsEdit(false);
+    setShowValidations(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,18 +42,12 @@ export function FormRegister() {
     return true;
   };
 
-  const handleReset = () => {
-    setShowValidations((prev) => prev + 1); //altera state para false
-    setFields(objDefaultFieldsNull);
-    setDefaultFields((prev) => {
-      return prev === objDefaultFieldsNull
-        ? objDefaultFieldsFalse
-        : objDefaultFieldsNull;
-    });
-  };
-
   return (
-    <Form noValidate onSubmit={handleSubmit}>
+    <Form
+      noValidate
+      onSubmit={handleSubmit}
+      className="col-10 offset-1 col-md-6 offset-md-3"
+    >
       <Row className="my-3">
         <InputDefault
           name={"Nome"}
@@ -70,6 +62,7 @@ export function FormRegister() {
               ["name"]: value,
             });
           }}
+          disabled={!isEdit}
         />
         <InputDefault
           name={"RG"}
@@ -84,6 +77,7 @@ export function FormRegister() {
               ["rg"]: value,
             });
           }}
+          disabled={!isEdit}
         />
         <InputCpf
           showValidations={showValidations}
@@ -94,6 +88,7 @@ export function FormRegister() {
               ["cpf"]: value,
             });
           }}
+          disabled={!isEdit}
         />
         <InputDefault
           name={"Data de Nascimento"}
@@ -108,6 +103,7 @@ export function FormRegister() {
               ["birthDate"]: value,
             });
           }}
+          disabled={!isEdit}
         />
         <InputEmail
           showValidations={showValidations}
@@ -118,31 +114,43 @@ export function FormRegister() {
               ["email"]: value,
             });
           }}
+          disabled={!isEdit}
         />
-        <InputSetPassword
-          showValidations={showValidations}
-          defaultValue={defaultFields.password}
-          handleFieldChange={(value) => {
-            setFields({
-              ...fields,
-              ["password"]: value,
-            });
-          }}
+        <input
+          type="button"
+          value={"Alterar Senha"}
+          className="btn btn-primary mx-3 w-auto"
         />
       </Row>
-      <Form.Group className="mb-3">
-        <input
-          type="submit"
-          value={"Criar conta"}
-          className="btn btn-primary"
-        />
-        <input
-          type="reset"
-          value={"Limpar"}
-          className="btn btn-secondary mx-3"
-          onClick={handleReset}
-        />
-      </Form.Group>
+      {isEdit ? (
+        <Form.Group className="mb-3">
+          <input
+            type="button"
+            value={"Cancelar"}
+            className="btn btn-secondary"
+            onClick={handleCancelEdit}
+          />
+          <input
+            type="submit"
+            value={"Salvar"}
+            className="btn btn-primary mx-3"
+          />
+        </Form.Group>
+      ) : (
+        <Form.Group className="mb-3">
+          <Link to={"/"} className="btn btn-secondary">
+            Voltar
+          </Link>
+          <input
+            type="button"
+            value={"Editar"}
+            className="btn btn-primary mx-3"
+            onClick={() => {
+              setIsEdit(true);
+            }}
+          />
+        </Form.Group>
+      )}
     </Form>
   );
 }
