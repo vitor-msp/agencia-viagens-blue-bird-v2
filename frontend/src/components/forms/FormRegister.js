@@ -7,6 +7,7 @@ import { InputEmail } from "./InputEmail";
 import { InputSetPassword } from "./InputSetPassword";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
+import { SpinnerBtn } from "./SpinnerBtn";
 
 const objDefaultFields = {
   name: null,
@@ -19,6 +20,7 @@ const objDefaultFields = {
 export function FormRegister() {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
+  const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -26,9 +28,12 @@ export function FormRegister() {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm(fields)) {
-      //chamar action/api
-      dispatch(updateModalInfo("Sua conta foi criada com sucesso!!", true));
-      document.getElementById("navLoginModal").click();
+      setSpinner(true);
+      setTimeout(() => {
+        //chamar action/api
+        dispatch(updateModalInfo("Sua conta foi criada com sucesso!!", true));
+        document.getElementById("navLoginModal").click();
+      }, 2000);
     }
   };
 
@@ -120,9 +125,9 @@ export function FormRegister() {
           style={{ marginRight: "5px" }}
           onClick={handleReset}
         />
-        <input
-          type="submit"
-          value={"Criar conta"}
+        <SpinnerBtn
+          value="Criar conta"
+          loading={spinner}
           className="btn btn-primary w-100"
           style={{ marginLeft: "5px" }}
         />

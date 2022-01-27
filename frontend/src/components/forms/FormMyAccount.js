@@ -9,6 +9,7 @@ import { ModalSetPassword } from "../modals/ModalSetPassword";
 import { updateClientData } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
+import { SpinnerBtn } from "./SpinnerBtn";
 
 export function FormMyAccount() {
   const objDefaultFields = useSelector((state) => state.clientData);
@@ -16,6 +17,7 @@ export function FormMyAccount() {
   const [fields, setFields] = useState(objDefaultFields);
   const [isEdit, setIsEdit] = useState(false);
   const [showModalSetPassword, setShowModalSetPassword] = useState(false);
+  const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
   const handleCancelEdit = () => {
@@ -33,10 +35,13 @@ export function FormMyAccount() {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm(fields)) {
-      //chamar action/api
-      dispatch(updateClientData(fields));
-      dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
-      handleCancelEdit();
+      setSpinner(true);
+      setTimeout(() => {
+        //chamar action/api
+        dispatch(updateClientData(fields));
+        dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
+        handleCancelEdit();
+      }, 2000);
     }
   };
 
@@ -137,9 +142,9 @@ export function FormMyAccount() {
             >
               Cancelar
             </button>
-            <input
-              type="submit"
-              value={"Salvar"}
+            <SpinnerBtn
+              value="Salvar"
+              loading={spinner}
               className="btn btn-primary"
               style={{ marginLeft: "5px" }}
             />

@@ -5,6 +5,7 @@ import { InputDefault } from "./InputDefault";
 import { InputSetPassword } from "./InputSetPassword";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
+import { SpinnerBtn } from "./SpinnerBtn";
 
 const objDefaultFields = {
   password: null,
@@ -14,6 +15,7 @@ const objDefaultFields = {
 export function FormSetPassword({ modalClose }) {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
+  const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -21,9 +23,12 @@ export function FormSetPassword({ modalClose }) {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm(fields)) {
-      //chamar action/api
-      modalClose();
-      dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
+      setSpinner(true);
+      setTimeout(() => {
+        //chamar action/api
+        modalClose();
+        dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
+      }, 2000);
     }
   };
 
@@ -56,9 +61,9 @@ export function FormSetPassword({ modalClose }) {
         />
       </Row>
       <Form.Group className="mb-3">
-        <input
-          type="submit"
-          value={"Salvar"}
+        <SpinnerBtn
+          value="Salvar"
+          loading={spinner}
           className="btn btn-primary w-100"
         />
       </Form.Group>

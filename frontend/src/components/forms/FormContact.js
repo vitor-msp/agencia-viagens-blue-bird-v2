@@ -6,6 +6,7 @@ import { InputEmail } from "./InputEmail";
 import { InputBody } from "./InputBody";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
+import { SpinnerBtn } from "./SpinnerBtn";
 
 export function FormContact() {
   let objDefaultFields = {
@@ -15,6 +16,7 @@ export function FormContact() {
   };
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
+  const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,16 +30,20 @@ export function FormContact() {
     event.preventDefault();
     event.stopPropagation();
     if (validateForm(fields)) {
-      setShowValidations((prev) => (prev === false ? null : false));
-      setFields(objDefaultFields);
-      //chamar action/api
-      dispatch(
-        updateModalInfo(
-          "Agradecemos o seu contato!! Em breve retornaremos.",
-          true
-        )
-      );
-    }else{
+      setSpinner(true);
+      setTimeout(() => {
+        setShowValidations((prev) => (prev === false ? null : false));
+        setFields(objDefaultFields);
+        //chamar action/api
+        dispatch(
+          updateModalInfo(
+            "Agradecemos o seu contato!! Em breve retornaremos.",
+            true
+          )
+        );
+        setSpinner(false);
+      }, 2000);
+    } else {
       setShowValidations(true);
     }
   };
@@ -92,17 +98,17 @@ export function FormContact() {
       </Row>
       <Form.Group className="mb-3  d-flex justify-content-center">
         <input
-          type="submit"
-          value={"Enviar"}
-          className="btn btn-primary"
-          style={{ marginRight: "5px" }}
-        />
-        <input
           type="reset"
           value={"Limpar"}
-          className="btn btn-secondary mx-3"
-          style={{ marginLeft: "5px" }}
+          className="btn btn-secondary"
+          style={{ marginRight: "5px" }}
           onClick={handleReset}
+        />
+        <SpinnerBtn
+          value="Enviar"
+          loading={spinner}
+          className="btn btn-primary"
+          style={{ marginLeft: "5px" }}
         />
       </Form.Group>
     </Form>
