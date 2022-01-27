@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { clearCurrentOffer } from "../../store/actions/currentReq.actions";
 import { showModalLogin } from "../../store/actions/modalLogin.actions";
 import { logout } from "../../store/actions/clientData.actions";
@@ -12,7 +12,7 @@ export function Navbar() {
 
   return (
     <nav className="row p-0 m-0 bg-primary">
-      <div id="nav" className="col-12 navbar navbar-expand-lg navbar-light">
+      <div id="nav" className="col-12 navbar navbar-expand-lg navbar-dark">
         <div className="container-fluid justify-content-start">
           <button
             className="navbar-toggler my-2 my-lg-0 bg-transparent"
@@ -32,41 +32,55 @@ export function Navbar() {
           <div className="collapse navbar-collapse" id="navToggler">
             <ul className="navbar-nav me-auto mb-lg-0">
               <li className="nav-item">
-                <Link to={"/Home"} className="nav-link py-3 bg-transparent">
+                <NavLink
+                  to={"/Home"}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "activeNav nav-link py-3 bg-transparent"
+                      : "nav-link py-3 bg-transparent"
+                  }
+                >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link to={"/Contato"} className="nav-link py-3 bg-transparent">
+                <NavLink
+                  to={"/Contato"}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "activeNav nav-link py-3 bg-transparent"
+                      : "nav-link py-3 bg-transparent"
+                  }
+                >
                   Contato
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link
+                <NavLink
                   to={"/Destinos"}
                   onClick={() => {
                     dispatch(clearCurrentOffer());
                   }}
-                  className="nav-link py-3 bg-transparent"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "activeNav nav-link py-3 bg-transparent"
+                      : "nav-link py-3 bg-transparent"
+                  }
                 >
                   Destinos
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link
+                <NavLink
                   to={"/Promocoes"}
-                  className="nav-link py-3 bg-transparent"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "activeNav nav-link py-3 bg-transparent"
+                      : "nav-link py-3 bg-transparent"
+                  }
                 >
                   Promoções
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  to={"/Minhas_Viagens"}
-                  className="nav-link py-3 bg-transparent"
-                >
-                  Minhas Viagens
-                </Link>
+                </NavLink>
               </li>
             </ul>
 
@@ -85,15 +99,31 @@ export function Navbar() {
               ) : (
                 <>
                   <li className="nav-item">
-                    <Link
-                      to={"/Minha_Conta"}
-                      className="nav-link py-3 bg-transparent"
+                    <NavLink
+                      to={"/Minhas_Viagens"}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "activeNav nav-link py-3 bg-transparent"
+                          : "nav-link py-3 bg-transparent"
+                      }
                     >
-                      Minha Conta
-                    </Link>
+                      Minhas Viagens
+                    </NavLink>
                   </li>
                   <li className="nav-item">
-                    <Link
+                    <NavLink
+                      to={"/Minha_Conta"}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "activeNav nav-link py-3 bg-transparent"
+                          : "nav-link py-3 bg-transparent"
+                      }
+                    >
+                      Minha Conta
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink
                       to={"/"}
                       onClick={() => {
                         dispatch(logout());
@@ -104,7 +134,7 @@ export function Navbar() {
                       className="nav-link py-3 bg-transparent btn"
                     >
                       Sair
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
