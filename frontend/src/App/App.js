@@ -23,16 +23,25 @@ function App() {
       <div className="row p-0 m-0" style={{ minHeight: "100vh" }}>
         <div className="col-12 p-0 m-0 d-flex flex-column justify-content-between">
           <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/Home" element={<HomePage />}></Route>
-            <Route path="/Contato" element={<ContactPage />}></Route>
-            <Route path="/Destinos" element={<DestinationsPage />}></Route>
-            <Route path="/Promocoes" element={<OffersPage />}></Route>
-            <Route path="/Viagens" element={<TripsPage />}></Route>
-            <Route path="/Minhas_Viagens" element={<MyTripsPage />}></Route>
-            <Route path="/Minha_Conta" element={<MyAccountPage />}></Route>
-          </Routes>
+          <div
+            className="m-4 p-4"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.65)",
+              border: "none",
+              borderRadius: "15px",
+            }}
+          >
+            <Routes>
+              <Route path="/" element={<HomePage />}></Route>
+              <Route path="/Home" element={<HomePage />}></Route>
+              <Route path="/Contato" element={<ContactPage />}></Route>
+              <Route path="/Destinos" element={<DestinationsPage />}></Route>
+              <Route path="/Promocoes" element={<OffersPage />}></Route>
+              <Route path="/Viagens" element={<TripsPage />}></Route>
+              <Route path="/Minhas_Viagens" element={<MyTripsPage />}></Route>
+              <Route path="/Minha_Conta" element={<MyAccountPage />}></Route>
+            </Routes>
+          </div>
           {modalTripContent !== null && (
             <ModalTrip content={modalTripContent} />
           )}
