@@ -4,13 +4,14 @@ import { useDispatch } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputSetPassword } from "./InputSetPassword";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { validateForm } from "../../helpers/validateForm";
 
 const objDefaultFields = {
   password: null,
   newPassword: null,
 };
 
-export function FormSetPassword({modalClose}) {
+export function FormSetPassword({ modalClose }) {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
   const dispatch = useDispatch();
@@ -19,24 +20,17 @@ export function FormSetPassword({modalClose}) {
     event.preventDefault();
     event.stopPropagation();
     setShowValidations(true);
-    if (validateForm()) {
+    if (validateForm(fields)) {
       //chamar action/api
       modalClose();
       dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
     }
   };
 
-  const validateForm = () => {
-    if (Object.values(fields).some((field) => field === null)) {
-      return false;
-    }
-    return true;
-  };
-
   return (
     <Form noValidate onSubmit={handleSubmit}>
       <Row className="my-3">
-      <InputDefault
+        <InputDefault
           name={"Senha"}
           type={"password"}
           maxLength={30}

@@ -5,6 +5,7 @@ import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
 import { login } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { validateForm } from "../../helpers/validateForm";
 
 const objDefaultFields = {
   email: null,
@@ -20,19 +21,12 @@ export function FormLogin({ closeModal }) {
     event.preventDefault();
     event.stopPropagation();
     setShowValidations(true);
-    if (validateForm()) {
+    if (validateForm(fields)) {
       dispatch(login());
       closeModal();
       dispatch(updateModalInfo("Login efetuado com sucesso!!", true));
       //chamar action/api
     }
-  };
-
-  const validateForm = () => {
-    if (Object.values(fields).some((field) => field === null)) {
-      return false;
-    }
-    return true;
   };
 
   return (

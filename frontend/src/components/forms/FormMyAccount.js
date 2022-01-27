@@ -8,6 +8,7 @@ import { InputEmail } from "./InputEmail";
 import { ModalSetPassword } from "../modals/ModalSetPassword";
 import { updateClientData } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { validateForm } from "../../helpers/validateForm";
 
 export function FormMyAccount() {
   const objDefaultFields = useSelector((state) => state.clientData);
@@ -31,20 +32,12 @@ export function FormMyAccount() {
     event.preventDefault();
     event.stopPropagation();
     setShowValidations(true);
-    if (validateForm()) {
-      console.log(fields);
+    if (validateForm(fields)) {
       //chamar action/api
       dispatch(updateClientData(fields));
       dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
       handleCancelEdit();
     }
-  };
-
-  const validateForm = () => {
-    if (Object.values(fields).some((field) => field === null)) {
-      return false;
-    }
-    return true;
   };
 
   return (

@@ -5,9 +5,10 @@ import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
 import { InputBody } from "./InputBody";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { validateForm } from "../../helpers/validateForm";
 
 export function FormContact() {
-  const objDefaultFields = {
+  let objDefaultFields = {
     email: useSelector((state) => state.clientData.email),
     subject: null,
     body: null,
@@ -26,8 +27,9 @@ export function FormContact() {
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    setShowValidations(true);
-    if (validateForm()) {
+    if (validateForm(fields)) {
+      setShowValidations((prev) => (prev === false ? null : false));
+      setFields(objDefaultFields);
       //chamar action/api
       dispatch(
         updateModalInfo(
@@ -35,15 +37,9 @@ export function FormContact() {
           true
         )
       );
-      handleReset();
+    }else{
+      setShowValidations(true);
     }
-  };
-
-  const validateForm = () => {
-    if (Object.values(fields).some((field) => field === null)) {
-      return false;
-    }
-    return true;
   };
 
   const handleReset = () => {

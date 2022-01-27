@@ -6,6 +6,7 @@ import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
 import { InputSetPassword } from "./InputSetPassword";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { validateForm } from "../../helpers/validateForm";
 
 const objDefaultFields = {
   name: null,
@@ -13,7 +14,6 @@ const objDefaultFields = {
   cpf: null,
   birthDate: null,
   email: null,
-  password: null,
 };
 
 export function FormRegister() {
@@ -25,18 +25,11 @@ export function FormRegister() {
     event.preventDefault();
     event.stopPropagation();
     setShowValidations(true);
-    if (validateForm()) {
+    if (validateForm(fields)) {
       //chamar action/api
       dispatch(updateModalInfo("Sua conta foi criada com sucesso!!", true));
       document.getElementById("navLoginModal").click();
     }
-  };
-
-  const validateForm = () => {
-    if (Object.values(fields).some((field) => field === null)) {
-      return false;
-    }
-    return true;
   };
 
   const handleReset = () => {
@@ -111,7 +104,6 @@ export function FormRegister() {
         />
         <InputSetPassword
           showValidations={showValidations}
-          defaultValue={objDefaultFields.password}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
