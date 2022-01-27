@@ -13,11 +13,10 @@ export function InputBody({
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
-    setCurrentValue(!defaultValue ? "" : defaultValue);
-  }, [defaultValue]);
-
-  useEffect(() => {
     setShowValidation(showValidations);
+    if(!showValidations){
+      setCurrentValue(!defaultValue ? "" : defaultValue);
+    }
   }, [showValidations]);
 
   useEffect(() => {

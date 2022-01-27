@@ -49,7 +49,8 @@ export function FormContact() {
   };
 
   const handleReset = () => {
-    setShowValidations((prev) => prev + 1); //altera state para false
+    //setShowValidations((prev) => prev + 1); //altera state para false
+    setShowValidations((prev) => prev === false ? null : false);
     setFields(objDefaultFieldsNull);
     setDefaultFields((prev) => {
       return prev === objDefaultFieldsNull

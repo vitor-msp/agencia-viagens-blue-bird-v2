@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
 export function InputSetPassword({
-  defaultValue,
   showValidations,
   handleFieldChange,
 }) {
@@ -13,12 +12,11 @@ export function InputSetPassword({
   const [isValidConfPass, setIsValidConfPass] = useState(false);
 
   useEffect(() => {
-    setCurrentPass("");
-    setCurrentConfPass("");
-  }, [defaultValue]);
-
-  useEffect(() => {
     setShowValidation(showValidations);
+    if(!showValidations){
+      setCurrentPass("");
+      setCurrentConfPass("");
+    }
   }, [showValidations]);
 
   useEffect(() => {

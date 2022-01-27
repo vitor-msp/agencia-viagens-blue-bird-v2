@@ -16,13 +16,13 @@ let objDefaultFieldsNull = {
   birthDate: null,
   email: null,
 };
-// let objDefaultFieldsFalse = {
-//   name: false,
-//   rg: false,
-//   cpf: false,
-//   birthDate: false,
-//   email: false,
-// };
+let objDefaultFieldsFalse = {
+  name: false,
+  rg: false,
+  cpf: false,
+  birthDate: false,
+  email: false,
+};
 
 export function FormMyAccount() {
   const [showValidations, setShowValidations] = useState(false);
@@ -33,6 +33,7 @@ export function FormMyAccount() {
   const [showModalSetPassword, setShowModalSetPassword] = useState(false);
 
   objDefaultFieldsNull = useSelector((state) => state.clientData);
+  objDefaultFieldsFalse = useSelector((state) => state.clientData);
   // const teste = useSelector((state) => state.clientData);
   // useEffect(() => {
   //   setDefaultFields(teste);
@@ -43,13 +44,14 @@ export function FormMyAccount() {
 
   const handleCancelEdit = () => {
     setIsEdit(false);
-    setShowValidations((prev) => prev + 1);
+    // setShowValidations((prev) => prev + 1);
+    setShowValidations((prev) => prev === false ? null : false);
     // setOnEdit((prev) => prev + 1);/////
-    // DefaultFields((prev) => {
-    //   return prev === objDefaultFieldsNull
-    //     ? objDefaultFieldsFalse
-    //     : objDefaultFieldsNull;
-    // });
+    setDefaultFields((prev) => {
+      return prev === objDefaultFieldsNull
+        ? objDefaultFieldsFalse
+        : objDefaultFieldsNull;
+    });
   };
 
   const handleEdit = () => {
