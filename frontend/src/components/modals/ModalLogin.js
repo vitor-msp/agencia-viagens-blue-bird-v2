@@ -33,7 +33,7 @@ export function ModalLogin() {
               }}
               id="navLoginModal"
             >
-              Tenho uma conta
+              Login
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
@@ -43,7 +43,7 @@ export function ModalLogin() {
                 setNav("register");
               }}
             >
-              Não tenho uma conta
+              Registrar
             </Nav.Link>
           </Nav.Item>
         </Nav>

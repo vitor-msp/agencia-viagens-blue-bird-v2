@@ -12,8 +12,8 @@ export function Navbar() {
 
   return (
     <nav className="row p-0 m-0 bg-primary">
-      <div id="nav" className="col-12 navbar navbar-expand-lg navbar-dark">
-        <div className="container-fluid justify-content-start">
+      <div id="nav" className="col-9 navbar navbar-expand-lg navbar-dark">
+        <div className="container-fluid justify-content-start px-0">
           <button
             className="navbar-toggler my-2 my-lg-0 bg-transparent"
             type="button"
@@ -26,14 +26,17 @@ export function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <Link to={"/"} className="navbar-brand">
-            Home
+          <Link to={"/"} className="navbar-brand mx-2 mx-lg-4">
+            BlueBird{" "}
+            <span style={{ fontSize: "0.7em" }} className="d-none d-sm-inline">
+              Viagens
+            </span>
           </Link>
           <div className="collapse navbar-collapse" id="navToggler">
             <ul className="navbar-nav me-auto mb-lg-0">
               <li className="nav-item">
                 <NavLink
-                  to={"/Home"}
+                  to={"/"}
                   className={({ isActive }) =>
                     isActive
                       ? "activeNav nav-link py-3 bg-transparent"
@@ -82,21 +85,7 @@ export function Navbar() {
                   Promoções
                 </NavLink>
               </li>
-            </ul>
-
-            <ul className="navbar-nav mb-lg-0">
-              {clientData.name === null ? (
-                <li className="nav-item">
-                  <a
-                    onClick={() => {
-                      dispatch(showModalLogin(true));
-                    }}
-                    className="nav-link py-3 bg-transparent btn"
-                  >
-                    Acessar
-                  </a>
-                </li>
-              ) : (
+              {clientData.name !== null && (
                 <>
                   <li className="nav-item">
                     <NavLink
@@ -122,25 +111,36 @@ export function Navbar() {
                       Minha Conta
                     </NavLink>
                   </li>
-                  <li className="nav-item">
-                    <NavLink
-                      to={"/"}
-                      onClick={() => {
-                        dispatch(logout());
-                        dispatch(
-                          updateModalInfo("Você saiu da sua conta!!", false)
-                        );
-                      }}
-                      className="nav-link py-3 bg-transparent btn"
-                    >
-                      Sair
-                    </NavLink>
-                  </li>
                 </>
               )}
             </ul>
           </div>
         </div>
+      </div>
+
+      <div className="col-3 d-flex justify-content-center align-items-center">
+        {clientData.name === null ? (
+          <a
+            href="javascript:void(0)"
+            onClick={() => {
+              dispatch(showModalLogin(true));
+            }}
+            className="nav-link"
+          >
+            Acessar
+          </a>
+        ) : (
+          <NavLink
+            to={"/"}
+            onClick={() => {
+              dispatch(logout());
+              dispatch(updateModalInfo("Você saiu da sua conta!!", false));
+            }}
+            className="nav-link"
+          >
+            Sair
+          </NavLink>
+        )}
       </div>
     </nav>
   );
