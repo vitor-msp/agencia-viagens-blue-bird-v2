@@ -7,15 +7,7 @@ import { InputEmail } from "./InputEmail";
 import { InputSetPassword } from "./InputSetPassword";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
-const objDefaultFieldsFalse = {
-  name: false,
-  rg: false,
-  cpf: false,
-  birthDate: false,
-  email: false,
-  password: false,
-};
-const objDefaultFieldsNull = {
+const objDefaultFields = {
   name: null,
   rg: null,
   cpf: null,
@@ -26,8 +18,7 @@ const objDefaultFieldsNull = {
 
 export function FormRegister() {
   const [showValidations, setShowValidations] = useState(false);
-  const [defaultFields, setDefaultFields] = useState(objDefaultFieldsNull);
-  const [fields, setFields] = useState(objDefaultFieldsNull);
+  const [fields, setFields] = useState(objDefaultFields);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -49,14 +40,8 @@ export function FormRegister() {
   };
 
   const handleReset = () => {
-    //setShowValidations((prev) => prev + 1); //altera state para false
-    setShowValidations((prev) => prev === false ? null : false);
-    setFields(objDefaultFieldsNull);
-    setDefaultFields((prev) => {
-      return prev === objDefaultFieldsNull
-        ? objDefaultFieldsFalse
-        : objDefaultFieldsNull;
-    });
+    setShowValidations((prev) => (prev === false ? null : false));
+    setFields(objDefaultFields);
   };
 
   return (
@@ -68,7 +53,7 @@ export function FormRegister() {
           maxLength={50}
           defaultClass={"col-md-12"}
           showValidations={showValidations}
-          defaultValue={defaultFields.name}
+          defaultValue={objDefaultFields.name}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -82,7 +67,7 @@ export function FormRegister() {
           maxLength={10}
           defaultClass={"col-md-6"}
           showValidations={showValidations}
-          defaultValue={defaultFields.rg}
+          defaultValue={objDefaultFields.rg}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -92,7 +77,7 @@ export function FormRegister() {
         />
         <InputCpf
           showValidations={showValidations}
-          defaultValue={defaultFields.cpf}
+          defaultValue={objDefaultFields.cpf}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -106,7 +91,7 @@ export function FormRegister() {
           maxLength={null}
           defaultClass={"col-md-6"}
           showValidations={showValidations}
-          defaultValue={defaultFields.birthDate}
+          defaultValue={objDefaultFields.birthDate}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -116,7 +101,7 @@ export function FormRegister() {
         />
         <InputEmail
           showValidations={showValidations}
-          defaultValue={defaultFields.email}
+          defaultValue={objDefaultFields.email}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -126,7 +111,7 @@ export function FormRegister() {
         />
         <InputSetPassword
           showValidations={showValidations}
-          defaultValue={defaultFields.password}
+          defaultValue={objDefaultFields.password}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -140,14 +125,14 @@ export function FormRegister() {
           type="reset"
           value={"Limpar"}
           className="btn btn-secondary w-100"
-          style={{marginRight: "5px"}}
+          style={{ marginRight: "5px" }}
           onClick={handleReset}
-          />
+        />
         <input
           type="submit"
           value={"Criar conta"}
           className="btn btn-primary w-100"
-          style={{marginLeft: "5px"}}
+          style={{ marginLeft: "5px" }}
         />
       </Form.Group>
     </Form>

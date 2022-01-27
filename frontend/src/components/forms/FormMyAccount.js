@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,49 +9,17 @@ import { ModalSetPassword } from "../modals/ModalSetPassword";
 import { updateClientData } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
-let objDefaultFieldsNull = {
-  name: null,
-  rg: null,
-  cpf: null,
-  birthDate: null,
-  email: null,
-};
-let objDefaultFieldsFalse = {
-  name: false,
-  rg: false,
-  cpf: false,
-  birthDate: false,
-  email: false,
-};
-
 export function FormMyAccount() {
+  const objDefaultFields = useSelector((state) => state.clientData);
   const [showValidations, setShowValidations] = useState(false);
-  const [defaultFields, setDefaultFields] = useState(objDefaultFieldsNull);
-  // const [defaultFields, setDefaultFields] = useState({});
-  const [fields, setFields] = useState(objDefaultFieldsNull);
+  const [fields, setFields] = useState(objDefaultFields);
   const [isEdit, setIsEdit] = useState(false);
   const [showModalSetPassword, setShowModalSetPassword] = useState(false);
-
-  objDefaultFieldsNull = useSelector((state) => state.clientData);
-  objDefaultFieldsFalse = useSelector((state) => state.clientData);
-  // const teste = useSelector((state) => state.clientData);
-  // useEffect(() => {
-  //   setDefaultFields(teste);
-  // }, [teste]);
-
-  // objDefaultFieldsFalse = useSelector((state) => state.clientData);
   const dispatch = useDispatch();
 
   const handleCancelEdit = () => {
     setIsEdit(false);
-    // setShowValidations((prev) => prev + 1);
-    setShowValidations((prev) => prev === false ? null : false);
-    // setOnEdit((prev) => prev + 1);/////
-    setDefaultFields((prev) => {
-      return prev === objDefaultFieldsNull
-        ? objDefaultFieldsFalse
-        : objDefaultFieldsNull;
-    });
+    setShowValidations((prev) => (prev === false ? null : false));
   };
 
   const handleEdit = () => {
@@ -64,6 +32,7 @@ export function FormMyAccount() {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm()) {
+      console.log(fields);
       //chamar action/api
       dispatch(updateClientData(fields));
       dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
@@ -92,7 +61,7 @@ export function FormMyAccount() {
             maxLength={50}
             defaultClass={"col-md-12"}
             showValidations={showValidations}
-            defaultValue={defaultFields.name}
+            defaultValue={objDefaultFields.name}
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
@@ -107,7 +76,7 @@ export function FormMyAccount() {
             maxLength={10}
             defaultClass={"col-md-6"}
             showValidations={showValidations}
-            defaultValue={defaultFields.rg}
+            defaultValue={objDefaultFields.rg}
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
@@ -118,7 +87,7 @@ export function FormMyAccount() {
           />
           <InputCpf
             showValidations={showValidations}
-            defaultValue={defaultFields.cpf}
+            defaultValue={objDefaultFields.cpf}
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
@@ -133,7 +102,7 @@ export function FormMyAccount() {
             maxLength={null}
             defaultClass={"col-md-6"}
             showValidations={showValidations}
-            defaultValue={defaultFields.birthDate}
+            defaultValue={objDefaultFields.birthDate}
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
@@ -144,14 +113,14 @@ export function FormMyAccount() {
           />
           <InputEmail
             showValidations={showValidations}
-            defaultValue={defaultFields.email}
+            defaultValue={objDefaultFields.email}
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
                 ["email"]: value,
               });
             }}
-            disabled={!isEdit}
+            disabled={true}
           />
           <Form.Group className="my-2 col-md-12">
             <button

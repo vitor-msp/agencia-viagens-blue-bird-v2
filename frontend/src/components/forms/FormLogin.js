@@ -6,14 +6,14 @@ import { InputEmail } from "./InputEmail";
 import { login } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
-const objDefaultFieldsNull = {
+const objDefaultFields = {
   email: null,
   password: null,
 };
 
 export function FormLogin({ closeModal }) {
   const [showValidations, setShowValidations] = useState(false);
-  const [fields, setFields] = useState(objDefaultFieldsNull);
+  const [fields, setFields] = useState(objDefaultFields);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {

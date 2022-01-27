@@ -12,6 +12,10 @@ export function InputEmail({
   );
   const [showValidation, setShowValidation] = useState(showValidations);
   const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    setCurrentValue(defaultValue);
+  }, [defaultValue]);
   
   useEffect(() => {
     setShowValidation(showValidations);

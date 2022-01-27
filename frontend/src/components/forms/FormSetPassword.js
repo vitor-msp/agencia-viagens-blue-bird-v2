@@ -5,14 +5,14 @@ import { InputDefault } from "./InputDefault";
 import { InputSetPassword } from "./InputSetPassword";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
-const objDefaultFieldsNull = {
+const objDefaultFields = {
   password: null,
   newPassword: null,
 };
 
 export function FormSetPassword({modalClose}) {
   const [showValidations, setShowValidations] = useState(false);
-  const [fields, setFields] = useState(objDefaultFieldsNull);
+  const [fields, setFields] = useState(objDefaultFields);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {

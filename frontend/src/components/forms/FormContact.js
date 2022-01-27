@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { InputDefault } from "./InputDefault";
@@ -6,24 +6,22 @@ import { InputEmail } from "./InputEmail";
 import { InputBody } from "./InputBody";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
-const objDefaultFieldsFalse = {
-  email: false,
-  subject: false,
-  body: false,
-};
-const objDefaultFieldsNull = {
-  email: null,
-  subject: null,
-  body: null,
-};
-
 export function FormContact() {
+  const objDefaultFields = {
+    email: useSelector((state) => state.clientData.email),
+    subject: null,
+    body: null,
+  };
   const [showValidations, setShowValidations] = useState(false);
-  const [defaultFields, setDefaultFields] = useState(objDefaultFieldsNull);
-  const [fields, setFields] = useState(objDefaultFieldsNull);
-  objDefaultFieldsNull.email = useSelector((state) => state.clientData.email);
-  objDefaultFieldsFalse.email = useSelector((state) => state.clientData.email);
+  const [fields, setFields] = useState(objDefaultFields);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setFields({
+      ...fields,
+      ["email"]: objDefaultFields.email,
+    });
+  }, [objDefaultFields.email]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,14 +47,8 @@ export function FormContact() {
   };
 
   const handleReset = () => {
-    //setShowValidations((prev) => prev + 1); //altera state para false
-    setShowValidations((prev) => prev === false ? null : false);
-    setFields(objDefaultFieldsNull);
-    setDefaultFields((prev) => {
-      return prev === objDefaultFieldsNull
-        ? objDefaultFieldsFalse
-        : objDefaultFieldsNull;
-    });
+    setShowValidations((prev) => (prev === false ? null : false));
+    setFields(objDefaultFields);
   };
 
   return (
@@ -68,14 +60,14 @@ export function FormContact() {
       <Row className="my-3">
         <InputEmail
           showValidations={showValidations}
-          defaultValue={defaultFields.email}
+          defaultValue={objDefaultFields.email}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
               ["email"]: value,
             });
           }}
-          disabled={defaultFields.email !== null ? true : false}
+          disabled={objDefaultFields.email !== null ? true : false}
         />
         <InputDefault
           name={"Assunto"}
@@ -83,7 +75,7 @@ export function FormContact() {
           maxLength={100}
           defaultClass={"col-md-12"}
           showValidations={showValidations}
-          defaultValue={defaultFields.subject}
+          defaultValue={objDefaultFields.subject}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -93,7 +85,7 @@ export function FormContact() {
         />
         <InputBody
           showValidations={showValidations}
-          defaultValue={defaultFields.body}
+          defaultValue={objDefaultFields.body}
           handleFieldChange={(value) => {
             setFields({
               ...fields,
@@ -103,7 +95,12 @@ export function FormContact() {
         />
       </Row>
       <Form.Group className="mb-3  d-flex justify-content-center">
-        <input type="submit" value={"Enviar"} className="btn btn-primary" style={{ marginRight: "5px" }} />
+        <input
+          type="submit"
+          value={"Enviar"}
+          className="btn btn-primary"
+          style={{ marginRight: "5px" }}
+        />
         <input
           type="reset"
           value={"Limpar"}
