@@ -17,7 +17,7 @@ export function ModalInfo({ content }) {
     <Modal show={modalOpen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          <span className={primary ? "text-primary" : "text-warning"}>
+          <span className={primary ? "text-primary" : "text-secondary"}>
             Sucesso
           </span>
         </Modal.Title>
@@ -31,7 +31,7 @@ export function ModalInfo({ content }) {
         <button
           type="button"
           onClick={handleClose}
-          className={`btn ${primary ? "btn-primary" : "btn-warning"}`}
+          className={`btn ${primary ? "btn-primary" : "btn-secondary"}`}
         >
           Entendi
         </button>
