@@ -38,7 +38,7 @@ export function FormLogin({ closeModal }) {
     <Form noValidate onSubmit={handleSubmit}>
       <Row>
         <img
-          src="./avatar.png"
+          src="./images/avatar.png"
           alt="Avatar"
           title="Avatar"
           width={512}

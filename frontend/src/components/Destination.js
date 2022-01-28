@@ -12,30 +12,53 @@ export function Destination({ destination }) {
   };
 
   return (
-    <div className="card border-primary mb-3" style={{ maxWidth: "18rem" }}>
+    <div
+      className="card border-primary mb-3"
+      style={{ width: "100%" }}
+    >
       <div className="card-header bg-primary text-light">
         <span>Destino</span>
       </div>
 
-      <div className="card-body text-primary">
-        <h5 className="card-title">
-          {city} - {uf}
-        </h5>
-        <p className="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <Link
-          to={"/Viagens"}
-          onClick={handleSelect}
-          className="btn btn-outline-primary"
+      <div
+        className="card-body text-primary p-0"
+        style={{
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          backgroundImage: `url('./images/${city}.jpg')`,
+        }}
+      >
+        <div
+          className="m-0 p-3 row"
+          style={{
+            minHeight: "23rem",
+            // backgroundColor: "rgba(255,255,255,0.3)",
+          }}
         >
-          Selecionar
-        </Link>
+          <div
+            className="align-self-start bg-light rounded p-2"
+            style={{ width: "auto" }}
+          >
+            <h5 className="display-6 m-0" style={{fontSize:"1.8em", fontWeight:"bold"}}>
+              {city} - {uf}
+            </h5>
+          </div>
+          <div className="col-12 align-self-end text-end">
+            <Link
+              to={"/Viagens"}
+              onClick={handleSelect}
+              className="btn btn-lg btn-primary"
+            >
+              Selecionar
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div className="card-footer bg-primary text-light d-flex">
-        <span className="w-100 text-end">{landingPlace}</span>
+        <span className="w-100 text-end">Desembarque: {landingPlace}</span>
       </div>
     </div>
   );
