@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ModalTrip } from "../components/modals/ModalTrip";
 import { ModalInfo } from "../components/modals/ModalInfo";
 import { ModalLogin } from "../components/modals/ModalLogin";
@@ -12,12 +13,20 @@ import { OffersPage } from "../pages/OffersPage";
 import { TripsPage } from "../pages/TripsPage";
 import { MyTripsPage } from "../pages/MyTripsPage";
 import { MyAccountPage } from "../pages/MyAccountPage";
+import { updateAllDestinations } from "../store/actions/destinations.actions";
 import "./App.css";
+import { getDestinations } from "../api/teste";
 
 function App() {
   const modalTripContent = useSelector((state) => state.modalTripContent);
   const modalInfo = useSelector((state) => state.modalInfo);
   const modalLogin = useSelector((state) => state.modalLogin);
+  const dispatch = useDispatch();
+
+  useEffect(async () => {
+    dispatch(updateAllDestinations(await getDestinations()));
+  }, []);
+
   return (
     <BrowserRouter>
       <div className="row p-0 m-0" style={{ minHeight: "100vh" }}>
