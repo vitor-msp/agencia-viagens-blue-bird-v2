@@ -14,8 +14,9 @@ import { TripsPage } from "../pages/TripsPage";
 import { MyTripsPage } from "../pages/MyTripsPage";
 import { MyAccountPage } from "../pages/MyAccountPage";
 import { updateAllDestinations } from "../store/actions/destinations.actions";
+import { updateAllOffers } from "../store/actions/offers.actions";
+import { getDestinations, getOffers } from "../api/api";
 import "./App.css";
-import { getDestinations } from "../api/teste";
 
 function App() {
   const modalTripContent = useSelector((state) => state.modalTripContent);
@@ -23,8 +24,12 @@ function App() {
   const modalLogin = useSelector((state) => state.modalLogin);
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    dispatch(updateAllDestinations(await getDestinations()));
+  useEffect(() => {
+    const getData = async () => {
+      dispatch(updateAllDestinations(await getDestinations()));
+      dispatch(updateAllOffers(await getOffers()));
+    };
+    getData();
   }, []);
 
   return (

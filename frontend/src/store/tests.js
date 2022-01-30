@@ -55,47 +55,47 @@ const addZero = (text) => {
 };
 
 export const offers = [
-  {
-    id: 1,
-    destination: 1,
-    discount: 0.5,
-    expiration: generateDate(),
-  },
-  {
-    id: 2,
-    destination: null,
-    discount: 0.25,
-    expiration: generateDate(),
-  },
-  {
-    id: 3,
-    destination: 6,
-    discount: 0.15,
-    expiration: generateDate(),
-  },
-  {
-    id: 4,
-    destination: 2,
-    discount: 0.9,
-    expiration: generateDate(),
-  },
+  // {
+  //   id: 1,
+  //   destination: 1,
+  //   discount: 0.5,
+  //   expiration: generateDate(),
+  // },
+  // {
+  //   id: 2,
+  //   destination: null,
+  //   discount: 0.25,
+  //   expiration: generateDate(),
+  // },
+  // {
+  //   id: 3,
+  //   destination: 6,
+  //   discount: 0.15,
+  //   expiration: generateDate(),
+  // },
+  // {
+  //   id: 4,
+  //   destination: 2,
+  //   discount: 0.9,
+  //   expiration: generateDate(),
+  // },
 ];
 
 export const trips = [
-  {
-    id: 1,
-    destination: 3,
-    departure: generateDate(),
-    arrival: generateDate(),
-    defaultValue: 210.0,
-  },
-  {
-    id: 2,
-    destination: 2,
-    departure: generateDate(),
-    arrival: generateDate(),
-    defaultValue: 290.0,
-  },
+  // {
+  //   id: 1,
+  //   destination: 3,
+  //   departure: generateDate(),
+  //   arrival: generateDate(),
+  //   defaultValue: 210.0,
+  // },
+  // {
+  //   id: 2,
+  //   destination: 2,
+  //   departure: generateDate(),
+  //   arrival: generateDate(),
+  //   defaultValue: 290.0,
+  // },
 ];
 
 export const myTrips = [

@@ -32,11 +32,11 @@ nav .col-3 a:hover {
 /*************************** fim navbar ***************************/
 
 /*************************** inicio background ***************************/
-body{
+body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  background-image: url('../public/images/passaros-praia.jpg');
+  background-image: url("../public/images/passaros-praia.jpg");
 }
 /*************************** fim background ***************************/

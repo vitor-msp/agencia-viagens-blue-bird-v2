@@ -1,6 +1,4 @@
-import { destinations } from "../tests";
-
-export const destinationsReducer = (state = destinations, action) => {
+export const destinationsReducer = (state = [], action) => {
   switch (action.type) {
     case "updateAllDestinations":
       return action.payload;
