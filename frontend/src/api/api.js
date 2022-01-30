@@ -34,6 +34,11 @@ export const createClient = async (client) => {
   return res.data;
 };
 
+export const updateClient = async (client) => {
+  const res = await api.put(`/client`, client);
+  return res.data;
+};
+
 export const login = async (client) => {
   const res = await api.post(`/login`, client);
   return res.data;

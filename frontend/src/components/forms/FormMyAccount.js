@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
+import { SpinnerBtn } from "./SpinnerBtn";
 import { ModalSetPassword } from "../modals/ModalSetPassword";
 import { updateClientData } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
-import { SpinnerBtn } from "./SpinnerBtn";
+import { updateClient } from "../../api/api";
 
 export function FormMyAccount() {
   const objDefaultFields = useSelector((state) => state.clientData);
@@ -36,11 +37,16 @@ export function FormMyAccount() {
     setShowValidations(true);
     if (validateForm(fields)) {
       setSpinner(true);
-      setTimeout(() => {
-        //chamar action/api
-        dispatch(updateClientData(fields));
-        dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
-        handleCancelEdit();
+      setTimeout(async () => {
+        const client = await updateClient(fields);
+        if (client) {
+          dispatch(updateClientData(fields));
+          dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
+          handleCancelEdit();
+        } else {
+          dispatch(updateModalInfo("Falha na atualização dos dados!", false));
+        }
+        setSpinner(false);
       }, 2000);
     }
   };
