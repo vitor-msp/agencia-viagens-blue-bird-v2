@@ -7,6 +7,7 @@ create table Cliente (
   cpf char(11) not null,
   dt_nasc date not null,
   email varchar(30) not null,
+  senha varchar(30) not null,
   constraint pk_cli primary key (id_cli)
 );
 create table Destino (

@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getTrips } from "../store/actions/trips.actions";
+import { updateTrips } from "../store/actions/trips.actions";
 import { updateCurrentOffer } from "../store/actions/currentReq.actions";
+import { getTrips } from "../api/api";
 
 export function Offer({ offer }) {
   const { id, discount, expiration } = offer;
@@ -18,12 +19,12 @@ export function Offer({ offer }) {
       : destination;
   const dispatch = useDispatch();
 
-  const handleSelect = () => {
+  const handleSelect = async () => {
     if (offer.destination === null) {
       dispatch(updateCurrentOffer(id));
       return;
     }
-    dispatch(getTrips(offer.destination, id));
+    dispatch(updateTrips(await getTrips(offer.destination, id)));
     dispatch(updateCurrentOffer(id));
   };
 

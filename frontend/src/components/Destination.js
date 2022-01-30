@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getTrips } from "../store/actions/trips.actions";
+import { updateTrips } from "../store/actions/trips.actions";
+import { getTrips } from "../api/api";
 
 export function Destination({ destination }) {
   const { id, city, uf, landingPlace } = destination;
   const currentOffer = useSelector((state) => state.currentReq.offer);
   const dispatch = useDispatch();
 
-  const handleSelect = () => {
-    dispatch(getTrips(id, currentOffer));
+  const handleSelect = async () => {
+    dispatch(updateTrips(await getTrips(id, currentOffer)));
   };
 
   return (

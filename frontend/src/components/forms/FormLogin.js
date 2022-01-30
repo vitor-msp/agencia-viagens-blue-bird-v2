@@ -3,10 +3,11 @@ import { Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
-import { login } from "../../store/actions/clientData.actions";
+import { updateClientData } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
 import { SpinnerBtn } from "./SpinnerBtn";
+import { login } from "../../api/api";
 
 const objDefaultFields = {
   email: null,
@@ -25,13 +26,24 @@ export function FormLogin({ closeModal }) {
     setShowValidations(true);
     if (validateForm(fields)) {
       setSpinner(true);
-      setTimeout(() => {
-        dispatch(login());
-        closeModal();
-        dispatch(updateModalInfo("Login efetuado com sucesso!!", true));
-        //chamar action/api
+      setTimeout(async () => {
+        const client = await login(fields);
+        if (client !== null) {
+          dispatch(updateClientData(client));
+          closeModal();
+          dispatch(updateModalInfo("Login efetuado com sucesso!!", true));
+        } else {
+          setSpinner(false);
+          dispatch(updateModalInfo("Falha no login!", false));
+          handleReset();
+        }
       }, 2000);
     }
+  };
+
+  const handleReset = () => {
+    setShowValidations((prev) => (prev === false ? null : false));
+    setFields(objDefaultFields);
   };
 
   return (

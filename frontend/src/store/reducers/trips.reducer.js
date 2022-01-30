@@ -1,9 +1,6 @@
 export const tripsReducer = (state = [], action) => {
   switch (action.type) {
-    case "updateAllTrips":
-      return action.payload;
-
-    case "getTrips":
+    case "updateTrips":
       return action.payload;
 
     default:

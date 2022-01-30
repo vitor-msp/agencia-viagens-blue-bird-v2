@@ -5,9 +5,10 @@ import { InputDefault } from "./InputDefault";
 import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
 import { InputSetPassword } from "./InputSetPassword";
-import { updateModalInfo } from "../../store/actions/modalInfo.actions";
-import { validateForm } from "../../helpers/validateForm";
 import { SpinnerBtn } from "./SpinnerBtn";
+import { validateForm } from "../../helpers/validateForm";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { createClient } from "../../api/api";
 
 const objDefaultFields = {
   name: null,
@@ -15,6 +16,7 @@ const objDefaultFields = {
   cpf: null,
   birthDate: null,
   email: null,
+  password: null,
 };
 
 export function FormRegister() {
@@ -29,10 +31,14 @@ export function FormRegister() {
     setShowValidations(true);
     if (validateForm(fields)) {
       setSpinner(true);
-      setTimeout(() => {
-        //chamar action/api
-        dispatch(updateModalInfo("Sua conta foi criada com sucesso!!", true));
-        document.getElementById("navLoginModal").click();
+      setTimeout(async () => {
+        if (await createClient(fields)) {
+          dispatch(updateModalInfo("Sua conta foi criada com sucesso!!", true));
+          document.getElementById("navLoginModal").click();
+        } else {
+          setSpinner(false);
+          dispatch(updateModalInfo("Erro na criação da sua conta!!", false));
+        }
       }, 2000);
     }
   };
