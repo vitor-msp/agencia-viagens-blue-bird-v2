@@ -19,7 +19,7 @@ export const getOffers = async () => {
   return res.data.map((offer) => {
     return {
       ...offer,
-      ["destination"]: offer.destination === 0 ? null : offer.destination,
+      destination: offer.destination === 0 ? null : offer.destination,
     };
   });
 };
@@ -46,5 +46,10 @@ export const login = async (client) => {
 
 export const setPassword = async (client) => {
   const res = await api.post(`/setPassword`, client);
+  return res.data;
+};
+
+export const getPurchase = async (tripToBuy) => {
+  const res = await api.post(`/purchase`, tripToBuy);
   return res.data;
 };

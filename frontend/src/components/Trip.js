@@ -13,11 +13,12 @@ export function Trip({ trip }) {
       return id === state.currentReq.offer;
     });
   });
-  const { discount, expiration } =
+  // const { discount, expiration } =
+  const { discount } =
     offer === undefined
       ? {
           discount: 0,
-          expiration: "-",
+          // expiration: "-",
         }
       : offer;
   const dispatch = useDispatch();

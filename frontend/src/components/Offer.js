@@ -9,23 +9,22 @@ export function Offer({ offer }) {
   const destination = useSelector((state) => {
     return state.destinations.find(({ id }) => id === offer.destination);
   });
-  const { city, uf, landingPlace } =
+  // const { city, uf, landingPlace } =
+  const { city, uf } =
     destination === undefined
       ? {
           city: "-",
           uf: "-",
-          landingPlace: "-",
+          // landingPlace: "-",
         }
       : destination;
   const dispatch = useDispatch();
 
   const handleSelect = async () => {
-    if (offer.destination === null) {
-      dispatch(updateCurrentOffer(id));
-      return;
-    }
-    dispatch(updateTrips(await getTrips(offer.destination, id)));
     dispatch(updateCurrentOffer(id));
+    if (offer.destination !== null) {
+      dispatch(updateTrips(await getTrips(offer.destination, id)));
+    }
   };
 
   return (

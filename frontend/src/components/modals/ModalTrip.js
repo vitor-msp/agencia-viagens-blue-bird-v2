@@ -1,35 +1,69 @@
-import { Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { Form, Modal } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  deletePurchase,
-  getPurchase,
-} from "../../store/actions/myPurchases.actions";
-import { getMyTrip } from "../../store/actions/myTrips.actions";
+// import { Link } from "react-router-dom";
+import { ModalAuth } from "./ModalAuth";
+import { SpinnerBtn } from "../forms/SpinnerBtn";
+import { deletePurchase } from "../../store/actions/myPurchases.actions";
+// import { getMyTrip } from "../../store/actions/myTrips.actions";
 import { clearModalTripContent } from "../../store/actions/modalTripContent.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { getPurchase } from "../../api/api";
 import { formatCurrency } from "../../helpers/formatCurrency";
 
 export function ModalTrip({ content }) {
   const [modalOpen, setModalOpen] = useState(true);
+  const [showAuth, setShowAuth] = useState(false);
+  const [spinner, setSpinner] = useState(false);
   const { trip, destination, offer, isGetPurchase, purchase } = content;
   const { defaultValue, departure, arrival } = trip;
   const { city, uf, landingPlace } = destination;
-  const { discount, expiration } =
+  const { id, discount, expiration } =
     offer === undefined
       ? {
+          id: null,
           discount: 0,
           expiration: "-",
         }
       : offer;
+  const clientData = useSelector((state) => state.clientData);
+  const tripToBuy = {
+    client: {
+      id: clientData.id,
+      email: clientData.email,
+      password: null,
+    },
+    trip: {
+      id: trip.id,
+    },
+    offer: {
+      id: id,
+    },
+  };
   const dispatch = useDispatch();
 
-  const handleGetPurchase = () => {
-    dispatch(getMyTrip(Object.assign({}, trip)));
-    dispatch(getPurchase(trip.id, offer === undefined ? null : offer.id));
-    handleClose();
-    dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setShowAuth(true);
+  };
+
+  const handleGetPurchase = (pass) => {
+    // dispatch(getMyTrip(Object.assign({}, trip)));
+    // dispatch(getPurchase(trip.id, offer === undefined ? null : offer.id));
+    setSpinner(true);
+    setTimeout(async () => {
+      tripToBuy.client.password = pass;
+      const ret = await getPurchase(tripToBuy);
+      if (ret) {
+        handleClose();
+        dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
+        //redirecionar minhas page viagens
+      } else {
+        dispatch(updateModalInfo("Falha na aquisição da viagem!", false));
+        setSpinner(false);
+      }
+    }, 2000);
   };
 
   const handleDeletePurchase = () => {
@@ -44,95 +78,115 @@ export function ModalTrip({ content }) {
   };
 
   return (
-    <Modal show={modalOpen} onHide={handleClose} animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          <span className="text-primary">
-            {isGetPurchase ? "Adquirir Viagem" : "Detalhes da Viagem"}
-          </span>
-        </Modal.Title>
-      </Modal.Header>
+    <>
+      <Modal show={modalOpen} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <span className="text-primary">
+              {isGetPurchase ? "Adquirir Viagem" : "Detalhes da Viagem"}
+            </span>
+          </Modal.Title>
+        </Modal.Header>
 
-      <Modal.Body>
-        <div>
-          <p>
-            <span style={{ fontWeight: "600" }}>Destino: </span>
-            {city} - {uf}
-          </p>
-          <p>
-            <span style={{ fontWeight: "600" }}>Desembarque: </span>
-            {landingPlace}
-          </p>
-          <p>
-            <span style={{ fontWeight: "600" }}>Partida: </span>
-            {departure}
-          </p>
-          <p>
-            <span style={{ fontWeight: "600" }}>Chegada: </span>
-            {arrival}
-          </p>
-        </div>
+        <Modal.Body>
+          <div>
+            <p>
+              <span style={{ fontWeight: "600" }}>Destino: </span>
+              {city} - {uf}
+            </p>
+            <p>
+              <span style={{ fontWeight: "600" }}>Desembarque: </span>
+              {landingPlace}
+            </p>
+            <p>
+              <span style={{ fontWeight: "600" }}>Partida: </span>
+              {departure}
+            </p>
+            <p>
+              <span style={{ fontWeight: "600" }}>Chegada: </span>
+              {arrival}
+            </p>
+          </div>
 
-        <hr />
+          <hr />
 
-        <div className="text-end">
-          {discount !== 0 && (
+          <div className="text-end">
+            {discount !== 0 && (
+              <>
+                <p>
+                  <span style={{ fontWeight: "600" }}>Valor padrão: </span>
+                  {formatCurrency(defaultValue)}
+                </p>
+                <p>
+                  <span style={{ fontWeight: "600" }}>Desconto: </span>
+                  {discount * 100}%
+                </p>
+              </>
+            )}
+            <p style={{ fontWeight: "600" }}>
+              Valor final: {""}
+              <span style={{ fontSize: "1.5em" }}>
+                {formatCurrency(defaultValue * (1 - discount))}
+              </span>
+            </p>
+            {discount !== 0 && (
+              <p>
+                <span style={{ fontWeight: "600" }}>Promoção expira em: </span>
+                {expiration}
+              </p>
+            )}
+          </div>
+        </Modal.Body>
+
+        <Modal.Footer>
+          {isGetPurchase ? (
+            // <Link
+            //   // to={"/Minhas_Viagens"}
+            //   onClick={handleSubmit}
+            //   className="btn btn-primary"
+            // >
+            //   Adquirir
+            // </Link>
+            <Form noValidate onSubmit={handleSubmit}>
+              <SpinnerBtn
+                value="Adquirir"
+                loading={spinner}
+                className="btn btn-primary"
+                style={{ marginLeft: "5px" }}
+              />
+            </Form>
+          ) : (
             <>
-              <p>
-                <span style={{ fontWeight: "600" }}>Valor padrão: </span>
-                {formatCurrency(defaultValue)}
-              </p>
-              <p>
-                <span style={{ fontWeight: "600" }}>Desconto: </span>
-                {discount * 100}%
-              </p>
+              <button
+                type="button"
+                onClick={handleDeletePurchase}
+                className="btn btn-danger"
+                style={{ marginRight: "auto" }}
+              >
+                Cancelar Viagem
+              </button>
+
+              <button
+                type="button"
+                onClick={handleClose}
+                className="btn btn-primary"
+              >
+                Fechar
+              </button>
             </>
           )}
-          <p style={{ fontWeight: "600" }}>
-            Valor final: {""}
-            <span style={{ fontSize: "1.5em" }}>
-              {formatCurrency(defaultValue * (1 - discount))}
-            </span>
-          </p>
-          {discount !== 0 && (
-            <p>
-              <span style={{ fontWeight: "600" }}>Promoção expira em: </span>
-              {expiration}
-            </p>
-          )}
-        </div>
-      </Modal.Body>
-
-      <Modal.Footer>
-        {isGetPurchase ? (
-          <Link
-            to={"/Minhas_Viagens"}
-            onClick={handleGetPurchase}
-            className="btn btn-primary"
-          >
-            Adquirir
-          </Link>
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={handleDeletePurchase}
-              className="btn btn-danger"
-              style={{ marginRight: "auto" }}
-            >
-              Cancelar Viagem
-            </button>
-
-            <button
-              type="button"
-              onClick={handleClose}
-              className="btn btn-primary"
-            >
-              Fechar
-            </button>
-          </>
-        )}
-      </Modal.Footer>
-    </Modal>
+        </Modal.Footer>
+      </Modal>
+      {showAuth && (
+        <ModalAuth
+          showModal={(show) => {
+            setShowAuth(show);
+          }}
+          passModal={(value) => {
+            handleGetPurchase(value);
+          }}
+        />
+      )}
+    </>
   );
 }
