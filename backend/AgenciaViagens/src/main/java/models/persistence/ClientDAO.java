@@ -46,12 +46,11 @@ public class ClientDAO {
 		return ret;
 	}
 	
-	public static Client getClient(String email, String password) {
+	public static Client getClient(int id) {
 		
 		String sql = "SELECT C.id_cli, C.nome, C.rg, C.cpf, C.dt_nasc, C.email"
 				+ " FROM Cliente C"
-				+ " WHERE C.email = ?"
-				+ " AND C.senha = ?;";
+				+ " WHERE C.id_cli = ?";
 		
 		PreparedStatement pstm = null;
 		Connection con = null;
@@ -62,8 +61,7 @@ public class ClientDAO {
 			con = ConnectionFactory.getConnection();
 			if(con != null && !con.isClosed()) {				
 				pstm = con.prepareStatement(sql);
-				pstm.setString(1,email);
-				pstm.setString(2,password);
+				pstm.setInt(1, id);
 				rset = pstm.executeQuery();
 				
 				if(rset.next()) {

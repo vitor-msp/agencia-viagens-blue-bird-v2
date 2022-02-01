@@ -18,7 +18,7 @@ export function ModalInfo({ content }) {
       <Modal.Header closeButton>
         <Modal.Title>
           <span className={primary ? "text-primary" : "text-secondary"}>
-            Sucesso
+            {primary ? "Sucesso" : "Erro"}
           </span>
         </Modal.Title>
       </Modal.Header>

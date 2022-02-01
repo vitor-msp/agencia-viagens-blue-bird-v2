@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import models.Client;
+import models.persistence.AuthenticationDAO;
 import models.persistence.ClientDAO;
 
 @WebServlet("/client")
@@ -25,6 +26,7 @@ public class ClientController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean ret = false;
 		Client client = new Gson().fromJson(request.getReader(), Client.class);
+		// validação se email já existe no db
 		ret = ClientDAO.createClient(client);
 		
 		String clientJson = new Gson().toJson(ret);
@@ -38,8 +40,12 @@ public class ClientController extends HttpServlet {
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean ret = false;
-		Client client = new Gson().fromJson(request.getReader(), Client.class);
-		ret = ClientDAO.updateClient(client);
+		Client clientToPut = new Gson().fromJson(request.getReader(), Client.class);
+		Client client = AuthenticationDAO.authentication(clientToPut.getEmail(), clientToPut.getPassword());
+
+		if(client != null && client.getId() == clientToPut.getId()) {
+			ret = ClientDAO.updateClient(clientToPut);
+		}
 		
 		String clientJson = new Gson().toJson(ret);
 		

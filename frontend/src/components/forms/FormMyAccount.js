@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import { InputCpf } from "./InputCpf";
 import { InputEmail } from "./InputEmail";
 import { SpinnerBtn } from "./SpinnerBtn";
 import { ModalSetPassword } from "../modals/ModalSetPassword";
+import { ModalAuth } from "../modals/ModalAuth";
 import { updateClientData } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
@@ -19,6 +20,8 @@ export function FormMyAccount() {
   const [isEdit, setIsEdit] = useState(false);
   const [showModalSetPassword, setShowModalSetPassword] = useState(false);
   const [spinner, setSpinner] = useState(false);
+  const [disableFields, setDisableFields] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
   const dispatch = useDispatch();
 
   const handleCancelEdit = () => {
@@ -36,24 +39,37 @@ export function FormMyAccount() {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm(fields)) {
-      setSpinner(true);
-      setTimeout(async () => {
-        const client = await updateClient(fields);
-        if (client) {
-          dispatch(updateClientData(fields));
-          dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
-          handleCancelEdit();
-        } else {
-          dispatch(updateModalInfo("Falha na atualização dos dados!", false));
-        }
-        setSpinner(false);
-      }, 2000);
+      setShowAuth(true);
     }
   };
+
+  const handleUpdateClient = (pass) => {
+    setDisableFields(true);
+    setSpinner(true);
+    setTimeout(async () => {
+      const clientToUpdate = Object.assign({}, fields);
+      clientToUpdate.password = pass;
+      const client = await updateClient(clientToUpdate);
+      if (client) {
+        dispatch(updateClientData(fields));
+        dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
+        handleCancelEdit();
+      } else {
+        dispatch(updateModalInfo("Falha na atualização dos dados!", false));
+        setDisableFields(false);
+      }
+      setSpinner(false);
+    }, 2000);
+  };
+
+  useEffect(() => {
+    isEdit ? setDisableFields(false) : setDisableFields(true);
+  }, [isEdit]);
 
   return (
     <>
       <Form
+        id="formMyAccount"
         noValidate
         onSubmit={handleSubmit}
         className="col-10 offset-1 col-md-6 offset-md-3"
@@ -69,10 +85,10 @@ export function FormMyAccount() {
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
-                ["name"]: value,
+                name: value,
               });
             }}
-            disabled={!isEdit}
+            disabled={disableFields}
           />
           <InputDefault
             name={"RG"}
@@ -84,10 +100,10 @@ export function FormMyAccount() {
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
-                ["rg"]: value,
+                rg: value,
               });
             }}
-            disabled={!isEdit}
+            disabled={disableFields}
           />
           <InputCpf
             showValidations={showValidations}
@@ -95,10 +111,10 @@ export function FormMyAccount() {
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
-                ["cpf"]: value,
+                cpf: value,
               });
             }}
-            disabled={!isEdit}
+            disabled={disableFields}
           />
           <InputDefault
             name={"Data de Nascimento"}
@@ -110,10 +126,10 @@ export function FormMyAccount() {
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
-                ["birthDate"]: value,
+                birthDate: value,
               });
             }}
-            disabled={!isEdit}
+            disabled={disableFields}
           />
           <InputEmail
             showValidations={showValidations}
@@ -121,7 +137,7 @@ export function FormMyAccount() {
             handleFieldChange={(value) => {
               setFields({
                 ...fields,
-                ["email"]: value,
+                email: value,
               });
             }}
             disabled={true}
@@ -179,6 +195,16 @@ export function FormMyAccount() {
         <ModalSetPassword
           showModal={(show) => {
             setShowModalSetPassword(show);
+          }}
+        />
+      )}
+      {showAuth && (
+        <ModalAuth
+          showModal={(show) => {
+            setShowAuth(show);
+          }}
+          passModal={(value) => {
+            handleUpdateClient(value);
           }}
         />
       )}

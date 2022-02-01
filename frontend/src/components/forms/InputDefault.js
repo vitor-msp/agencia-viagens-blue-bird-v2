@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
 export function InputDefault({
+  id = null,
   name,
   type,
   maxLength,
@@ -19,7 +20,7 @@ export function InputDefault({
 
   useEffect(() => {
     setShowValidation(showValidations);
-    if(!showValidations){
+    if (!showValidations) {
       setCurrentValue(!defaultValue ? "" : defaultValue);
     }
   }, [showValidations]);
@@ -50,6 +51,7 @@ export function InputDefault({
     <Form.Group className={`mb-2 ${defaultClass}`}>
       <Form.Label>{name}:</Form.Label>
       <Form.Control
+        id={id}
         required
         disabled={disabled}
         type={type}

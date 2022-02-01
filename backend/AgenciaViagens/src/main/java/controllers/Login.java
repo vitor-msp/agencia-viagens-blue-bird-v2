@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import models.Client;
+import models.persistence.AuthenticationDAO;
 import models.persistence.ClientDAO;
 
 @WebServlet("/login")
@@ -24,7 +25,11 @@ public class Login extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Client client = new Gson().fromJson(request.getReader(), Client.class);
-		client = ClientDAO.getClient(client.getEmail(), client.getPassword());
+		client = AuthenticationDAO.authentication(client.getEmail(), client.getPassword());
+
+		if(client != null) {			
+			client = ClientDAO.getClient(client.getId());
+		}
 		
 		String clientJson = new Gson().toJson(client);
 		
