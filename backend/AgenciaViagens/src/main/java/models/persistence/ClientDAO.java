@@ -130,4 +130,37 @@ public class ClientDAO {
 		}
 		return ret;
 	}
+	
+	public static boolean setPassword(Client client) {
+		
+		boolean ret = false;
+		String sql = "UPDATE Cliente SET Cliente.senha = ? WHERE Cliente.id_cli = ?;";
+		PreparedStatement pstm = null;
+		Connection con = null;
+		
+		try {
+			con = ConnectionFactory.getConnection();
+			if(con != null && !con.isClosed()) {				
+				pstm = con.prepareStatement(sql);
+				pstm.setString(1, client.getNewPassword());
+				pstm.setInt(2, client.getId());
+				pstm.executeUpdate();
+				ret = true;
+			}
+		}catch(Exception error) {
+			System.out.println("Erro na execução do setPassword! - " + error);
+		}finally{
+			try {
+				if(pstm != null) {
+					pstm.close();
+				}
+				if(con != null) {
+					con.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
+	}
 }

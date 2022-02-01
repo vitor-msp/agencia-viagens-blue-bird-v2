@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputSetPassword } from "./InputSetPassword";
+import { SpinnerBtn } from "./SpinnerBtn";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
-import { SpinnerBtn } from "./SpinnerBtn";
-
-const objDefaultFields = {
-  password: null,
-  newPassword: null,
-};
+import { setPassword } from "../../api/api";
 
 export function FormSetPassword({ modalClose }) {
+  const objDefaultFields = {
+    id: useSelector((state) => state.clientData.id),
+    email: useSelector((state) => state.clientData.email),
+    password: null,
+    newPassword: null,
+  };
+
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
   const [spinner, setSpinner] = useState(false);
@@ -24,10 +27,15 @@ export function FormSetPassword({ modalClose }) {
     setShowValidations(true);
     if (validateForm(fields)) {
       setSpinner(true);
-      setTimeout(() => {
-        //chamar action/api
+      setTimeout(async () => {
+        const clientToUpdate = Object.assign({}, fields);
+        const ret = await setPassword(clientToUpdate);
+        if (ret) {
+          dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
+        } else {
+          dispatch(updateModalInfo("Falha na alteração da senha!", false));
+        }
         modalClose();
-        dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
       }, 2000);
     }
   };
@@ -45,7 +53,7 @@ export function FormSetPassword({ modalClose }) {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["password"]: value,
+              password: value,
             });
           }}
         />
@@ -55,7 +63,7 @@ export function FormSetPassword({ modalClose }) {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["newPassword"]: value,
+              newPassword: value,
             });
           }}
         />

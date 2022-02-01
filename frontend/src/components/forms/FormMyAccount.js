@@ -49,8 +49,8 @@ export function FormMyAccount() {
     setTimeout(async () => {
       const clientToUpdate = Object.assign({}, fields);
       clientToUpdate.password = pass;
-      const client = await updateClient(clientToUpdate);
-      if (client) {
+      const ret = await updateClient(clientToUpdate);
+      if (ret) {
         dispatch(updateClientData(fields));
         dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
         handleCancelEdit();

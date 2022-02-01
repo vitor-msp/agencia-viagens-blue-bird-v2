@@ -15,23 +15,24 @@ import models.Client;
 import models.persistence.AuthenticationDAO;
 import models.persistence.ClientDAO;
 
-@WebServlet("/login")
-public class Login extends HttpServlet {
+@WebServlet("/setPassword")
+public class SetPasswordController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Login() {
+    public SetPasswordController() {
         super();
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Client client = new Gson().fromJson(request.getReader(), Client.class);
-		client = AuthenticationDAO.authentication(client.getEmail(), client.getPassword());
+		boolean ret = false;
+		Client clientToPut = new Gson().fromJson(request.getReader(), Client.class);
+		Client client = AuthenticationDAO.authentication(clientToPut.getEmail(), clientToPut.getPassword());
 
-		if(client != null) {			
-			client = ClientDAO.getClient(client.getId());
+		if(client != null && client.getId() == clientToPut.getId()) {			
+			ret = ClientDAO.setPassword(clientToPut);
 		}
 		
-		String clientJson = new Gson().toJson(client);
+		String clientJson = new Gson().toJson(ret);
 		
 		PrintWriter printWriter = response.getWriter();
 		response.setContentType("application/json");

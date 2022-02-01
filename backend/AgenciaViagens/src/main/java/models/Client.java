@@ -8,6 +8,7 @@ public class Client {
 	private String birthDate;
 	private String email;
 	private String password;
+	private String newPassword;
 	public int getId() {
 		return id;
 	}
@@ -49,5 +50,11 @@ public class Client {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 }

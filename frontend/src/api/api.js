@@ -43,3 +43,8 @@ export const login = async (client) => {
   const res = await api.post(`/login`, client);
   return res.data;
 };
+
+export const setPassword = async (client) => {
+  const res = await api.post(`/setPassword`, client);
+  return res.data;
+};
