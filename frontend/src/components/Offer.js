@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { updateTrips } from "../store/actions/trips.actions";
 import { updateCurrentOffer } from "../store/actions/currentReq.actions";
+import { updateModalInfo } from "../store/actions/modalInfo.actions";
 import { getTrips } from "../api/api";
 import { formatDateTime } from "../helpers/formatDateTime";
 
@@ -24,7 +25,14 @@ export function Offer({ offer }) {
   const handleSelect = async () => {
     dispatch(updateCurrentOffer(offer.id));
     if (offer.destination.id !== null) {
-      dispatch(updateTrips(await getTrips(offer.destination.id, offer.id)));
+      try {
+        dispatch(updateTrips(await getTrips(offer.destination.id, offer.id)));
+      } catch {
+        dispatch(
+          updateModalInfo("Falha na comunicação com o servidor!", false)
+        );
+        dispatch(updateTrips([]));
+      }
     }
   };
 

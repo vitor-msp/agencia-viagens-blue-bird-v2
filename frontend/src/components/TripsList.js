@@ -11,7 +11,7 @@ export function TripsList() {
     <div className="col-12 d-flex flex-row flex-wrap justify-content-around align-content-center">
       {trips.length === 0 ? (
         <p className="lead">
-          <strong>Nenhuma viagem encontrada para o destino selecionado.</strong>
+          <strong>Nenhuma viagem encontrada.</strong>
         </p>
       ) : !showMap ? (
         <SpinnerMap

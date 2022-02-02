@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { updateTrips } from "../store/actions/trips.actions";
+import { updateModalInfo } from "../store/actions/modalInfo.actions";
 import { getTrips } from "../api/api";
 
 export function Destination({ destination }) {
@@ -9,14 +10,16 @@ export function Destination({ destination }) {
   const dispatch = useDispatch();
 
   const handleSelect = async () => {
-    dispatch(updateTrips(await getTrips(destination.id, currentOffer)));
+    try {
+      dispatch(updateTrips(await getTrips(destination.id, currentOffer)));
+    } catch {
+      dispatch(updateModalInfo("Falha na comunicação com o servidor!", false));
+      dispatch(updateTrips([]));
+    }
   };
 
   return (
-    <div
-      className="card border-primary mb-3"
-      style={{ width: "100%" }}
-    >
+    <div className="card border-primary mb-3" style={{ width: "100%" }}>
       <div className="card-header bg-primary text-light">
         <span>Destino</span>
       </div>
@@ -42,7 +45,10 @@ export function Destination({ destination }) {
             className="align-self-start bg-light rounded p-2"
             style={{ width: "auto" }}
           >
-            <h5 className="display-6 m-0" style={{fontSize:"1.8em", fontWeight:"bold"}}>
+            <h5
+              className="display-6 m-0"
+              style={{ fontSize: "1.8em", fontWeight: "bold" }}
+            >
               {city} - {uf}
             </h5>
           </div>
