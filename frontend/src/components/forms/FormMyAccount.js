@@ -49,13 +49,20 @@ export function FormMyAccount() {
     setTimeout(async () => {
       const clientToUpdate = Object.assign({}, fields);
       clientToUpdate.password = pass;
-      if (await updateClient(clientToUpdate)) {
-        dispatch(updateClientData(fields));
-        dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
-        handleCancelEdit();
-      } else {
-        dispatch(updateModalInfo("Falha na atualização dos dados!", false));
+      try {
+        if (await updateClient(clientToUpdate)) {
+          dispatch(updateClientData(fields));
+          dispatch(updateModalInfo("Dados atualizados com sucesso!!", true));
+          handleCancelEdit();
+        } else {
+          dispatch(updateModalInfo("Senha incorreta!", false));
+          setDisableFields(false);
+        }
+      } catch {
         setDisableFields(false);
+        dispatch(
+          updateModalInfo("Falha na comunicação com o servidor!", false)
+        );
       }
       setSpinner(false);
     }, 2000);

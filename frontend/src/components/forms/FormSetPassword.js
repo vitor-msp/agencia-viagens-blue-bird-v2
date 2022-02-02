@@ -29,10 +29,16 @@ export function FormSetPassword({ modalClose }) {
       setSpinner(true);
       setTimeout(async () => {
         const clientToUpdate = Object.assign({}, fields);
-        if (await setPassword(clientToUpdate)) {
-          dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
-        } else {
-          dispatch(updateModalInfo("Falha na alteração da senha!", false));
+        try {
+          if (await setPassword(clientToUpdate)) {
+            dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
+          } else {
+            dispatch(updateModalInfo("Senha incorreta!", false));
+          }
+        } catch {
+          dispatch(
+            updateModalInfo("Falha na comunicação com o servidor!", false)
+          );
         }
         modalClose();
       }, 2000);

@@ -32,12 +32,23 @@ export function FormRegister() {
     if (validateForm(fields)) {
       setSpinner(true);
       setTimeout(async () => {
-        if (await createClient(fields)) {
-          dispatch(updateModalInfo("Sua conta foi criada com sucesso!!", true));
-          document.getElementById("navLoginModal").click();
-        } else {
+        try {
+          if (await createClient(fields)) {
+            dispatch(
+              updateModalInfo("Sua conta foi criada com sucesso!!", true)
+            );
+            document.getElementById("navLoginModal").click();
+          } else {
+            setSpinner(false);
+            dispatch(
+              updateModalInfo("O e-mail selecionado já está em uso!", false)
+            );
+          }
+        } catch {
           setSpinner(false);
-          dispatch(updateModalInfo("Erro na criação da sua conta!!", false));
+          dispatch(
+            updateModalInfo("Falha na comunicação com o servidor!", false)
+          );
         }
       }, 2000);
     }

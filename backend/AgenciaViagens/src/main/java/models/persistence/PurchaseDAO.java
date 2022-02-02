@@ -15,7 +15,7 @@ import models.Trip;
 
 public class PurchaseDAO {
 	
-	public static boolean createPurchase(Pack pack) {
+	public static boolean createPurchase(Pack pack) throws Exception{
 		
 		boolean ret = false;
 		String sql = "INSERT INTO Adquire (cliente, viagem, promocao)"
@@ -40,6 +40,7 @@ public class PurchaseDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do createPurchase! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(pstm != null) {
@@ -55,7 +56,7 @@ public class PurchaseDAO {
 		return ret;
 	}
 	
-	public static List<Purchase> getPurchases(Client client) {
+	public static List<Purchase> getPurchases(Client client) throws Exception{
 		
 		String sql = "SELECT A.id_adq, A.promocao, V.id_viag, V.destino, "
 				+ "V.partida, V.chegada, V.vlr_padrao "
@@ -100,6 +101,7 @@ public class PurchaseDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do getPurchases! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(rset != null) {
@@ -118,7 +120,7 @@ public class PurchaseDAO {
 		return purchases;
 	}
 
-	public static boolean deletePurchase(Purchase purchase) {
+	public static boolean deletePurchase(Purchase purchase) throws Exception{
 		
 		boolean ret = false;
 		String sql = "DELETE FROM Adquire WHERE Adquire.id_adq = ?;";
@@ -135,6 +137,7 @@ public class PurchaseDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do deletePurchase! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(pstm != null) {

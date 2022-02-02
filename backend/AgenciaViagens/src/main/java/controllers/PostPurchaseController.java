@@ -25,21 +25,27 @@ public class PostPurchaseController extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean ret = false;
-		Pack pack = new Gson().fromJson(request.getReader(), Pack.class);
-		Client clientToAuth = pack.getClient();
-		Client client = AuthenticationDAO.authentication(clientToAuth);
+		try {
+			boolean ret = false;
+			Pack pack = new Gson().fromJson(request.getReader(), Pack.class);
+			Client clientToAuth = pack.getClient();
+			Client client = AuthenticationDAO.authentication(clientToAuth);
 
-		if(client != null && client.getId() == clientToAuth.getId()) {
-			ret = PurchaseDAO.createPurchase(pack);
+			if(client != null && client.getId() == clientToAuth.getId()) {
+				ret = PurchaseDAO.createPurchase(pack);
+			}
+
+			String purchaseJson = new Gson().toJson(ret);
+
+			PrintWriter printWriter = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			printWriter.write(purchaseJson);
+			printWriter.close();
+			
+		}catch(Exception error) {
+			System.out.println(error);
+			response.sendError(500);
 		}
-		
-		String purchaseJson = new Gson().toJson(ret);
-		
-		PrintWriter printWriter = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		printWriter.write(purchaseJson);
-		printWriter.close();
 	}
 }

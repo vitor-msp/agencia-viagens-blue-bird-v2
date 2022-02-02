@@ -10,7 +10,7 @@ import models.Destination;
 
 public class DestinationDAO {
 	
-	public static List<Destination> getDestinations() {
+	public static List<Destination> getDestinations() throws Exception{
 		
 		String sql = "SELECT * FROM Destino;";
 		PreparedStatement pstm = null;
@@ -35,6 +35,7 @@ public class DestinationDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do getDestinations! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(rset != null) {

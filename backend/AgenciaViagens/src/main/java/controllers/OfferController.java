@@ -24,15 +24,21 @@ public class OfferController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Offer> offers = OfferDAO.getOffers();
-		
-		String offersJson = new Gson().toJson(offers);
-		
-		PrintWriter printWriter = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		printWriter.write(offersJson);
-		printWriter.close();
+		try {
+			List<Offer> offers = OfferDAO.getOffers();
+			
+			String offersJson = new Gson().toJson(offers);
+			
+			PrintWriter printWriter = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			printWriter.write(offersJson);
+			printWriter.close();
+			
+		}catch(Exception error) {
+			System.out.println(error);
+			response.sendError(500);
+		}
 	}
 
 }

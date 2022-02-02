@@ -8,7 +8,7 @@ import models.Client;
 
 public class AuthenticationDAO {
 	
-	public static Client authentication(Client clientToAuth) {
+	public static Client authentication(Client clientToAuth) throws Exception {
 		
 		String sql = "SELECT C.id_cli FROM Cliente C"
 				+ " WHERE C.email = ? AND C.senha = ?;";
@@ -32,6 +32,7 @@ public class AuthenticationDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do authentication! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(rset != null) {

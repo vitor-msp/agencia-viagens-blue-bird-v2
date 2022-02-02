@@ -12,7 +12,7 @@ import models.Trip;
 
 public class TripDAO {
 	
-	public static List<Trip> getTrips(Destination destinationToFind, Offer offer) {
+	public static List<Trip> getTrips(Destination destinationToFind, Offer offer) throws Exception{
 		
 		String sql = null;
 		if(offer.getId() == null) {
@@ -53,6 +53,7 @@ public class TripDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do getTrips! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(rset != null) {

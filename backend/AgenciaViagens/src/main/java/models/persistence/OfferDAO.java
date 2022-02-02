@@ -11,7 +11,7 @@ import models.Offer;
 
 public class OfferDAO {
 	
-	public static List<Offer> getOffers() {
+	public static List<Offer> getOffers() throws Exception{
 		
 		String sql = "SELECT * FROM Promocao;";
 		PreparedStatement pstm = null;
@@ -38,6 +38,7 @@ public class OfferDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do getOffers! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(rset != null) {

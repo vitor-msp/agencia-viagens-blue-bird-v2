@@ -8,7 +8,7 @@ import models.Client;
 
 public class ClientDAO {
 	
-	public static boolean createClient(Client client) {
+	public static boolean createClient(Client client) throws Exception{
 		
 		boolean ret = false;
 		String sql = "INSERT INTO Cliente (nome, rg, cpf, dt_nasc, email, senha)"
@@ -31,6 +31,7 @@ public class ClientDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do createClient! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(pstm != null) {
@@ -46,7 +47,7 @@ public class ClientDAO {
 		return ret;
 	}
 	
-	public static Client getClient(Client clientToGet) {
+	public static Client getClient(Client clientToGet) throws Exception{
 		
 		String sql = "SELECT C.id_cli, C.nome, C.rg, C.cpf, C.dt_nasc, C.email"
 				+ " FROM Cliente C"
@@ -76,6 +77,7 @@ public class ClientDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do getClient! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(rset != null) {
@@ -94,7 +96,7 @@ public class ClientDAO {
 		return client;
 	}
 	
-	public static boolean updateClient(Client client) {
+	public static boolean updateClient(Client client) throws Exception{
 		
 		boolean ret = false;
 		String sql = "UPDATE Cliente SET nome = ?, rg = ?, cpf = ?, dt_nasc = ?"
@@ -116,6 +118,7 @@ public class ClientDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do updateClient! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(pstm != null) {
@@ -131,7 +134,7 @@ public class ClientDAO {
 		return ret;
 	}
 	
-	public static boolean setPassword(Client client) {
+	public static boolean setPassword(Client client) throws Exception{
 		
 		boolean ret = false;
 		String sql = "UPDATE Cliente SET Cliente.senha = ? WHERE Cliente.id_cli = ?;";
@@ -149,6 +152,7 @@ public class ClientDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do setPassword! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(pstm != null) {
@@ -164,7 +168,7 @@ public class ClientDAO {
 		return ret;
 	}
 	
-	public static boolean checkEmail(Client client) {
+	public static boolean checkEmail(Client client) throws Exception{
 		
 		boolean ret = false;
 		String sql = "SELECT C.id_cli FROM Cliente C WHERE "
@@ -187,6 +191,7 @@ public class ClientDAO {
 			}
 		}catch(Exception error) {
 			System.out.println("Erro na execução do checkEmail! - " + error);
+			throw error;
 		}finally{
 			try {
 				if(rset != null) {

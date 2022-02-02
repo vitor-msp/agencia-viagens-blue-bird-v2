@@ -24,20 +24,26 @@ public class LoginController extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Client client = new Gson().fromJson(request.getReader(), Client.class);
-		client = AuthenticationDAO.authentication(client);
+		try {
+			Client client = new Gson().fromJson(request.getReader(), Client.class);
+		
+			client = AuthenticationDAO.authentication(client);
+			
+			if(client != null) {			
+				client = ClientDAO.getClient(client);
+			}
 
-		if(client != null) {			
-			client = ClientDAO.getClient(client);
+			String clientJson = new Gson().toJson(client);
+			
+			PrintWriter printWriter = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			printWriter.write(clientJson);
+			printWriter.close();
+			
+		}catch(Exception error) {
+			System.out.println(error);
+			response.sendError(500);
 		}
-		
-		String clientJson = new Gson().toJson(client);
-		
-		PrintWriter printWriter = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		printWriter.write(clientJson);
-		printWriter.close();
 	}
-
 }

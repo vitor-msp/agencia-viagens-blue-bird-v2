@@ -28,19 +28,27 @@ export function FormLogin({ closeModal }) {
     if (validateForm(fields)) {
       setSpinner(true);
       setTimeout(async () => {
-        const client = await login(fields);
-        if (client !== null) {
-          dispatch(updateClientData(client));
-          closeModal();
-          dispatch(updateModalInfo("Login efetuado com sucesso!!", true));
-          const purchases = await getPurchases({
-            ...fields,
-            id: client.id,
-          });
-          dispatch(updateAllMyPurchases(purchases));
-        } else {
+        try {
+          const client = await login(fields);
+          if (client !== null) {
+            dispatch(updateClientData(client));
+            closeModal();
+            dispatch(updateModalInfo("Login efetuado com sucesso!!", true));
+            const purchases = await getPurchases({
+              ...fields,
+              id: client.id,
+            });
+            dispatch(updateAllMyPurchases(purchases));
+          } else {
+            setSpinner(false);
+            dispatch(updateModalInfo("Usuário e/ou senha incorretos!", false));
+            handleReset();
+          }
+        } catch {
           setSpinner(false);
-          dispatch(updateModalInfo("Falha no login!", false));
+          dispatch(
+            updateModalInfo("Falha na comunicação com o servidor!", false)
+          );
           handleReset();
         }
       }, 2000);

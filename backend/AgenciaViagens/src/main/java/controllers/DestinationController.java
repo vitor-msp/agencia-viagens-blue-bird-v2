@@ -24,15 +24,21 @@ public class DestinationController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Destination> destinations = DestinationDAO.getDestinations();
-		
-		String destinationsJson = new Gson().toJson(destinations);
-		
-		PrintWriter printWriter = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		printWriter.write(destinationsJson);
-		printWriter.close();
+		try {
+			List<Destination> destinations = DestinationDAO.getDestinations();
+			
+			String destinationsJson = new Gson().toJson(destinations);
+			
+			PrintWriter printWriter = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			printWriter.write(destinationsJson);
+			printWriter.close();
+			
+		}catch(Exception error) {
+			System.out.println(error);
+			response.sendError(500);
+		}
 	}
 
 }

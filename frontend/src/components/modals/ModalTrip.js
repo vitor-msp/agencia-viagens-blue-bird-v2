@@ -55,17 +55,24 @@ export function ModalTrip({ content }) {
     setSpinner(true);
     setTimeout(async () => {
       purchaseToPost.client.password = pass;
-      if (await postPurchase(purchaseToPost)) {
-        handleClose();
-        dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
-        const purchases = await getPurchases({
-          ...purchaseToPost.client,
-        });
-        dispatch(updateAllMyPurchases(purchases));
-        //redirecionar minhas page viagens
-      } else {
-        dispatch(updateModalInfo("Falha na aquisição da viagem!", false));
+      try {
+        if (await postPurchase(purchaseToPost)) {
+          handleClose();
+          dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
+          const purchases = await getPurchases({
+            ...purchaseToPost.client,
+          });
+          dispatch(updateAllMyPurchases(purchases));
+          //redirecionar minhas page viagens
+        } else {
+          dispatch(updateModalInfo("Senha incorreta!", false));
+          setSpinner(false);
+        }
+      } catch {
         setSpinner(false);
+        dispatch(
+          updateModalInfo("Falha na comunicação com o servidor!", false)
+        );
       }
     }, 2000);
   };
@@ -82,13 +89,20 @@ export function ModalTrip({ content }) {
           password: pass,
         },
       };
-      if (await deletePurchase(purchaseToDelete)) {
-        dispatch(removePurchase(purchase));
-        handleClose();
-        dispatch(updateModalInfo("Viagem cancelada com sucesso!!", true));
-      } else {
-        dispatch(updateModalInfo("Falha no cancelamento da viagem!", false));
+      try {
+        if (await deletePurchase(purchaseToDelete)) {
+          dispatch(removePurchase(purchase));
+          handleClose();
+          dispatch(updateModalInfo("Viagem cancelada com sucesso!!", true));
+        } else {
+          dispatch(updateModalInfo("Senha incorreta!", false));
+          setSpinner(false);
+        }
+      } catch {
         setSpinner(false);
+        dispatch(
+          updateModalInfo("Falha na comunicação com o servidor!", false)
+        );
       }
     }, 2000);
   };

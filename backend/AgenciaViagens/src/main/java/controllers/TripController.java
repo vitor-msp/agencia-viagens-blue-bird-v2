@@ -26,23 +26,29 @@ public class TripController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Destination destination = new Destination();
-		destination.setId(Integer.parseInt(request.getParameter("d")));;
-		Offer offer = new Offer();
 		try {
-			offer.setId(Integer.parseInt(request.getParameter("o")));
-		}catch(NumberFormatException error) {
-			offer.setId(null);
-		}
-		List<Trip> trips = TripDAO.getTrips(destination, offer);
-		
-		String tripsJson = new Gson().toJson(trips);
-		
-		PrintWriter printWriter = response.getWriter();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		printWriter.write(tripsJson);
-		printWriter.close();
+			Destination destination = new Destination();
+			destination.setId(Integer.parseInt(request.getParameter("d")));;
+			Offer offer = new Offer();
+			try {
+				offer.setId(Integer.parseInt(request.getParameter("o")));
+			}catch(NumberFormatException error) {
+				offer.setId(null);
+			}
+			List<Trip> trips = TripDAO.getTrips(destination, offer);
+			
+			String tripsJson = new Gson().toJson(trips);
+			
+			PrintWriter printWriter = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			printWriter.write(tripsJson);
+			printWriter.close();
+
+		}catch(Exception error) {
+			System.out.println(error);
+			response.sendError(500);
+		}		
 	}
 
 }

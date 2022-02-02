@@ -18,7 +18,8 @@ public class ConnectionFactory {
 				System.out.println("Banco de dados conectado! - " + con);
 			}
 		}catch(Exception error) {
-			System.out.println("Erro na conexão com o banco de dados! - " + error);			
+			System.out.println("Erro na conexão com o banco de dados! - " + error);
+			throw error;
 		}
 	}
 	
