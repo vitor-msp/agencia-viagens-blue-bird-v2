@@ -35,7 +35,6 @@ public class PurchaseDAO {
 				}else {					
 					pstm.setInt(3, offer);					
 				}
-				
 				pstm.executeUpdate();
 				ret = true;
 			}

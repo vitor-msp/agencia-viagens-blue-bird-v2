@@ -1,25 +1,12 @@
-import uuid from "react-uuid";
-
 export const updateAllMyPurchases = (purchases) => {
   return {
     type: "updateAllMyPurchases",
     payload: purchases,
   };
 };
-export const deletePurchase = (id) => {
+export const removePurchase = (id) => {
   return {
-    type: "deletePurchase",
+    type: "removePurchase",
     payload: id,
-  };
-};
-export const getPurchase = (tripId, offerId = null) => {
-  return {
-    type: "getPurchase",
-    payload: {
-      id: uuid(),
-      client: 1,
-      trip: tripId,
-      offer: offerId,
-    }, //get adquire(id_viagem) api
   };
 };

@@ -4,11 +4,13 @@ import { useState } from "react";
 // import { Link } from "react-router-dom";
 import { ModalAuth } from "./ModalAuth";
 import { SpinnerBtn } from "../forms/SpinnerBtn";
-// import { deletePurchase } from "../../store/actions/myPurchases.actions";
-// import { getMyTrip } from "../../store/actions/myTrips.actions";
+import {
+  updateAllMyPurchases,
+  removePurchase,
+} from "../../store/actions/myPurchases.actions";
 import { clearModalTripContent } from "../../store/actions/modalTripContent.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
-import { deletePurchase, postPurchase } from "../../api/api";
+import { deletePurchase, getPurchases, postPurchase } from "../../api/api";
 import { formatCurrency } from "../../helpers/formatCurrency";
 
 export function ModalTrip({ content }) {
@@ -49,8 +51,6 @@ export function ModalTrip({ content }) {
   };
 
   const handleGetPurchase = (pass) => {
-    // dispatch(getMyTrip(Object.assign({}, trip)));
-    // dispatch(getPurchase(trip.id, offer === undefined ? null : offer.id));
     setSpinner(true);
     setTimeout(async () => {
       purchaseToPost.client.password = pass;
@@ -58,6 +58,10 @@ export function ModalTrip({ content }) {
       if (ret) {
         handleClose();
         dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
+        const purchases = await getPurchases({
+          ...purchaseToPost.client,
+        });
+        dispatch(updateAllMyPurchases(purchases));
         //redirecionar minhas page viagens
       } else {
         dispatch(updateModalInfo("Falha na aquisição da viagem!", false));
@@ -80,7 +84,7 @@ export function ModalTrip({ content }) {
       };
       const ret = await deletePurchase(purchaseToDelete);
       if (ret) {
-        // dispatch(deletePurchase(purchase));
+        dispatch(removePurchase(purchase));
         handleClose();
         dispatch(updateModalInfo("Viagem cancelada com sucesso!!", true));
       } else {
@@ -175,11 +179,7 @@ export function ModalTrip({ content }) {
             </Form>
           ) : (
             <>
-              <Form
-                noValidate
-                onSubmit={handleSubmit}
-                className="me-auto"
-              >
+              <Form noValidate onSubmit={handleSubmit} className="me-auto">
                 <SpinnerBtn
                   value="Cancelar Viagem"
                   loading={spinner}
