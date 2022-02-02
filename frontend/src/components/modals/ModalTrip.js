@@ -8,7 +8,7 @@ import { deletePurchase } from "../../store/actions/myPurchases.actions";
 // import { getMyTrip } from "../../store/actions/myTrips.actions";
 import { clearModalTripContent } from "../../store/actions/modalTripContent.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
-import { getPurchase } from "../../api/api";
+import { postPurchase } from "../../api/api";
 import { formatCurrency } from "../../helpers/formatCurrency";
 
 export function ModalTrip({ content }) {
@@ -54,7 +54,7 @@ export function ModalTrip({ content }) {
     setSpinner(true);
     setTimeout(async () => {
       tripToBuy.client.password = pass;
-      const ret = await getPurchase(tripToBuy);
+      const ret = await postPurchase(tripToBuy);
       if (ret) {
         handleClose();
         dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));

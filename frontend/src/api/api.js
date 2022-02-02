@@ -22,7 +22,7 @@ export const getOffers = async () => {
     return {
       ...offer,
       destination: {
-        id: offer.destination.id === 0 ? null : offer.destination.id
+        id: offer.destination.id === 0 ? null : offer.destination.id,
       },
     };
   });
@@ -36,30 +36,36 @@ export const getTrips = async (destination, offer) => {
 
 export const createClient = async (client) => {
   const res = await api.post(`/client`, client);
-    console.log(res.data);
+  console.log(res.data);
   return res.data;
 };
 
 export const updateClient = async (client) => {
   const res = await api.put(`/client`, client);
-    console.log(res.data);
+  console.log(res.data);
   return res.data;
 };
 
 export const login = async (client) => {
   const res = await api.post(`/login`, client);
-    console.log(res.data);
+  console.log(res.data);
   return res.data;
 };
 
 export const setPassword = async (client) => {
   const res = await api.post(`/setPassword`, client);
-    console.log(res.data);
+  console.log(res.data);
   return res.data;
 };
 
-export const getPurchase = async (tripToBuy) => {
-  const res = await api.post(`/purchase`, tripToBuy);
-    console.log(res.data);
+export const postPurchase = async (tripToBuy) => {
+  const res = await api.post(`/postPurchase`, tripToBuy);
+  console.log(res.data);
+  return res.data;
+};
+
+export const getPurchases = async (client) => {
+  const res = await api.post(`/getPurchases`, client);
+  console.log(res.data);
   return res.data;
 };

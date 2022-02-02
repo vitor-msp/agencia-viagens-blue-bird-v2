@@ -1,6 +1,4 @@
-import { myPurchases } from "../tests";
-
-export const myPurchasesReducer = (state = myPurchases, action) => {
+export const myPurchasesReducer = (state = [], action) => {
   // const sortTrips = (trips) => {
   //   return trips.sort((a, b) => a.departure - b.departure);
   // };

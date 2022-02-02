@@ -2,17 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateModalTripContent } from "../store/actions/modalTripContent.actions";
 
 export function MyTrip({ myPurchase }) {
-  const { id, client, trip } = myPurchase;
-  const myTrip = useSelector((state) => {
-    return state.myTrips.find(({ id }) => id === trip);
-  });
-  const { defaultValue, departure, arrival } = myTrip;
+  const { id, trip } = myPurchase;
+  const { defaultValue, departure, arrival } = trip;
   const destination = useSelector((state) => {
-    return state.destinations.find(({ id }) => id === myTrip.destination);
+    return state.destinations.find(({ id }) => id === trip.destination.id);
   });
   const { city, uf, landingPlace } = destination;
   const offer = useSelector((state) => {
-    return state.offers.find(({ id }) => id === myPurchase.offer);
+    return state.offers.find(({ id }) => id === myPurchase.offer.id);
   });
   const { discount, expiration } =
     offer === undefined
@@ -24,7 +21,7 @@ export function MyTrip({ myPurchase }) {
   const dispatch = useDispatch();
 
   const handleSelect = () => {
-    dispatch(updateModalTripContent(myTrip, destination, offer, false, id));
+    dispatch(updateModalTripContent(trip, destination, offer, false, id));
   };
 
   return (

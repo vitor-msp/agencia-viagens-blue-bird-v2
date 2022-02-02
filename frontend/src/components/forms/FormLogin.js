@@ -7,7 +7,8 @@ import { updateClientData } from "../../store/actions/clientData.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { validateForm } from "../../helpers/validateForm";
 import { SpinnerBtn } from "./SpinnerBtn";
-import { login } from "../../api/api";
+import { getPurchases, login } from "../../api/api";
+import { updateAllMyPurchases } from "../../store/actions/myPurchases.actions";
 
 const objDefaultFields = {
   email: null,
@@ -32,6 +33,11 @@ export function FormLogin({ closeModal }) {
           dispatch(updateClientData(client));
           closeModal();
           dispatch(updateModalInfo("Login efetuado com sucesso!!", true));
+          const purchases = await getPurchases({
+            ...fields,
+            id: client.id,
+          });
+          dispatch(updateAllMyPurchases(purchases));
         } else {
           setSpinner(false);
           dispatch(updateModalInfo("Falha no login!", false));

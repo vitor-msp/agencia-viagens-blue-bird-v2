@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +15,15 @@ import com.google.gson.Gson;
 
 import models.Client;
 import models.Pack;
+import models.Purchase;
 import models.persistence.AuthenticationDAO;
 import models.persistence.PurchaseDAO;
 
-@WebServlet("/purchase")
-public class PurchaseController extends HttpServlet {
+@WebServlet("/postPurchase")
+public class PostPurchaseController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public PurchaseController() {
+    public PostPurchaseController() {
         super();
     }
 
@@ -42,22 +45,4 @@ public class PurchaseController extends HttpServlet {
 		printWriter.write(purchaseJson);
 		printWriter.close();
 	}
-	
-//	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		boolean ret = false;
-//		Client clientToPut = new Gson().fromJson(request.getReader(), Client.class);
-//		Client client = AuthenticationDAO.authentication(clientToPut.getEmail(), clientToPut.getPassword());
-//
-//		if(client != null && client.getId() == clientToPut.getId()) {
-//			ret = ClientDAO.updateClient(clientToPut);
-//		}
-//		
-//		String clientJson = new Gson().toJson(ret);
-//		
-//		PrintWriter printWriter = response.getWriter();
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("UTF-8");
-//		printWriter.write(clientJson);
-//		printWriter.close();
-//	}
 }

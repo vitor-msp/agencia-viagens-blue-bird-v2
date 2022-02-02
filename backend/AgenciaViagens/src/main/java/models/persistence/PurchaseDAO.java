@@ -2,8 +2,16 @@ package models.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import models.Client;
+import models.Destination;
+import models.Offer;
 import models.Pack;
+import models.Purchase;
+import models.Trip;
 
 public class PurchaseDAO {
 	
@@ -47,54 +55,69 @@ public class PurchaseDAO {
 		}
 		return ret;
 	}
-//	
-//	public static Client getClient(int id) {
-//		
-//		String sql = "SELECT C.id_cli, C.nome, C.rg, C.cpf, C.dt_nasc, C.email"
-//				+ " FROM Cliente C"
-//				+ " WHERE C.id_cli = ?";
-//		
-//		PreparedStatement pstm = null;
-//		Connection con = null;
-//		ResultSet rset = null;
-//		Client client = null;
-//		
-//		try {
-//			con = ConnectionFactory.getConnection();
-//			if(con != null && !con.isClosed()) {				
-//				pstm = con.prepareStatement(sql);
-//				pstm.setInt(1, id);
-//				rset = pstm.executeQuery();
-//				
-//				if(rset.next()) {
-//					client = new Client();
-//					client.setId(rset.getInt("id_cli"));
-//					client.setName(rset.getString("nome"));
-//					client.setRg(rset.getString("rg"));
-//					client.setCpf(rset.getString("cpf"));
-//					client.setBirthDate(rset.getString("dt_nasc"));
-//					client.setEmail(rset.getString("email"));
-//				}
-//			}
-//		}catch(Exception error) {
-//			System.out.println("Erro na execução do getClient! - " + error);
-//		}finally{
-//			try {
-//				if(rset != null) {
-//					rset.close();
-//				}
-//				if(pstm != null) {
-//					pstm.close();
-//				}
-//				if(con != null) {
-//					con.close();
-//				}
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return client;
-//	}
+	
+	public static List<Purchase> getPurchases(Client client) {
+		
+		String sql = "SELECT A.id_adq, A.promocao, V.id_viag, V.destino, "
+				+ "V.partida, V.chegada, V.vlr_padrao "
+				+ "FROM Adquire A "
+				+ "INNER JOIN Viagem V ON V.id_viag = A.viagem "
+				+ "WHERE A.cliente = ?;";
+		
+		PreparedStatement pstm = null;
+		Connection con = null;
+		ResultSet rset = null;
+		List<Purchase> purchases = new ArrayList<Purchase>();
+		
+		try {
+			con = ConnectionFactory.getConnection();
+			if(con != null && !con.isClosed()) {				
+				pstm = con.prepareStatement(sql);
+				pstm.setInt(1, client.getId());
+				rset = pstm.executeQuery();
+				
+				while(rset.next()) {
+					Purchase purchase = new Purchase();
+					purchase.setId(rset.getInt("id_adq"));
+
+					Offer offer = new Offer();
+					offer.setId(rset.getInt("promocao"));
+					purchase.setOffer(offer);
+
+					Trip trip = new Trip();
+					trip.setId(rset.getInt("id_viag"));
+
+					Destination destination = new Destination();
+					destination.setId(rset.getInt("destino"));
+					trip.setDestination(destination);
+
+					trip.setArrival(rset.getString("partida"));
+					trip.setDeparture(rset.getString("chegada"));
+					trip.setDefaultValue(rset.getDouble("vlr_padrao"));
+
+					purchase.setTrip(trip);
+					purchases.add(purchase);
+				}
+			}
+		}catch(Exception error) {
+			System.out.println("Erro na execução do getPurchases! - " + error);
+		}finally{
+			try {
+				if(rset != null) {
+					rset.close();
+				}
+				if(pstm != null) {
+					pstm.close();
+				}
+				if(con != null) {
+					con.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return purchases;
+	}
 //	
 //	public static boolean updateClient(Client client) {
 //		
