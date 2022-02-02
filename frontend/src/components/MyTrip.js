@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { updateModalTripContent } from "../store/actions/modalTripContent.actions";
+import { formatDateTime } from "../helpers/formatDateTime";
 
 export function MyTrip({ myPurchase }) {
   const { id, trip } = myPurchase;
@@ -39,11 +40,11 @@ export function MyTrip({ myPurchase }) {
         </p>
         <p className="card-text">
           <span style={{ fontWeight: "600" }}>Partida: </span>
-          {departure}
+          {formatDateTime(departure)}
         </p>
         <p className="card-text">
           <span style={{ fontWeight: "600" }}>Chegada: </span>
-          {arrival}
+          {formatDateTime(arrival)}
         </p>
 
         <div className="text-end">

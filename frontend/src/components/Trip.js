@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { formatCurrency } from "../helpers/formatCurrency";
 import { updateModalTripContent } from "../store/actions/modalTripContent.actions";
+import { formatCurrency } from "../helpers/formatCurrency";
+import { formatDateTime } from "../helpers/formatDateTime";
 
 export function Trip({ trip }) {
   const { departure, arrival, defaultValue } = trip;
@@ -39,11 +40,11 @@ export function Trip({ trip }) {
         </p>
         <p className="card-text">
           <span style={{ fontWeight: "600" }}>Partida: </span>
-          {departure}
+          {formatDateTime(departure)}
         </p>
         <p className="card-text">
           <span style={{ fontWeight: "600" }}>Chegada: </span>
-          {arrival}
+          {formatDateTime(arrival)}
         </p>
 
         <hr />

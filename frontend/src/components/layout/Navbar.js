@@ -121,11 +121,10 @@ export function Navbar() {
       <div className="col-3 d-flex justify-content-center align-items-center">
         {clientData.name === null ? (
           <a
-            href="javascript:void(0)"
             onClick={() => {
               dispatch(showModalLogin(true));
             }}
-            className="nav-link"
+            className="nav-link btn"
           >
             Acessar
           </a>

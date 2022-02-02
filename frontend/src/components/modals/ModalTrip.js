@@ -12,6 +12,7 @@ import { clearModalTripContent } from "../../store/actions/modalTripContent.acti
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 import { deletePurchase, getPurchases, postPurchase } from "../../api/api";
 import { formatCurrency } from "../../helpers/formatCurrency";
+import { formatDateTime } from "../../helpers/formatDateTime";
 
 export function ModalTrip({ content }) {
   const [modalOpen, setModalOpen] = useState(true);
@@ -122,11 +123,11 @@ export function ModalTrip({ content }) {
             </p>
             <p>
               <span style={{ fontWeight: "600" }}>Partida: </span>
-              {departure}
+              {formatDateTime(departure)}
             </p>
             <p>
               <span style={{ fontWeight: "600" }}>Chegada: </span>
-              {arrival}
+              {formatDateTime(arrival)}
             </p>
           </div>
 
@@ -154,7 +155,7 @@ export function ModalTrip({ content }) {
             {discount !== 0 && (
               <p>
                 <span style={{ fontWeight: "600" }}>Promoção expira em: </span>
-                {expiration}
+                {formatDateTime(expiration)}
               </p>
             )}
           </div>

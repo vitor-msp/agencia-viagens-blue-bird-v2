@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { updateTrips } from "../store/actions/trips.actions";
 import { updateCurrentOffer } from "../store/actions/currentReq.actions";
 import { getTrips } from "../api/api";
+import { formatDateTime } from "../helpers/formatDateTime";
 
 export function Offer({ offer }) {
   const { discount, expiration } = offer;
@@ -56,7 +57,9 @@ export function Offer({ offer }) {
       </div>
 
       <div className="card-footer bg-primary text-light d-flex">
-        <span className="w-100 text-end">Válido até {expiration}</span>
+        <span className="w-100 text-end">
+          Válido até {formatDateTime(expiration)}
+        </span>
       </div>
     </div>
   );
