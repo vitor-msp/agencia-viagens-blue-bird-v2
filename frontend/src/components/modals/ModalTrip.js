@@ -55,8 +55,7 @@ export function ModalTrip({ content }) {
     setSpinner(true);
     setTimeout(async () => {
       purchaseToPost.client.password = pass;
-      const ret = await postPurchase(purchaseToPost);
-      if (ret) {
+      if (await postPurchase(purchaseToPost)) {
         handleClose();
         dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
         const purchases = await getPurchases({
@@ -83,8 +82,7 @@ export function ModalTrip({ content }) {
           password: pass,
         },
       };
-      const ret = await deletePurchase(purchaseToDelete);
-      if (ret) {
+      if (await deletePurchase(purchaseToDelete)) {
         dispatch(removePurchase(purchase));
         handleClose();
         dispatch(updateModalInfo("Viagem cancelada com sucesso!!", true));

@@ -26,8 +26,10 @@ public class ClientController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean ret = false;
 		Client client = new Gson().fromJson(request.getReader(), Client.class);
-		// validação se email já existe no db
-		ret = ClientDAO.createClient(client);
+
+		if(ClientDAO.checkEmail(client)) {			
+			ret = ClientDAO.createClient(client);
+		}
 		
 		String clientJson = new Gson().toJson(ret);
 		

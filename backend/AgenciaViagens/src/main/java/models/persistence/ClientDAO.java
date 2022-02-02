@@ -163,4 +163,45 @@ public class ClientDAO {
 		}
 		return ret;
 	}
+	
+	public static boolean checkEmail(Client client) {
+		
+		boolean ret = false;
+		String sql = "SELECT C.id_cli FROM Cliente C WHERE "
+				+ "C.email = BINARY ?;";
+		
+		PreparedStatement pstm = null;
+		Connection con = null;
+		ResultSet rset = null;
+		
+		try {
+			con = ConnectionFactory.getConnection();
+			if(con != null && !con.isClosed()) {				
+				pstm = con.prepareStatement(sql);
+				pstm.setString(1, client.getEmail());
+				rset = pstm.executeQuery();
+				
+				if(!rset.next()) {
+					ret = true;
+				}
+			}
+		}catch(Exception error) {
+			System.out.println("Erro na execução do checkEmail! - " + error);
+		}finally{
+			try {
+				if(rset != null) {
+					rset.close();
+				}
+				if(pstm != null) {
+					pstm.close();
+				}
+				if(con != null) {
+					con.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
+	}
 }

@@ -29,8 +29,7 @@ export function FormSetPassword({ modalClose }) {
       setSpinner(true);
       setTimeout(async () => {
         const clientToUpdate = Object.assign({}, fields);
-        const ret = await setPassword(clientToUpdate);
-        if (ret) {
+        if (await setPassword(clientToUpdate)) {
           dispatch(updateModalInfo("Senha alterada com sucesso!!", true));
         } else {
           dispatch(updateModalInfo("Falha na alteração da senha!", false));
