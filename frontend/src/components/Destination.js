@@ -4,12 +4,12 @@ import { updateTrips } from "../store/actions/trips.actions";
 import { getTrips } from "../api/api";
 
 export function Destination({ destination }) {
-  const { id, city, uf, landingPlace } = destination;
+  const { city, uf, landingPlace } = destination;
   const currentOffer = useSelector((state) => state.currentReq.offer);
   const dispatch = useDispatch();
 
   const handleSelect = async () => {
-    dispatch(updateTrips(await getTrips(id, currentOffer)));
+    dispatch(updateTrips(await getTrips(destination.id, currentOffer)));
   };
 
   return (

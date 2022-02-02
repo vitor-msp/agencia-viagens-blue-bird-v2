@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import models.Destination;
+import models.Offer;
 import models.Trip;
 import models.persistence.TripDAO;
 
@@ -24,12 +26,13 @@ public class TripController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int destination = Integer.parseInt(request.getParameter("d"));
-		Integer offer;
+		Destination destination = new Destination();
+		destination.setId(Integer.parseInt(request.getParameter("d")));;
+		Offer offer = new Offer();
 		try {
-			offer = Integer.parseInt(request.getParameter("o"));
+			offer.setId(Integer.parseInt(request.getParameter("o")));
 		}catch(NumberFormatException error) {
-			offer = null;
+			offer.setId(null);
 		}
 		List<Trip> trips = TripDAO.getTrips(destination, offer);
 		

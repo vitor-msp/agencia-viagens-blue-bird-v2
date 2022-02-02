@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Destination;
 import models.Offer;
 
 public class OfferDAO {
@@ -27,7 +28,9 @@ public class OfferDAO {
 				while(rset.next()) {
 					Offer offer = new Offer();
 					offer.setId(rset.getInt("id_promo"));
-					offer.setDestination(rset.getInt("destino"));
+					Destination destination = new Destination();
+					destination.setId(rset.getInt("destino"));
+					offer.setDestination(destination);
 					offer.setDiscount(rset.getFloat("desconto"));
 					offer.setExpiration(rset.getString("vencimento"));
 					offers.add(offer);

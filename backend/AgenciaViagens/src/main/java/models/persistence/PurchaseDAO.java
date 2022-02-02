@@ -22,10 +22,10 @@ public class PurchaseDAO {
 				pstm.setInt(1, pack.getClient().getId());
 				pstm.setInt(2, pack.getTrip().getId());
 				Integer offer = pack.getOffer().getId();
-				if(offer != 0) {
-					pstm.setInt(3, offer);					
+				if(offer == null) {
+					pstm.setNull(3, 0);					
 				}else {					
-					pstm.setNull(3, offer);					
+					pstm.setInt(3, offer);					
 				}
 				
 				pstm.executeUpdate();

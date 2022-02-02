@@ -5,13 +5,11 @@ import { updateModalTripContent } from "../store/actions/modalTripContent.action
 export function Trip({ trip }) {
   const { departure, arrival, defaultValue } = trip;
   const destination = useSelector((state) => {
-    return state.destinations.find(({ id }) => id === trip.destination);
+    return state.destinations.find(({ id }) => id === trip.destination.id);
   });
   const { city, uf, landingPlace } = destination;
   const offer = useSelector((state) => {
-    return state.offers.find(({ id }) => {
-      return id === state.currentReq.offer;
-    });
+    return state.offers.find(({ id }) => id === state.currentReq.offer);
   });
   // const { discount, expiration } =
   const { discount } =

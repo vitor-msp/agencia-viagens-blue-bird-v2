@@ -1,7 +1,7 @@
 package models;
 
 public class Client {
-	private int id;
+	private Integer id;
 	private String name;
 	private String rg;
 	private String cpf;
@@ -9,10 +9,10 @@ public class Client {
 	private String email;
 	private String password;
 	private String newPassword;
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {

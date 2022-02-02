@@ -26,7 +26,7 @@ public class SetPasswordController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean ret = false;
 		Client clientToPut = new Gson().fromJson(request.getReader(), Client.class);
-		Client client = AuthenticationDAO.authentication(clientToPut.getEmail(), clientToPut.getPassword());
+		Client client = AuthenticationDAO.authentication(clientToPut);
 
 		if(client != null && client.getId() == clientToPut.getId()) {			
 			ret = ClientDAO.setPassword(clientToPut);

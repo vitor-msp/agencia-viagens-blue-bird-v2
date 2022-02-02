@@ -66,7 +66,7 @@ export function FormContact() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["email"]: value,
+              email: value,
             });
           }}
           disabled={objDefaultFields.email !== null ? true : false}
@@ -81,7 +81,7 @@ export function FormContact() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["subject"]: value,
+              subject: value,
             });
           }}
         />
@@ -91,7 +91,7 @@ export function FormContact() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["body"]: value,
+              body: value,
             });
           }}
         />

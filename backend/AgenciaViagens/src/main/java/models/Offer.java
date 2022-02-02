@@ -1,21 +1,21 @@
 package models;
 
 public class Offer {
-	private int id;
-	private int destination;
+	private Integer id;
+	private Destination destination;
 	private float discount;
 	private String expiration;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getDestination() {
+	public Destination getDestination() {
 		return destination;
 	}
-	public void setDestination(int destination) {
+	public void setDestination(Destination destination) {
 		this.destination = destination;
 	}
 	public float getDiscount() {

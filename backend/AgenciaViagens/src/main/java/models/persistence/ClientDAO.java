@@ -46,7 +46,7 @@ public class ClientDAO {
 		return ret;
 	}
 	
-	public static Client getClient(int id) {
+	public static Client getClient(Client clientToGet) {
 		
 		String sql = "SELECT C.id_cli, C.nome, C.rg, C.cpf, C.dt_nasc, C.email"
 				+ " FROM Cliente C"
@@ -61,7 +61,7 @@ public class ClientDAO {
 			con = ConnectionFactory.getConnection();
 			if(con != null && !con.isClosed()) {				
 				pstm = con.prepareStatement(sql);
-				pstm.setInt(1, id);
+				pstm.setInt(1, clientToGet.getId());
 				rset = pstm.executeQuery();
 				
 				if(rset.next()) {

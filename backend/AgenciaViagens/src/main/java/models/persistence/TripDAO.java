@@ -6,14 +6,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Destination;
+import models.Offer;
 import models.Trip;
 
 public class TripDAO {
 	
-	public static List<Trip> getTrips(int destination, Integer offer) {
+	public static List<Trip> getTrips(Destination destinationToFind, Offer offer) {
 		
 		String sql = null;
-		if(offer == null) {
+		if(offer.getId() == null) {
 			sql = "SELECT * FROM viagem WHERE viagem.destino = ?;";
 		}else {			
 			sql = "SELECT viagem.* FROM viagem, promocao "
@@ -31,16 +33,18 @@ public class TripDAO {
 			if(con != null && !con.isClosed()) {				
 				pstm = con.prepareStatement(sql);
 				
-				pstm.setInt(1, destination);
-				if(offer != null) {	
-					pstm.setInt(2, offer);
+				pstm.setInt(1, destinationToFind.getId());
+				if(offer.getId() != null) {	
+					pstm.setInt(2, offer.getId());
 				}
 				rset = pstm.executeQuery();
 				
 				while(rset.next()) {
 					Trip trip = new Trip();
 					trip.setId(rset.getInt("id_viag"));
-					trip.setDestination(rset.getInt("destino"));
+					Destination destination = new Destination();
+					destination.setId(rset.getInt("destino"));
+					trip.setDestination(destination);
 					trip.setDeparture(rset.getString("partida"));
 					trip.setArrival(rset.getString("chegada"));
 					trip.setDefaultValue(rset.getDouble("vlr_padrao"));

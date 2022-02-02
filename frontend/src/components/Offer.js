@@ -5,9 +5,9 @@ import { updateCurrentOffer } from "../store/actions/currentReq.actions";
 import { getTrips } from "../api/api";
 
 export function Offer({ offer }) {
-  const { id, discount, expiration } = offer;
+  const { discount, expiration } = offer;
   const destination = useSelector((state) => {
-    return state.destinations.find(({ id }) => id === offer.destination);
+    return state.destinations.find(({ id }) => id === offer.destination.id);
   });
   // const { city, uf, landingPlace } =
   const { city, uf } =
@@ -21,9 +21,9 @@ export function Offer({ offer }) {
   const dispatch = useDispatch();
 
   const handleSelect = async () => {
-    dispatch(updateCurrentOffer(id));
-    if (offer.destination !== null) {
-      dispatch(updateTrips(await getTrips(offer.destination, id)));
+    dispatch(updateCurrentOffer(offer.id));
+    if (offer.destination.id !== null) {
+      dispatch(updateTrips(await getTrips(offer.destination.id, offer.id)));
     }
   };
 
@@ -47,7 +47,7 @@ export function Offer({ offer }) {
           </span>
         </p>
         <Link
-          to={offer.destination === null ? "/Destinos" : "/Viagens"}
+          to={offer.destination.id === null ? "/Destinos" : "/Viagens"}
           onClick={handleSelect}
           className="btn btn-outline-primary"
         >

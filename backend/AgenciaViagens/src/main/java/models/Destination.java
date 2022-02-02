@@ -1,15 +1,15 @@
 package models;
 
 public class Destination {
-	private int id;
+	private Integer id;
 	private String city;
 	private String uf;
 	private String landingPlace;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getCity() {

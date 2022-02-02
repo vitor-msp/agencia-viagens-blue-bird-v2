@@ -61,7 +61,7 @@ export function FormRegister() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["name"]: value,
+              name: value,
             });
           }}
         />
@@ -75,7 +75,7 @@ export function FormRegister() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["rg"]: value,
+              rg: value,
             });
           }}
         />
@@ -85,7 +85,7 @@ export function FormRegister() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["cpf"]: value,
+              cpf: value,
             });
           }}
         />
@@ -99,7 +99,7 @@ export function FormRegister() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["birthDate"]: value,
+              birthDate: value,
             });
           }}
         />
@@ -109,7 +109,7 @@ export function FormRegister() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["email"]: value,
+              email: value,
             });
           }}
         />
@@ -118,7 +118,7 @@ export function FormRegister() {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["password"]: value,
+              password: value,
             });
           }}
         />

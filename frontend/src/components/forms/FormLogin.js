@@ -66,7 +66,7 @@ export function FormLogin({ closeModal }) {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["email"]: value,
+              email: value,
             });
           }}
         />
@@ -80,7 +80,7 @@ export function FormLogin({ closeModal }) {
           handleFieldChange={(value) => {
             setFields({
               ...fields,
-              ["password"]: value,
+              password: value,
             });
           }}
         />

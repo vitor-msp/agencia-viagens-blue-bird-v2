@@ -28,7 +28,7 @@ public class PurchaseController extends HttpServlet {
 		boolean ret = false;
 		Pack pack = new Gson().fromJson(request.getReader(), Pack.class);
 		Client clientToAuth = pack.getClient();
-		Client client = AuthenticationDAO.authentication(clientToAuth.getEmail(), clientToAuth.getPassword());
+		Client client = AuthenticationDAO.authentication(clientToAuth);
 
 		if(client != null && client.getId() == clientToAuth.getId()) {
 			ret = PurchaseDAO.createPurchase(pack);

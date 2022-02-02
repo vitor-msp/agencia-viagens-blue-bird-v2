@@ -1,22 +1,22 @@
 package models;
 
 public class Trip {
-	private int id;
-	private int destination;
+	private Integer id;
+	private Destination destination;
 	private String departure;
 	private String arrival;
 	private Double defaultValue;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getDestination() {
+	public Destination getDestination() {
 		return destination;
 	}
-	public void setDestination(int destination) {
+	public void setDestination(Destination destination) {
 		this.destination = destination;
 	}
 	public String getDeparture() {

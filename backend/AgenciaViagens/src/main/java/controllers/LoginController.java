@@ -25,10 +25,10 @@ public class LoginController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Client client = new Gson().fromJson(request.getReader(), Client.class);
-		client = AuthenticationDAO.authentication(client.getEmail(), client.getPassword());
+		client = AuthenticationDAO.authentication(client);
 
 		if(client != null) {			
-			client = ClientDAO.getClient(client.getId());
+			client = ClientDAO.getClient(client);
 		}
 		
 		String clientJson = new Gson().toJson(client);

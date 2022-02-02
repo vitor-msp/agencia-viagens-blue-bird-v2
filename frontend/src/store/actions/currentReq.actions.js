@@ -1,13 +1,7 @@
-// export const updateCurrentDestination = (id) => {
-//   return {
-//     type: "updateCurrentDestination",
-//     payload: id,
-//   };
-// };
-export const updateCurrentOffer = (offerId) => {
+export const updateCurrentOffer = (offer) => {
   return {
     type: "updateCurrentOffer",
-    payload: offerId,
+    payload: offer,
   };
 };
 export const clearCurrentOffer = () => {

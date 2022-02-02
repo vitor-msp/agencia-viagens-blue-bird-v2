@@ -8,7 +8,7 @@ import models.Client;
 
 public class AuthenticationDAO {
 	
-	public static Client authentication(String email, String password) {
+	public static Client authentication(Client clientToAuth) {
 		
 		String sql = "SELECT C.id_cli FROM Cliente C"
 				+ " WHERE C.email = ? AND C.senha = ?;";
@@ -21,8 +21,8 @@ public class AuthenticationDAO {
 			con = ConnectionFactory.getConnection();
 			if(con != null && !con.isClosed()) {				
 				pstm = con.prepareStatement(sql);
-				pstm.setString(1, email);
-				pstm.setString(2, password);
+				pstm.setString(1, clientToAuth.getEmail());
+				pstm.setString(2, clientToAuth.getPassword());
 				rset = pstm.executeQuery();
 				
 				if(rset.next()) {
