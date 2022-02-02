@@ -4,11 +4,11 @@ import { useState } from "react";
 // import { Link } from "react-router-dom";
 import { ModalAuth } from "./ModalAuth";
 import { SpinnerBtn } from "../forms/SpinnerBtn";
-import { deletePurchase } from "../../store/actions/myPurchases.actions";
+// import { deletePurchase } from "../../store/actions/myPurchases.actions";
 // import { getMyTrip } from "../../store/actions/myTrips.actions";
 import { clearModalTripContent } from "../../store/actions/modalTripContent.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
-import { postPurchase } from "../../api/api";
+import { deletePurchase, postPurchase } from "../../api/api";
 import { formatCurrency } from "../../helpers/formatCurrency";
 
 export function ModalTrip({ content }) {
@@ -27,7 +27,7 @@ export function ModalTrip({ content }) {
         }
       : offer;
   const clientData = useSelector((state) => state.clientData);
-  const tripToBuy = {
+  const purchaseToPost = {
     client: {
       id: clientData.id,
       email: clientData.email,
@@ -53,8 +53,8 @@ export function ModalTrip({ content }) {
     // dispatch(getPurchase(trip.id, offer === undefined ? null : offer.id));
     setSpinner(true);
     setTimeout(async () => {
-      tripToBuy.client.password = pass;
-      const ret = await postPurchase(tripToBuy);
+      purchaseToPost.client.password = pass;
+      const ret = await postPurchase(purchaseToPost);
       if (ret) {
         handleClose();
         dispatch(updateModalInfo("Viagem adquirida com sucesso!!", true));
@@ -66,10 +66,28 @@ export function ModalTrip({ content }) {
     }, 2000);
   };
 
-  const handleDeletePurchase = () => {
-    dispatch(deletePurchase(purchase));
-    handleClose();
-    dispatch(updateModalInfo("Viagem cancelada com sucesso!!", false));
+  const handleDeletePurchase = (pass) => {
+    setSpinner(true);
+    setTimeout(async () => {
+      const purchaseToDelete = {
+        purchase: {
+          id: purchase,
+        },
+        client: {
+          ...purchaseToPost.client,
+          password: pass,
+        },
+      };
+      const ret = await deletePurchase(purchaseToDelete);
+      if (ret) {
+        // dispatch(deletePurchase(purchase));
+        handleClose();
+        dispatch(updateModalInfo("Viagem cancelada com sucesso!!", true));
+      } else {
+        dispatch(updateModalInfo("Falha no cancelamento da viagem!", false));
+        setSpinner(false);
+      }
+    }, 2000);
   };
 
   const handleClose = () => {
@@ -142,7 +160,7 @@ export function ModalTrip({ content }) {
           {isGetPurchase ? (
             // <Link
             //   // to={"/Minhas_Viagens"}
-            //   onClick={handleSubmit}
+            //   onClick={handleGetPurchase}
             //   className="btn btn-primary"
             // >
             //   Adquirir
@@ -157,14 +175,17 @@ export function ModalTrip({ content }) {
             </Form>
           ) : (
             <>
-              <button
-                type="button"
-                onClick={handleDeletePurchase}
-                className="btn btn-danger"
-                style={{ marginRight: "auto" }}
+              <Form
+                noValidate
+                onSubmit={handleSubmit}
+                className="me-auto"
               >
-                Cancelar Viagem
-              </button>
+                <SpinnerBtn
+                  value="Cancelar Viagem"
+                  loading={spinner}
+                  className="btn btn-danger"
+                />
+              </Form>
 
               <button
                 type="button"
@@ -183,7 +204,9 @@ export function ModalTrip({ content }) {
             setShowAuth(show);
           }}
           passModal={(value) => {
-            handleGetPurchase(value);
+            isGetPurchase
+              ? handleGetPurchase(value)
+              : handleDeletePurchase(value);
           }}
         />
       )}

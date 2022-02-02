@@ -58,14 +58,20 @@ export const setPassword = async (client) => {
   return res.data;
 };
 
-export const postPurchase = async (tripToBuy) => {
-  const res = await api.post(`/postPurchase`, tripToBuy);
+export const postPurchase = async (purchaseToPost) => {
+  const res = await api.post(`/postPurchase`, purchaseToPost);
   console.log(res.data);
   return res.data;
 };
 
 export const getPurchases = async (client) => {
   const res = await api.post(`/getPurchases`, client);
+  console.log(res.data);
+  return res.data;
+};
+
+export const deletePurchase = async (purchaseToDelete) => {
+  const res = await api.post(`/deletePurchase`, purchaseToDelete);
   console.log(res.data);
   return res.data;
 };

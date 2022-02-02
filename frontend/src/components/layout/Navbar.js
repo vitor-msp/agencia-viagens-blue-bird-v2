@@ -134,7 +134,7 @@ export function Navbar() {
             to={"/"}
             onClick={() => {
               dispatch(logout());
-              dispatch(updateModalInfo("Você saiu da sua conta!!", false));
+              dispatch(updateModalInfo("Você saiu da sua conta!!", true));
             }}
             className="nav-link"
           >

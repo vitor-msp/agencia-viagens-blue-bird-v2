@@ -118,74 +118,36 @@ public class PurchaseDAO {
 		}
 		return purchases;
 	}
-//	
-//	public static boolean updateClient(Client client) {
-//		
-//		boolean ret = false;
-//		String sql = "UPDATE Cliente SET nome = ?, rg = ?, cpf = ?, dt_nasc = ?"
-//				+ " WHERE Cliente.id_cli = ?;";
-//		PreparedStatement pstm = null;
-//		Connection con = null;
-//		
-//		try {
-//			con = ConnectionFactory.getConnection();
-//			if(con != null && !con.isClosed()) {				
-//				pstm = con.prepareStatement(sql);
-//				pstm.setString(1, client.getName());
-//				pstm.setString(2, client.getRg());
-//				pstm.setString(3, client.getCpf());
-//				pstm.setString(4, client.getBirthDate());
-//				pstm.setInt(5, client.getId());
-//				pstm.executeUpdate();
-//				ret = true;
-//			}
-//		}catch(Exception error) {
-//			System.out.println("Erro na execução do updateClient! - " + error);
-//		}finally{
-//			try {
-//				if(pstm != null) {
-//					pstm.close();
-//				}
-//				if(con != null) {
-//					con.close();
-//				}
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return ret;
-//	}
-//	
-//	public static boolean setPassword(Client client) {
-//		
-//		boolean ret = false;
-//		String sql = "UPDATE Cliente SET Cliente.senha = ? WHERE Cliente.id_cli = ?;";
-//		PreparedStatement pstm = null;
-//		Connection con = null;
-//		
-//		try {
-//			con = ConnectionFactory.getConnection();
-//			if(con != null && !con.isClosed()) {				
-//				pstm = con.prepareStatement(sql);
-//				pstm.setString(1, client.getNewPassword());
-//				pstm.setInt(2, client.getId());
-//				pstm.executeUpdate();
-//				ret = true;
-//			}
-//		}catch(Exception error) {
-//			System.out.println("Erro na execução do setPassword! - " + error);
-//		}finally{
-//			try {
-//				if(pstm != null) {
-//					pstm.close();
-//				}
-//				if(con != null) {
-//					con.close();
-//				}
-//			}catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return ret;
-//	}
+
+	public static boolean deletePurchase(Purchase purchase) {
+		
+		boolean ret = false;
+		String sql = "DELETE FROM Adquire WHERE Adquire.id_adq = ?;";
+		PreparedStatement pstm = null;
+		Connection con = null;
+		
+		try {
+			con = ConnectionFactory.getConnection();
+			if(con != null && !con.isClosed()) {
+				pstm = con.prepareStatement(sql);
+				pstm.setInt(1, purchase.getId());
+				pstm.executeUpdate();
+				ret = true;
+			}
+		}catch(Exception error) {
+			System.out.println("Erro na execução do deletePurchase! - " + error);
+		}finally{
+			try {
+				if(pstm != null) {
+					pstm.close();
+				}
+				if(con != null) {
+					con.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ret;
+	}
 }
