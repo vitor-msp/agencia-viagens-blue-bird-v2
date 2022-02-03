@@ -19,6 +19,7 @@ export function FormSetPassword({ modalClose }) {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
   const [spinner, setSpinner] = useState(false);
+  const [disableFields, setDisableFields] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -26,6 +27,7 @@ export function FormSetPassword({ modalClose }) {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm(fields)) {
+      setDisableFields(true);
       setSpinner(true);
       setTimeout(async () => {
         const clientToUpdate = Object.assign({}, fields);
@@ -61,6 +63,7 @@ export function FormSetPassword({ modalClose }) {
               password: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputSetPassword
           showValidations={showValidations}
@@ -71,6 +74,7 @@ export function FormSetPassword({ modalClose }) {
               newPassword: value,
             });
           }}
+          disabled={disableFields}
         />
       </Row>
       <Form.Group className="mb-3">

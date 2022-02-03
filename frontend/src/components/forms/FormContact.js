@@ -116,6 +116,7 @@ export function FormContact() {
       <Form.Group className="mb-3  d-flex justify-content-center">
         <input
           type="reset"
+          disabled={disableFields}
           value={"Limpar"}
           className="btn btn-secondary"
           style={{ marginRight: "5px" }}

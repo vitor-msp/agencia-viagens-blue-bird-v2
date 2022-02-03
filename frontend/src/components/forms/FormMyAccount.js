@@ -163,6 +163,7 @@ export function FormMyAccount() {
           <Form.Group className="mb-3 d-flex justify-content-center">
             <button
               type="button"
+              disabled={disableFields}
               className="btn btn-secondary"
               style={{ marginRight: "5px" }}
               onClick={handleCancelEdit}

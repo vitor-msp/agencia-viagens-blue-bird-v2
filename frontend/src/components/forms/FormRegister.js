@@ -23,6 +23,7 @@ export function FormRegister() {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
   const [spinner, setSpinner] = useState(false);
+  const [disableFields, setDisableFields] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -30,6 +31,7 @@ export function FormRegister() {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm(fields)) {
+      setDisableFields(true);
       setSpinner(true);
       setTimeout(async () => {
         try {
@@ -39,17 +41,17 @@ export function FormRegister() {
             );
             document.getElementById("navLoginModal").click();
           } else {
-            setSpinner(false);
             dispatch(
               updateModalInfo("O e-mail selecionado já está em uso!", false)
             );
           }
         } catch {
-          setSpinner(false);
           dispatch(
             updateModalInfo("Falha na comunicação com o servidor!", false)
           );
         }
+        setDisableFields(false);
+        setSpinner(false);
       }, 1000);
     }
   };
@@ -75,6 +77,7 @@ export function FormRegister() {
               name: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputDefault
           name={"RG"}
@@ -89,6 +92,7 @@ export function FormRegister() {
               rg: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputCpf
           showValidations={showValidations}
@@ -99,6 +103,7 @@ export function FormRegister() {
               cpf: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputDefault
           name={"Data de Nascimento"}
@@ -113,6 +118,7 @@ export function FormRegister() {
               birthDate: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputEmail
           showValidations={showValidations}
@@ -123,6 +129,7 @@ export function FormRegister() {
               email: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputSetPassword
           showValidations={showValidations}
@@ -132,11 +139,13 @@ export function FormRegister() {
               password: value,
             });
           }}
+          disabled={disableFields}
         />
       </Row>
       <Form.Group className="mb-3 d-flex flex-nowrap">
         <input
           type="reset"
+          disabled={disableFields}
           value={"Limpar"}
           className="btn btn-secondary w-100"
           style={{ marginRight: "5px" }}

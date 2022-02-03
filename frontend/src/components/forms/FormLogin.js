@@ -19,6 +19,7 @@ export function FormLogin({ closeModal }) {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
   const [spinner, setSpinner] = useState(false);
+  const [disableFields, setDisableFields] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
@@ -26,6 +27,7 @@ export function FormLogin({ closeModal }) {
     event.stopPropagation();
     setShowValidations(true);
     if (validateForm(fields)) {
+      setDisableFields(true);
       setSpinner(true);
       setTimeout(async () => {
         try {
@@ -40,17 +42,16 @@ export function FormLogin({ closeModal }) {
             });
             dispatch(updateAllMyPurchases(purchases));
           } else {
-            setSpinner(false);
             dispatch(updateModalInfo("Usuário e/ou senha incorretos!", false));
             handleReset();
           }
         } catch {
-          setSpinner(false);
           dispatch(
             updateModalInfo("Falha na comunicação com o servidor!", false)
           );
-          handleReset();
         }
+        setDisableFields(false);
+        setSpinner(false);
       }, 1000);
     }
   };
@@ -83,6 +84,7 @@ export function FormLogin({ closeModal }) {
               email: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputDefault
           name={"Senha"}
@@ -97,6 +99,7 @@ export function FormLogin({ closeModal }) {
               password: value,
             });
           }}
+          disabled={disableFields}
         />
       </Row>
       <Form.Group className="mb-3">

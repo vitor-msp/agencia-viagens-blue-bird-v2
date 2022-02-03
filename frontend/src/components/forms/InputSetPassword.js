@@ -4,6 +4,7 @@ import { Form } from "react-bootstrap";
 export function InputSetPassword({
   showValidations,
   handleFieldChange,
+  disabled = false,
 }) {
   const [currentPass, setCurrentPass] = useState("");
   const [currentConfPass, setCurrentConfPass] = useState("");
@@ -13,7 +14,7 @@ export function InputSetPassword({
 
   useEffect(() => {
     setShowValidation(showValidations);
-    if(!showValidations){
+    if (!showValidations) {
       setCurrentPass("");
       setCurrentConfPass("");
     }
@@ -69,6 +70,7 @@ export function InputSetPassword({
         <Form.Label>Senha:</Form.Label>
         <Form.Control
           required
+          disabled={disabled}
           type="password"
           placeholder={`Defina uma senha...`}
           maxLength={30}
@@ -93,6 +95,7 @@ export function InputSetPassword({
         <Form.Label>Confirmação da senha:</Form.Label>
         <Form.Control
           required
+          disabled={disabled}
           type="password"
           placeholder={`Confirme sua senha...`}
           maxLength={30}
