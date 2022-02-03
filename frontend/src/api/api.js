@@ -75,3 +75,9 @@ export const deletePurchase = async (purchaseToDelete) => {
   console.log(res.data);
   return res.data;
 };
+
+export const contact = async (contact) => {
+  const res = await api.post(`/contact`, contact);
+  console.log(res.data);
+  return res.data;
+};

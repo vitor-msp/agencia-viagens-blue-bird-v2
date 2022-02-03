@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { InputDefault } from "./InputDefault";
 import { InputEmail } from "./InputEmail";
 import { InputBody } from "./InputBody";
-import { updateModalInfo } from "../../store/actions/modalInfo.actions";
-import { validateForm } from "../../helpers/validateForm";
 import { SpinnerBtn } from "./SpinnerBtn";
+import { updateModalInfo } from "../../store/actions/modalInfo.actions";
+import { contact } from "../../api/api";
+import { validateForm } from "../../helpers/validateForm";
 
 export function FormContact() {
   let objDefaultFields = {
@@ -17,12 +18,13 @@ export function FormContact() {
   const [showValidations, setShowValidations] = useState(false);
   const [fields, setFields] = useState(objDefaultFields);
   const [spinner, setSpinner] = useState(false);
+  const [disableFields, setDisableFields] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setFields({
       ...fields,
-      ["email"]: objDefaultFields.email,
+      email: objDefaultFields.email,
     });
   }, [objDefaultFields.email]);
 
@@ -30,17 +32,28 @@ export function FormContact() {
     event.preventDefault();
     event.stopPropagation();
     if (validateForm(fields)) {
+      setDisableFields(true);
       setSpinner(true);
-      setTimeout(() => {
-        setShowValidations((prev) => (prev === false ? null : false));
-        setFields(objDefaultFields);
-        //chamar action/api
-        dispatch(
-          updateModalInfo(
-            "Agradecemos o seu contato!! Em breve retornaremos.",
-            true
-          )
-        );
+      setTimeout(async () => {
+        try {
+          if (await contact(Object.assign({}, fields))) {
+            setShowValidations((prev) => (prev === false ? null : false));
+            setFields(objDefaultFields);
+            dispatch(
+              updateModalInfo(
+                "Agradecemos o seu contato!! Em breve retornaremos.",
+                true
+              )
+            );
+          } else {
+            dispatch(updateModalInfo("Falha no envio do formulário!", false));
+          }
+        } catch {
+          dispatch(
+            updateModalInfo("Erro na comunicação com o servidor!", false)
+          );
+        }
+        setDisableFields(false);
         setSpinner(false);
       }, 2000);
     } else {
@@ -69,7 +82,9 @@ export function FormContact() {
               email: value,
             });
           }}
-          disabled={objDefaultFields.email !== null ? true : false}
+          disabled={
+            objDefaultFields.email !== null || disableFields ? true : false
+          }
         />
         <InputDefault
           name={"Assunto"}
@@ -84,6 +99,7 @@ export function FormContact() {
               subject: value,
             });
           }}
+          disabled={disableFields}
         />
         <InputBody
           showValidations={showValidations}
@@ -94,6 +110,7 @@ export function FormContact() {
               body: value,
             });
           }}
+          disabled={disableFields}
         />
       </Row>
       <Form.Group className="mb-3  d-flex justify-content-center">

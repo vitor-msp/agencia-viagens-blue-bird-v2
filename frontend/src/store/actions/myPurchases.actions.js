@@ -4,9 +4,17 @@ export const updateAllMyPurchases = (purchases) => {
     payload: purchases,
   };
 };
+
 export const removePurchase = (id) => {
   return {
     type: "removePurchase",
     payload: id,
+  };
+};
+
+export const clearMyPurchases = () => {
+  return {
+    type: "clearMyPurchases",
+    payload: null,
   };
 };

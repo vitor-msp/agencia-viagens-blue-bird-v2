@@ -3,12 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { clearCurrentOffer } from "../../store/actions/currentReq.actions";
 import { showModalLogin } from "../../store/actions/modalLogin.actions";
-import { logout } from "../../store/actions/clientData.actions";
+import { clearClientData } from "../../store/actions/clientData.actions";
+import { clearMyPurchases } from "../../store/actions/myPurchases.actions";
 import { updateModalInfo } from "../../store/actions/modalInfo.actions";
 
 export function Navbar() {
   const clientData = useSelector((state) => state.clientData);
   const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(clearClientData());
+    dispatch(clearMyPurchases());
+  };
 
   return (
     <nav className="row p-0 m-0 bg-primary">
@@ -132,7 +138,7 @@ export function Navbar() {
           <NavLink
             to={"/"}
             onClick={() => {
-              dispatch(logout());
+              logout();
               dispatch(updateModalInfo("Você saiu da sua conta!!", true));
             }}
             className="nav-link"

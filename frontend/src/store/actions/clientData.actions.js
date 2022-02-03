@@ -1,13 +1,3 @@
-// import uuid from "react-uuid";
-
-// const defaultData = {
-//   name: "Fulano de Tal",
-//   rg: "m123456789",
-//   cpf: "01234567890",
-//   birthDate: "2022-01-25",
-//   email: "fulano@teste.com",
-// };
-
 export const updateClientData = (clientData) => {
   return {
     type: "updateClientData",
@@ -15,9 +5,9 @@ export const updateClientData = (clientData) => {
   };
 };
 
-export const logout = () => {
+export const clearClientData = () => {
   return {
-    type: "logout",
+    type: "clearClientData",
     payload: null,
   };
 };

@@ -51,6 +51,14 @@ create table Adquire (
   constraint fk_adq_promo foreign key (promocao) references Promocao (id_promo)
 );
 
+create table Contato (
+  id_ctt int auto_increment,
+  email varchar(30) not null,
+  assunto varchar(100) not null,
+  corpo varchar(1000) not null,
+  constraint pk_ctt primary key (id_ctt)
+);
+
 insert into Destino (id_dest, cidade, uf, loc_desemb) values 
 (1, 'São Paulo','SP','Aeroporto de Guarulhos'),
 (2, 'Rio de Janeiro','RJ','Aeroporto do Galeão'),

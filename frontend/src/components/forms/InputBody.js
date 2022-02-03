@@ -5,6 +5,7 @@ export function InputBody({
   defaultValue,
   showValidations,
   handleFieldChange,
+  disabled = false,
 }) {
   const [currentValue, setCurrentValue] = useState(
     !defaultValue ? "" : defaultValue
@@ -14,7 +15,7 @@ export function InputBody({
 
   useEffect(() => {
     setShowValidation(showValidations);
-    if(!showValidations){
+    if (!showValidations) {
       setCurrentValue(!defaultValue ? "" : defaultValue);
     }
   }, [showValidations]);
@@ -46,6 +47,7 @@ export function InputBody({
       <Form.Label>Mensagem:</Form.Label>
       <Form.Control
         required
+        disabled={disabled}
         as="textarea"
         placeholder={`Digite sua mensagem...`}
         maxLength={1000}

@@ -12,7 +12,7 @@ export const clientDataReducer = (state = defaultData, action) => {
     case "updateClientData":
       return action.payload;
 
-    case "logout":
+    case "clearClientData":
       return defaultData;
 
     default:

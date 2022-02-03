@@ -10,6 +10,9 @@ export const myPurchasesReducer = (state = [], action) => {
     case "removePurchase":
       return state.filter(({ id }) => id !== action.payload);
 
+    case "clearMyPurchases":
+      return [];
+
     default:
       return state;
   }

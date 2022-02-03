@@ -56,14 +56,13 @@ export function FormMyAccount() {
           handleCancelEdit();
         } else {
           dispatch(updateModalInfo("Senha incorreta!", false));
-          setDisableFields(false);
         }
       } catch {
-        setDisableFields(false);
         dispatch(
           updateModalInfo("Falha na comunicação com o servidor!", false)
         );
       }
+      setDisableFields(false);
       setSpinner(false);
     }, 2000);
   };
