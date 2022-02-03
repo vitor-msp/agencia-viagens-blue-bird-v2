@@ -5,7 +5,7 @@ export function SpinnerMap({ showMap }) {
   useEffect(() => {
     setTimeout(() => {
       showMap(true);
-    }, 2000);
+    }, 1000);
   }, []);
 
   return (
