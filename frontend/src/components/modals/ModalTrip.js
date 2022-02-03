@@ -1,7 +1,6 @@
 import { Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-// import { Link } from "react-router-dom";
 import { ModalAuth } from "./ModalAuth";
 import { SpinnerBtn } from "../forms/SpinnerBtn";
 import {
@@ -48,7 +47,16 @@ export function ModalTrip({ content }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    setShowAuth(true);
+    if (clientData.id !== null) {
+      setShowAuth(true);
+    } else {
+      dispatch(
+        updateModalInfo(
+          "Para adquirir uma viagem, você precisa acessar sua conta!",
+          false
+        )
+      );
+    }
   };
 
   const handleGetPurchase = (pass) => {
@@ -63,7 +71,7 @@ export function ModalTrip({ content }) {
             ...purchaseToPost.client,
           });
           dispatch(updateAllMyPurchases(purchases));
-          //redirecionar minhas page viagens
+          document.getElementById("navMyTrips").click();
         } else {
           dispatch(updateModalInfo("Senha incorreta!", false));
           setSpinner(false);
@@ -74,7 +82,7 @@ export function ModalTrip({ content }) {
           updateModalInfo("Falha na comunicação com o servidor!", false)
         );
       }
-    }, 2000);
+    }, 1000);
   };
 
   const handleDeletePurchase = (pass) => {
@@ -104,7 +112,7 @@ export function ModalTrip({ content }) {
           updateModalInfo("Falha na comunicação com o servidor!", false)
         );
       }
-    }, 2000);
+    }, 1000);
   };
 
   const handleClose = () => {

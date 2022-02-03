@@ -64,7 +64,7 @@ export function FormMyAccount() {
       }
       setDisableFields(false);
       setSpinner(false);
-    }, 2000);
+    }, 1000);
   };
 
   useEffect(() => {

@@ -96,6 +96,7 @@ export function Navbar() {
                   <li className="nav-item">
                     <NavLink
                       to={"/Minhas_Viagens"}
+                      id="navMyTrips"
                       className={({ isActive }) =>
                         isActive
                           ? "activeNav nav-link py-3 bg-transparent"

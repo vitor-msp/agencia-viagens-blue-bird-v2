@@ -51,7 +51,7 @@ export function FormLogin({ closeModal }) {
           );
           handleReset();
         }
-      }, 2000);
+      }, 1000);
     }
   };
 

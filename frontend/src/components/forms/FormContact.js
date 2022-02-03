@@ -55,7 +55,7 @@ export function FormContact() {
         }
         setDisableFields(false);
         setSpinner(false);
-      }, 2000);
+      }, 1000);
     } else {
       setShowValidations(true);
     }

@@ -41,7 +41,7 @@ export function FormSetPassword({ modalClose }) {
           );
         }
         modalClose();
-      }, 2000);
+      }, 1000);
     }
   };
 

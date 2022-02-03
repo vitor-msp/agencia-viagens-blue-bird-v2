@@ -50,7 +50,7 @@ export function FormRegister() {
             updateModalInfo("Falha na comunicação com o servidor!", false)
           );
         }
-      }, 2000);
+      }, 1000);
     }
   };
 
