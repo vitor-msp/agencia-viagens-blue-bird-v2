@@ -19,7 +19,11 @@ export function Destination({ destination }) {
   };
 
   return (
-    <div className="card border-primary mb-3" style={{ width: "100%" }}>
+    <div
+      id={city.replaceAll(" ", "")}
+      className="card border-primary mb-3"
+      style={{ width: "100%" }}
+    >
       <div className="card-header bg-primary text-light">
         <span>Destino</span>
       </div>
@@ -34,19 +38,13 @@ export function Destination({ destination }) {
           backgroundImage: `url('./images/${city}.jpg')`,
         }}
       >
-        <div
-          className="m-0 p-3 row"
-          style={{
-            minHeight: "23rem",
-            // backgroundColor: "rgba(255,255,255,0.3)",
-          }}
-        >
+        <div className="m-0 p-3 row" style={{ minHeight: "23rem" }}>
           <div
-            className="align-self-start bg-light rounded p-2"
-            style={{ width: "auto" }}
+            className="align-self-start rounded p-2 "
+            style={{ width: "auto", backgroundColor: "rgba(255,255,255,0.8)" }}
           >
             <h5
-              className="display-6 m-0"
+              className="display-6 m-0 "
               style={{ fontSize: "1.8em", fontWeight: "bold" }}
             >
               {city} - {uf}

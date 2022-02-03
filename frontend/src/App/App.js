@@ -16,7 +16,6 @@ import { MyAccountPage } from "../pages/MyAccountPage";
 import { updateAllDestinations } from "../store/actions/destinations.actions";
 import { updateAllOffers } from "../store/actions/offers.actions";
 import { getDestinations, getOffers } from "../api/api";
-import "./App.css";
 
 function App() {
   const modalTripContent = useSelector((state) => state.modalTripContent);
@@ -34,17 +33,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="row p-0 m-0" style={{ minHeight: "100vh" }}>
-        <div className="col-12 p-0 m-0 d-flex flex-column justify-content-between">
-          <Navbar />
-          <div
-            className="m-4 p-4"
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.65)",
-              border: "none",
-              borderRadius: "15px",
-            }}
-          >
+      <div className="row p-0 m-0">
+        <div className="col-12 p-0 m-0">
+          <div style={{ minHeight: "100vh" }}>
+            <Navbar />
             <Routes>
               <Route path="/" element={<HomePage />}></Route>
               <Route path="/Home" element={<HomePage />}></Route>

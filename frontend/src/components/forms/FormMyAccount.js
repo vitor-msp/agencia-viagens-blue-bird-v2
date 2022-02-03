@@ -77,7 +77,7 @@ export function FormMyAccount() {
         id="formMyAccount"
         noValidate
         onSubmit={handleSubmit}
-        className="col-10 offset-1 col-md-6 offset-md-3"
+        className="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6"
       >
         <Row className="my-3">
           <InputDefault

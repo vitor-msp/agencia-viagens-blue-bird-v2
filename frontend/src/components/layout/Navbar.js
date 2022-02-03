@@ -17,7 +17,7 @@ export function Navbar() {
   };
 
   return (
-    <nav className="row p-0 m-0 bg-primary">
+    <nav className="row p-0 m-0 bg-transparent">
       <div id="nav" className="col-9 navbar navbar-expand-lg navbar-dark">
         <div className="container-fluid justify-content-start px-0">
           <button
