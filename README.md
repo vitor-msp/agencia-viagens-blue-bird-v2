@@ -14,27 +14,29 @@ Desenvolvimento de um site para clientes realizarem cadastro e aquisições de v
 #### Instalação e Configuração
 
 ###### 1. Banco de dados
-1. Será necessário ter o MySQL instalado e sem um banco de dados de nome *agenciaviagens*
-2. Rode o script banco-de-dados/criarBD.sql no MySQL
+1. Será necessário ter o MySQL instalado e sem um banco de dados de nome *agenciaviagens*.
+2. Rode o script banco-de-dados/criarBD.sql no MySQL.
 
 ###### 2. Backend
-1. Edite o arquivo backend/AgenciaViagens/src/main/java/models/persistence/ConnectionFactory.java, nas linha 7, 8 e 9, inserindo o seu usuário, senha, endereço e porta de conexão com o banco de dados
+1. No Eclipse, adicione o projeto existente na pasta backend/AgenciaViagens ao seu workspace.
+2. Edite o arquivo backend/AgenciaViagens/src/main/java/models/persistence/ConnectionFactory.java, nas linha 7, 8 e 9, inserindo o seu usuário, senha, endereço e porta de conexão com o banco de dados.
 ```
 private static final String USERNAME = "root";
 private static final String PASSWORD = "";
 private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/agenciaviagens";
 ```
-2. Ajuste o caminho dos arquivos jar para o conector com o banco de dados e para o pacote Gson
-3. Adicione esses arquivos jar na inicialização do seu projeto: botão direito na pasta do seu projeto -> 'Properties' -> 'Deployment Assembly' -> /src/main/webapp -> 'Add' -> 'Java Build Path Entries' -> 'Next' -> selecione o pacote gson -> 'Finish' -> 'Apply and Close'
+3. Copie a pasta jar_files para o C:\ ou, no Eclipse, ajuste o caminho dos arquivos jar para o conector com o banco de dados e para o pacote Gson.
+4. No Eclipse, configure o projeto para rodar no Tomcat: botão direito na pasta do seu projeto -> 'Properties' -> 'Project Facets' -> em 'Project Facets' (a esquerda) marque 'Java' e 'Dynamic Web Module', em 'Runtimes' (a direita) marque o Tomcat -> 'Apply and Close'.
+5. Execute o projeto com o Tomcat. A aplicação irá ouvir a porta 8080.
+6. Tente acessar o link 'http://localhost:8080/AgenciaViagens/destinations', caso seja gerado erro 500, será necessário adicionar o conector com o mysql na inicialização do Tomcat: (no Eclipse) 'Servers' -> duplo clique no servidor Tomcat -> 'Open launch configuration' -> 'Classpath' -> selecione 'User Entries' -> 'Add External JARs...' -> adicione o caminho do conector com o mysql -> 'Apply' -> 'Ok' -> reinicie o Tomcat e teste novamente o link. Tudo estando certo, será retornado um json de destinos.
+
 ###### 3. Frontend
-1. Execute um dos comandos abaixo na pasta frontend para instalar as dependencias do React:
+1. Execute o comando abaixo na pasta frontend para instalar as dependencias do React:
 ```
 npm install
-yarn add
 ```
 
 #### Execução
-
 Inicie o banco de dados e o servidor Apache Tomcat e execute um dos comandos abaixo na pasta frontend para executar o React:
 ```
 npm start
