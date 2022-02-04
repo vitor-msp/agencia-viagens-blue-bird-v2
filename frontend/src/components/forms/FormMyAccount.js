@@ -93,7 +93,7 @@ export function FormMyAccount() {
                 name: value,
               });
             }}
-            disabled={disableFields}
+            disabled={!isEdit || disableFields}
           />
           <InputDefault
             name={"RG"}
@@ -108,7 +108,7 @@ export function FormMyAccount() {
                 rg: value,
               });
             }}
-            disabled={disableFields}
+            disabled={!isEdit || disableFields}
           />
           <InputCpf
             showValidations={showValidations}
@@ -119,7 +119,7 @@ export function FormMyAccount() {
                 cpf: value,
               });
             }}
-            disabled={disableFields}
+            disabled={!isEdit || disableFields}
           />
           <InputDefault
             name={"Data de Nascimento"}
@@ -134,7 +134,7 @@ export function FormMyAccount() {
                 birthDate: value,
               });
             }}
-            disabled={disableFields}
+            disabled={!isEdit || disableFields}
           />
           <InputEmail
             showValidations={showValidations}
