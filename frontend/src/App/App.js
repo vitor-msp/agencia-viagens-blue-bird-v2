@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/AgenciaViagens">
       <div className="row p-0 m-0">
         <div className="col-12 p-0 m-0">
           <div style={{ minHeight: "100vh" }}>

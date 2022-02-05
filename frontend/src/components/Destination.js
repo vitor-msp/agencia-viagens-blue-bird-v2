@@ -35,7 +35,7 @@ export function Destination({ destination }) {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
-          backgroundImage: `url('./images/${city}.jpg')`,
+          backgroundImage: `url('${require(`../images/${city}.jpg`)}')`,
         }}
       >
         <div className="m-0 p-3 row" style={{ minHeight: "23rem" }}>

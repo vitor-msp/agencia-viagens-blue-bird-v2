@@ -28,7 +28,7 @@ export function HomePage() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundAttachment: "fixed",
-              backgroundImage: `url('./images/São Paulo.jpg')`,
+              backgroundImage: `url('${require(`../images/São Paulo.jpg`)}')`,
               minHeight: "23rem",
             }}
           >
@@ -53,7 +53,7 @@ export function HomePage() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundAttachment: "fixed",
-              backgroundImage: `url('./images/Rio de Janeiro.jpg')`,
+              backgroundImage: `url('${require(`../images/Rio de Janeiro.jpg`)}')`,
               minHeight: "23rem",
             }}
           >
@@ -78,7 +78,7 @@ export function HomePage() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundAttachment: "fixed",
-              backgroundImage: `url('./images/Belo Horizonte.jpg')`,
+              backgroundImage: `url('${require(`../images/Belo Horizonte.jpg`)}')`,
               minHeight: "23rem",
             }}
           >
@@ -103,7 +103,7 @@ export function HomePage() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundAttachment: "fixed",
-              backgroundImage: `url('./images/Salvador.jpg')`,
+              backgroundImage: `url('${require(`../images/Salvador.jpg`)}')`,
               minHeight: "23rem",
             }}
           >

@@ -57,7 +57,7 @@ body {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  background-image: url("../public/images/passaros-praia.jpg");
+  background-image: url("./images/passaros-praia.jpg");
   height: calc(100vh - 72px);
 }
 .text-blue-bird {
