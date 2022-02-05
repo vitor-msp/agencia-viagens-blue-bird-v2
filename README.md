@@ -19,7 +19,7 @@ Desenvolvimento de um site para clientes realizarem cadastro e aquisições de v
 
 ###### 2. Backend
 1. No Eclipse, adicione o projeto existente na pasta backend/AgenciaViagens ao seu workspace.
-2. Edite o arquivo backend/AgenciaViagens/src/main/java/models/persistence/ConnectionFactory.java, nas linha 7, 8 e 9, inserindo o seu usuário, senha, endereço e porta de conexão com o banco de dados.
+2. Edite o arquivo backend/AgenciaViagens/src/main/java/models/persistence/ConnectionFactory.java, nas linhas 7, 8 e 9, inserindo o seu usuário, senha, endereço e porta de conexão com o banco de dados.
 ```
 private static final String USERNAME = "root";
 private static final String PASSWORD = "";
@@ -42,7 +42,7 @@ npm install
 ```
 
 #### Execução
-Inicie o banco de dados e o servidor Apache Tomcat e execute um dos comandos abaixo na pasta frontend para executar o React:
+Inicie o banco de dados e o servidor Apache Tomcat e execute um dos comandos abaixo na pasta frontend para rodar o React:
 ```
 npm start
 ```
