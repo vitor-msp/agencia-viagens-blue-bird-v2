@@ -12,13 +12,6 @@ export function MyTrip({ myPurchase }) {
   const offer = useSelector((state) => {
     return state.offers.find(({ id }) => id === myPurchase.offer.id);
   });
-  const { discount, expiration } =
-    offer === undefined
-      ? {
-          discount: "-",
-          expiration: "-",
-        }
-      : offer;
   const dispatch = useDispatch();
 
   const handleSelect = () => {

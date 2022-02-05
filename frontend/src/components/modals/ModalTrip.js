@@ -183,13 +183,6 @@ export function ModalTrip({ content }) {
 
         <Modal.Footer>
           {isGetPurchase ? (
-            // <Link
-            //   // to={"/Minhas_Viagens"}
-            //   onClick={handleGetPurchase}
-            //   className="btn btn-primary"
-            // >
-            //   Adquirir
-            // </Link>
             <Form noValidate onSubmit={handleSubmit}>
               <SpinnerBtn
                 value="Adquirir"

@@ -12,12 +12,10 @@ export function Trip({ trip }) {
   const offer = useSelector((state) => {
     return state.offers.find(({ id }) => id === state.currentReq.offer);
   });
-  // const { discount, expiration } =
   const { discount } =
     offer === undefined
       ? {
           discount: 0,
-          // expiration: "-",
         }
       : offer;
   const dispatch = useDispatch();

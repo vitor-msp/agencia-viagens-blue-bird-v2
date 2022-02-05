@@ -1,8 +1,7 @@
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function HomePage() {
-  const url = `Destinos#BeloHorizonte`;
   return (
     <>
       <div

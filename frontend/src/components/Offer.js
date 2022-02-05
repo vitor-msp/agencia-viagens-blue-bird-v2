@@ -11,13 +11,11 @@ export function Offer({ offer }) {
   const destination = useSelector((state) => {
     return state.destinations.find(({ id }) => id === offer.destination.id);
   });
-  // const { city, uf, landingPlace } =
   const { city, uf } =
     destination === undefined
       ? {
           city: "-",
           uf: "-",
-          // landingPlace: "-",
         }
       : destination;
   const dispatch = useDispatch();
